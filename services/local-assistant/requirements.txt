@@ -1,0 +1,4 @@
+# File path: requirements.txt
+
+Flask
+requests

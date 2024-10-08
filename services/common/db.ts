@@ -1,0 +1,1 @@
+// Common functions like database interaction, encryption

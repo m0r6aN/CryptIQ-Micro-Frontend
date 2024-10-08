@@ -1,0 +1,17 @@
+{
+  "rsc": true,
+  "tsx": true,
+  "src": false,
+  "shadcn": true,
+  "providers": [],
+  "db": "prisma",
+  "aliases": {
+    "ui": "@/components",
+    "utils": "@/utils",
+    "api": "@/app/api",
+    "action": "@/actions",
+    "schemas": "@/prisma",
+    "pages": "@/app/(auth)",
+    "lib": "@/lib"
+  }
+}
