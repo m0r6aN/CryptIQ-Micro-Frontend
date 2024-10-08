@@ -3,6 +3,10 @@
 import requests
 import pandas as pd
 
+"""
+Smart Liquidity Pool Monitor
+"""
+
 class SmartLiquidityPoolMonitor:
     def __init__(self, api_url: str, pool_ids: list):
         self.api_url = api_url

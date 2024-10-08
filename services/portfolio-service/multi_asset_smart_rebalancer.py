@@ -2,6 +2,10 @@
 
 import pandas as pd
 
+"""
+Multi-Asset Smart Rebalancing Engine
+"""
+
 class MultiAssetSmartRebalancer:
     def __init__(self, target_allocations: dict):
         self.target_allocations = target_allocations
