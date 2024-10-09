@@ -1,36 +1,18 @@
-# File path: CryptIQ-Micro-Frontend/services/trading-service/multi_agent_smart_position_scaling_engine.py
-
 import pandas as pd
-
-"""
-Multi-Agent Smart Position Scaling Engine
-"""
 
 class MultiAgentSmartPositionScalingEngine:
     def __init__(self):
         self.agents = []
 
     def register_agent(self, agent_name: str, scaling_function):
-        """
-        Register a new smart position scaling agent.
-        Args:
-            agent_name: Name of the scaling agent.
-            scaling_function: Function implementing the agent's scaling logic.
-        """
         self.agents.append({'agent_name': agent_name, 'scale_position': scaling_function})
 
     def scale_positions(self, position_data: pd.DataFrame):
-        """
-        Scale positions dynamically using registered agents.
-        Args:
-            position_data: DataFrame containing position data.
-        """
         scaling_results = {}
         for agent in self.agents:
             scaling_results[agent['agent_name']] = agent['scale_position'](position_data)
         return scaling_results
 
-# Example usage
 def dummy_scaling_agent_1(data):
     return f"Agent 1 scaled positions on {data.shape[0]} positions"
 
