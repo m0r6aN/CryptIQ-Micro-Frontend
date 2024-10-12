@@ -1,6 +1,8 @@
 D:\Repos\CryptIQ-Micro-Frontend/
 ├── CryptIQ_Batch_Tracker.json
-├── Directory_Structure.md
+├── CryptIQ_Micro_Frontend_Batch_41_Wallet_Service.zip
+├── CryptIQ_Task_Tracker.csv
+├── CryptIQ_Task_Tracker.xlsx
 ├── README.md
 ├── apps
 │   D:\Repos\CryptIQ-Micro-Frontend\apps/
@@ -37,6 +39,16 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\config/
 │       ├── features
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features/
+│       │   ├── agents
+│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\agents/
+│       │   │   └── components
+│       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\agents\components/
+│       │   │       ├── AgentStatusBoard.js
+│       │   │       ├── TaskControlPanel.js
+│       │   │       └── TaskPriorityBoard.js
+│       │   ├── alerts
+│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\alerts/
+│       │   │   └── RealTimeAlerts.js
 │       │   ├── dashboard
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\dashboard/
 │       │   │   ├── components
@@ -73,6 +85,16 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\services/
 │       │   │   └── state
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\state/
+│       │   ├── processes
+│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\processes/
+│       │   │   ├── AgentBox.js
+│       │   │   ├── App.js
+│       │   │   ├── ProcessCanvas.js
+│       │   │   ├── TaskConnection.js
+│       │   │   ├── TaskNode.js
+│       │   │   └── styles
+│       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\processes\styles/
+│       │   │       └── style.css
 │       │   ├── user
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\user/
 │       │   │   └── UserMenu .tsx
@@ -111,8 +133,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       ├── postcss.config.ts
 │       ├── public
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\public/
-│       ├── services
-│       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\services/
 │       ├── shared
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\shared/
 │       │   ├── components
@@ -142,7 +162,8 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\styles/
 │       │   └── globals.css
 │       ├── tailwind.config.js
-│       └── tsconfig.json
+│       ├── tsconfig.json
+│       └── webpack.config.js
 ├── create_structure.bat
 ├── docker-compose.yml
 ├── get-top-coins-response.json
@@ -157,72 +178,60 @@ D:\Repos\CryptIQ-Micro-Frontend/
 ├── services
 │   D:\Repos\CryptIQ-Micro-Frontend\services/
 │   ├── README.md
-│   ├── agent-service
-│   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-service/
-│   │   ├── agent_coordinator.py
-│   │   └── multi_agent_executor.py
+│   ├── agent-monitor-service
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service/
+│   │   ├── agents
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service\agents/
+│   │   │   ├── agent_base.py
+│   │   │   ├── agent_monitor.py
+│   │   │   └── behavior_analyzer_agent.py
+│   │   ├── multi_agent_executor.py
+│   │   ├── orchestrator_service
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service\orchestrator_service/
+│   │   │   └── intelligent_orchestrator.py
+│   │   ├── services
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service\services/
+│   │   │   └── task_reassignment.py
+│   │   └── webpack.config.js
 │   ├── ai_assistant
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\ai_assistant/
+│   │   ├── advanced_sentiment_divergence_detector.py
 │   │   ├── ai_based_cross_exchange_order_flow_analyzer.py
 │   │   ├── ai_based_cross_market_convergence_divergence_analyzer.py
+│   │   ├── ai_based_cross_market_dynamic_leverage_optimizer.py
+│   │   ├── ai_based_cross_market_liquidity_risk_monitor.py
 │   │   ├── ai_based_cross_market_sentiment_trend_analyzer.py
 │   │   ├── ai_based_cross_market_trade_signal_generator.py
 │   │   ├── ai_based_cross_market_volatility_spillover_analyzer.py
+│   │   ├── ai_based_dynamic_correlation_risk_monitor.py
 │   │   ├── ai_based_dynamic_portfolio_optimization_engine.py
+│   │   ├── ai_based_dynamic_position_scaling_engine.py
+│   │   ├── ai_based_dynamic_risk_exposure_calculator.py
 │   │   ├── ai_based_event_driven_market_analysis_engine.py
 │   │   ├── ai_based_institutional_investor_sentiment_analyzer.py
 │   │   ├── ai_based_macro_economic_factor_analysis_engine.py
-│   │   ├── ai_based_macro_trend_predictor.py
-│   │   ├── ai_based_market_anomaly_detector.py
-│   │   ├── ai_based_market_crash_predictor.py
-│   │   ├── ai_based_market_liquidity_analyzer.py
-│   │   ├── ai_based_market_regime_advisor.py
-│   │   ├── ai_based_market_risk_indicator_engine.py
-│   │   ├── ai_based_multi_asset_portfolio_health_monitor.py
-│   │   ├── ai_based_multi_market_regression_analysis_engine.py
-│   │   ├── ai_based_news_and_events_sentiment_analyzer.py
-│   │   ├── ai_based_order_book_depth_analyzer.py
-│   │   ├── ai_based_sentiment_analysis_engine.py
-│   │   ├── ai_based_smart_market_cycle_analyzer.py
-│   │   ├── ai_based_token_unlocks_and_schedules_analysis.py
-│   │   ├── ai_based_trend_strength_identifier.py
-│   │   ├── ai_based_volatility_clustering_analyzer.py
-│   │   ├── ai_driven_cross_asset_risk_monitoring_system.py
-│   │   ├── ai_driven_cross_chain_arbitrage_opportunity_detector.py
-│   │   ├── ai_driven_cross_market_volatility_regime_detection_engine.py
-│   │   ├── ai_driven_dynamic_asset_allocation_optimizer.py
-│   │   ├── ai_driven_dynamic_stop_loss_and_take_profit_engine.py
-│   │   ├── ai_driven_event_impact_analysis_engine.py
-│   │   ├── ai_driven_market_condition_identifier.py
-│   │   ├── ai_driven_market_correlation_analyzer.py
-│   │   ├── ai_driven_market_fragility_analyzer.py
-│   │   ├── ai_driven_market_sentiment_shift_detection_engine.py
-│   │   ├── ai_driven_on_chain_metrics_analysis_engine.py
-│   │   ├── ai_driven_systemic_risk_evaluation_engine.py
-│   │   ├── ai_powered_cross_market_sensitivity_analysis_engine.py
-│   │   ├── ai_powered_fundamental_analysis_engine.py
-│   │   └── ai_powered_market_regime_detection_engine.py
-│   ├── ai_assitant
-│   │   D:\Repos\CryptIQ-Micro-Frontend\services\ai_assitant/
-│   │   ├── advanced_sentiment_divergence_detector.py
-│   │   ├── ai_based_cross_market_dynamic_leverage_optimizer.py
-│   │   ├── ai_based_cross_market_liquidity_risk_monitor.py
-│   │   ├── ai_based_dynamic_correlation_risk_monitor.py
-│   │   ├── ai_based_dynamic_position_scaling_engine.py
-│   │   ├── ai_based_dynamic_risk_exposure_calculator.py
 │   │   ├── ai_based_macro_environment_impact_predictor.py
 │   │   ├── ai_based_macro_trend_predictor.py
+│   │   ├── ai_based_market_anomaly_detector.py
 │   │   ├── ai_based_market_correlation_matrix_generator.py
+│   │   ├── ai_based_market_crash_predictor.py
 │   │   ├── ai_based_market_impact_forecasting_engine.py
+│   │   ├── ai_based_market_liquidity_analyzer.py
+│   │   ├── ai_based_market_regime_advisor.py
 │   │   ├── ai_based_market_regime_shifter.py
+│   │   ├── ai_based_market_risk_indicator_engine.py
 │   │   ├── ai_based_market_sentiment_heatmap_generator.py
 │   │   ├── ai_based_multi_asset_correlation_monitor.py
 │   │   ├── ai_based_multi_asset_portfolio_health_monitor.py
 │   │   ├── ai_based_multi_asset_risk_allocation_optimizer.py
 │   │   ├── ai_based_multi_asset_smart_portfolio_risk_monitor.py
 │   │   ├── ai_based_multi_market_regime_detection_engine.py
+│   │   ├── ai_based_multi_market_regression_analysis_engine.py
+│   │   ├── ai_based_news_and_events_sentiment_analyzer.py
+│   │   ├── ai_based_order_book_depth_analyzer.py
 │   │   ├── ai_based_regime_shift_analyzer.py
 │   │   ├── ai_based_risk_sentiment_correlation_analyzer.py
+│   │   ├── ai_based_sentiment_analysis_engine.py
 │   │   ├── ai_based_sentiment_regime_shifter.py
 │   │   ├── ai_based_sentiment_trend_reversal_detector.py
 │   │   ├── ai_based_smart_leverage_allocation_engine.py
@@ -237,29 +246,45 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── ai_based_smart_stop_loss_strategy_generator.py
 │   │   ├── ai_based_smart_trade_signal_generator.py
 │   │   ├── ai_based_smart_trade_size_adjuster.py
+│   │   ├── ai_based_token_unlocks_and_schedules_analysis.py
 │   │   ├── ai_based_trade_flow_impact_estimator.py
+│   │   ├── ai_based_trend_strength_identifier.py
+│   │   ├── ai_based_volatility_clustering_analyzer.py
 │   │   ├── ai_based_whale_activity_analyzer.py
 │   │   ├── ai_based_whale_market_impact_analyzer.py
 │   │   ├── ai_based_whale_sentiment_divergence_tracker.py
 │   │   ├── ai_based_whale_wallet_movement_predictor.py
+│   │   ├── ai_driven_cross_asset_risk_monitoring_system.py
+│   │   ├── ai_driven_cross_chain_arbitrage_opportunity_detector.py
 │   │   ├── ai_driven_cross_market_impact_tracker.py
 │   │   ├── ai_driven_cross_market_position_allocator.py
 │   │   ├── ai_driven_cross_market_volatility_regime_detection_engine.py
+│   │   ├── ai_driven_dynamic_asset_allocation_optimizer.py
 │   │   ├── ai_driven_dynamic_portfolio_optimization_engine.py
+│   │   ├── ai_driven_dynamic_stop_loss_and_take_profit_engine.py
+│   │   ├── ai_driven_event_impact_analysis_engine.py
 │   │   ├── ai_driven_macro_event_impact_analyzer.py
+│   │   ├── ai_driven_market_condition_identifier.py
+│   │   ├── ai_driven_market_correlation_analyzer.py
+│   │   ├── ai_driven_market_fragility_analyzer.py
 │   │   ├── ai_driven_market_sentiment_anomaly_detector.py
 │   │   ├── ai_driven_market_sentiment_divergence_analyzer.py
+│   │   ├── ai_driven_market_sentiment_shift_detection_engine.py
 │   │   ├── ai_driven_market_trend_reversal_detector.py
+│   │   ├── ai_driven_on_chain_metrics_analysis_engine.py
 │   │   ├── ai_driven_risk_adjusted_trade_sizing_engine.py
 │   │   ├── ai_driven_smart_position_allocation_engine.py
 │   │   ├── ai_driven_smart_strategy_selector.py
 │   │   ├── ai_driven_social_sentiment_divergence_analyzer.py
+│   │   ├── ai_driven_systemic_risk_evaluation_engine.py
 │   │   ├── ai_driven_volatility_prediction.py
 │   │   ├── ai_powered_cross_market_sensitivity_analysis_engine.py
 │   │   ├── ai_powered_cross_market_sentiment_scoring_engine.py
+│   │   ├── ai_powered_fundamental_analysis_engine.py
 │   │   ├── ai_powered_macro_sentiment_indicator.py
 │   │   ├── ai_powered_market_liquidity_forecaster.py
 │   │   ├── ai_powered_market_regime_classifier.py
+│   │   ├── ai_powered_market_regime_detection_engine.py
 │   │   ├── ai_powered_market_regime_mapping_engine.py
 │   │   ├── ai_powered_multi_asset_sentiment_correlation_engine.py
 │   │   ├── ai_powered_sentiment_flow_mapper.py
@@ -290,16 +315,13 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── smart_sentiment_change_alert_system.py
 │   │   ├── trading_pattern_classifier.py
 │   │   └── whale_transaction_heatmap_generator.py
-│   ├── bot-service
-│   │   D:\Repos\CryptIQ-Micro-Frontend\services\bot-service/
-│   │   ├── Dockerfile
-│   │   ├── main.py
-│   │   └── requirements.txt
 │   ├── common
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\common/
 │   │   ├── db.ts
+│   │   ├── direct_communicator.py
 │   │   ├── error-handler.ts
-│   │   └── package.json
+│   │   ├── package.json
+│   │   └── webpack.config.js
 │   ├── confg-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\confg-service/
 │   │   └── config_manager.py
@@ -350,6 +372,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── token_unlock_event_tracker.py
 │   │   ├── token_unlock_tracker.py
 │   │   ├── volatility_analysis.py
+│   │   ├── webpack.config.js
 │   │   ├── whale_activity_tracker.py
 │   │   ├── whale_alert.py
 │   │   ├── whale_tracker.py
@@ -360,20 +383,17 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── .dockerignore
 │   │   ├── Dockerfile
 │   │   ├── index.ts
-│   │   └── package.json
+│   │   ├── package.json
+│   │   └── webpack.config.js
 │   ├── local-assistant
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\local-assistant/
 │   │   ├── Dockerfile
 │   │   ├── README.md
 │   │   ├── local_assistant_server.py
 │   │   └── requirements.txt
-│   ├── market-data-service
-│   │   D:\Repos\CryptIQ-Micro-Frontend\services\market-data-service/
-│   │   ├── Dockerfile
-│   │   ├── main.py
-│   │   └── requirements.txt
 │   ├── portfolio-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service/
+│   │   ├── .dockerignore
 │   │   ├── Dockerfile
 │   │   ├── advanced_portfolio_risk_analytics.py
 │   │   ├── ai_portfolio_rebalancer.py
@@ -465,7 +485,16 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── risk_parity_optimizer.py
 │   │   ├── risk_weighted_optimizer.py
 │   │   ├── risk_weighted_portfolio_rebalancer.py
-│   │   └── smart_token_allocation_optimizer.py
+│   │   ├── smart_token_allocation_optimizer.py
+│   │   └── webpack.config.js
+│   ├── priority_scheduler
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\priority_scheduler/
+│   │   └── priority_scheduler.py
+│   ├── task-service
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\task-service/
+│   │   ├── task-reassignment-service.py
+│   │   ├── task_dependency_manager.py
+│   │   └── task_graph.py
 │   ├── trading-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading-service/
 │   │   ├── Dockerfile
@@ -611,13 +640,17 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── transaction_fee_optimizer.py
 │   │   ├── trend_reversal.py
 │   │   ├── trend_reversal_detector.py
-│   │   └── volume_spike_detector.py
+│   │   ├── volume_spike_detector.py
+│   │   └── webpack.config.js
 │   └── wallet-service
 │       D:\Repos\CryptIQ-Micro-Frontend\services\wallet-service/
 │       ├── .dockerignore
 │       ├── Dockerfile
 │       ├── index.ts
 │       ├── package-lock.json
-│       └── package.json
+│       ├── package.json
+│       └── webpack.config.js
 ├── supported_coins.pdf
-└── turbo.json
+├── the_one.pdf
+├── turbo.json
+└── webpack.config.js

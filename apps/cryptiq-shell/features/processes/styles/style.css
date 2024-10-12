@@ -1,0 +1,44 @@
+.app-container {
+    text-align: center;
+  }
+  
+  .process-canvas {
+    border: 1px solid #ddd;
+    height: 600px;
+    width: 800px;
+    position: relative;
+    margin: 20px auto;
+    background: #f7f7f7;
+  }
+  
+  .task-node {
+    width: 100px;
+    height: 50px;
+    background: #61dafb;
+    border-radius: 8px;
+    border: 1px solid #007acc;
+    color: #000;
+    text-align: center;
+    line-height: 50px;
+    position: absolute;
+    cursor: move;
+  }
+  
+  .agent-box {
+    width: 120px;
+    height: 40px;
+    background: #007acc;
+    border: 1px solid #ddd;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    margin: 10px;
+    cursor: move;
+  }
+  
+  .task-connection {
+    position: absolute;
+    border-radius: 5px;
+    background: #007acc;
+  }
+  
