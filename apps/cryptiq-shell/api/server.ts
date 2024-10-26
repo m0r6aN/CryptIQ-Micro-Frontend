@@ -1,14 +1,18 @@
-import Fastify from 'fastify';
-import walletRoutes from './wallet';
+// cryptiq-shell/api/server.ts
+
+import Fastify, { FastifyInstance } from 'fastify';
+import walletRoutes from './wallets';
 import exchangeRoutes from './exchange';
+import chainsRoutes from './chains';
+
+const fastify: FastifyInstance = Fastify({ logger: true });
+
+// Register API routes
+fastify.register(walletRoutes, { prefix: '/api' });
+fastify.register(exchangeRoutes, { prefix: '/api' });
+fastify.register(chainsRoutes, { prefix: '/api' });
 
 const startServer = async () => {
-  const fastify = Fastify({ logger: true });
-
-  // Register API routes
-  fastify.register(walletRoutes);
-  fastify.register(exchangeRoutes);
-
   try {
     await fastify.listen({ port: 4000, host: '0.0.0.0' });
     console.log(`Server is running on http://localhost:4000`);
@@ -18,7 +22,10 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Export the fastify instance
+export { fastify };
 
-// Port Configuration: This will run on port 4000. Adjust it if needed based on your Docker setup.
-// Route Registration: We register our API routes for wallets and exchanges here.
+// Only start the server if this file is run directly
+if (require.main === module) {
+  startServer();
+}

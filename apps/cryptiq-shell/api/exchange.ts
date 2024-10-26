@@ -1,15 +1,18 @@
+// cryptiq-shell/api/exchange.ts
+
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { connectExchange } from '../../../services/exchange-service';
+import axios from 'axios';
 
 export default async function (fastify: FastifyInstance) {
-  fastify.post('/api/exchange', async (request: FastifyRequest, reply: FastifyReply) => {
+  fastify.post('/exchange', async (request: FastifyRequest, reply: FastifyReply) => {
     const { exchangeId, apiKey, secretKey } = request.body as { exchangeId: string; apiKey: string; secretKey: string };
 
     try {
-      const balance = await connectExchange(exchangeId, { apiKey, secretKey });
-      reply.send({ success: true, balance });
+      const response = await axios.post('http://localhost:5001/connect', { exchangeId, apiKey, secretKey });
+      reply.send({ success: true, balance: response.data.balance });
     } catch (error) {
-      reply.status(500).send({ success: false, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      reply.status(500).send({ success: false, error: errorMessage });
     }
   });
 }

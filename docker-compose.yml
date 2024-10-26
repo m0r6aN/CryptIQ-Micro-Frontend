@@ -1,28 +1,36 @@
+version: '3.8'
+
 services:
   cryptiq-shell:
     build:
       context: ./apps/cryptiq-shell
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+    volumes:
+      - ./apps/cryptiq-shell:/app
+      - /app/node_modules
 
   wallet-service:
     build:
       context: ./services/wallet-service
       dockerfile: Dockerfile
     ports:
-      - '5002:500'
+      - '5002:5002'
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
     env_file:
-      - ./services/wallet-service/.env  # This mounts .env at runtime for the container
+      - ./services/wallet-service/.env
     volumes:
       - ./services/wallet-service:/app
+      - /app/venv
 
   exchange-service:
     build:
       context: ./services/exchange-service
+      dockerfile: Dockerfile
     ports:
       - '5001:5001'
     environment:
@@ -31,3 +39,12 @@ services:
       - ./services/exchange-service/.env
     volumes:
       - ./services/exchange-service:/app
+      - /app/venv
+
+networks:
+  default:
+    name: cryptiq-network
+
+volumes:
+  node_modules:
+  venv:

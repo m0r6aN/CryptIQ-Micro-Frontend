@@ -1,37 +1,41 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // ECMAScript target version
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
-    ], // Libraries available in the runtime
-    "allowJs": true, // Allow JavaScript files to be compiled
-    "skipLibCheck": true, // Skip type checks on declaration files
-    "strict": true, // Enable all strict type-checking options
-    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file imports
-    "noEmit": true, // Do not emit compiled output (Next.js handles this)
-    "esModuleInterop": true, // Import/export interop between ESModules and CommonJS
-    "module": "esnext", // Module code generation
-    "moduleResolution": "node", // Resolve modules using Node.js resolution strategy
-    "resolveJsonModule": true, // Allow importing `.json` files
-    "isolatedModules": true, // Ensure each file is treated as a module
-    "jsx": "preserve", // JSX code is left unchanged for Next.js to handle
-    "incremental": true // Enable incremental compilation for faster builds
-    ,
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next.config.mjs",
     ".next/types/**/*.ts"
-, "tailwind.config.js"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

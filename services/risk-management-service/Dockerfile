@@ -1,21 +1,7 @@
-# Use the official Node.js LTS Slim image
-FROM node:lts-slim
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
-# Set the working directory
-WORKDIR /app
+COPY ./app.py /app/app.py
 
-# Install app dependencies
-# Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+RUN pip install fastapi pydantic requests
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
-COPY . .
-
-# Start the service
-CMD ["npm", "start"]
-
-# Expose the appropriate port
-EXPOSE 5002
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5010"]
