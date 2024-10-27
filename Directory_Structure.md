@@ -3,6 +3,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 ├── CryptIQ_Batch_Tracker.json
 ├── CryptIQ_Task_Tracker.csv
 ├── CryptIQ_Task_Tracker.xlsx
+├── Directory_Structure.md
 ├── Instructions.txt
 ├── README.md
 ├── apps
@@ -30,99 +31,26 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   ├── page.tsx
 │       │   └── styles
 │       │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\app\styles/
-│       ├── components
-│       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\components/
-│       │   ├── ComboBox
-│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\components\ComboBox/
-│       │   │   ├── ComboBoxResponsive.tsx
-│       │   │   ├── Combobox.tsx
-│       │   │   ├── ComboboxDropdownMenu.tsx
-│       │   │   ├── ComboboxForm.tsx
-│       │   │   └── ComboboxPopover.tsx
-│       │   ├── DataTable
-│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\components\DataTable/
-│       │   │   ├── DataTableColumnHeader.tsx
-│       │   │   └── data-table.tsx
-│       │   ├── app-sidebar.tsx
-│       │   ├── tradingview
-│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\components\tradingview/
-│       │   │   ├── etf-heatmap.tsx
-│       │   │   ├── market-heatmap.tsx
-│       │   │   ├── market-overview.tsx
-│       │   │   ├── market-trending.tsx
-│       │   │   ├── stock-chart.tsx
-│       │   │   ├── stock-financials.tsx
-│       │   │   ├── stock-news.tsx
-│       │   │   ├── stock-price.tsx
-│       │   │   ├── stock-screener.tsx
-│       │   │   └── ticker-tape.tsx
-│       │   └── ui
-│       │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\components\ui/
-│       │       ├── CryptoTable.tsx
-│       │       ├── Footer.tsx
-│       │       ├── TopNavbar.tsx
-│       │       ├── alert-dialog.tsx
-│       │       ├── alert.tsx
-│       │       ├── avatar.tsx
-│       │       ├── badge.tsx
-│       │       ├── button-scroll-to-bottom.tsx
-│       │       ├── button.tsx
-│       │       ├── card.tsx
-│       │       ├── carousel.tsx
-│       │       ├── chart.tsx
-│       │       ├── chat-list.tsx
-│       │       ├── chat-panel.tsx
-│       │       ├── chat.tsx
-│       │       ├── checkbox.tsx
-│       │       ├── collapsible.tsx
-│       │       ├── command.tsx
-│       │       ├── context-menu.tsx
-│       │       ├── dialog.tsx
-│       │       ├── drawer.tsx
-│       │       ├── dropdown-menu.tsx
-│       │       ├── empty-screen.tsx
-│       │       ├── external-link.tsx
-│       │       ├── form.tsx
-│       │       ├── header.tsx
-│       │       ├── hover-card.tsx
-│       │       ├── input-otp.tsx
-│       │       ├── input.tsx
-│       │       ├── label.tsx
-│       │       ├── markdown.tsx
-│       │       ├── menubar.tsx
-│       │       ├── missing-api-key-banner.tsx
-│       │       ├── model-selector.tsx
-│       │       ├── navigation-menu.tsx
-│       │       ├── pagination.tsx
-│       │       ├── popover.tsx
-│       │       ├── progress.tsx
-│       │       ├── prompt-form.tsx
-│       │       ├── providers.tsx
-│       │       ├── resizable.tsx
-│       │       ├── scroll-area.tsx
-│       │       ├── select.tsx
-│       │       ├── separator.tsx
-│       │       ├── sheet.tsx
-│       │       ├── sidebar.tsx
-│       │       ├── skeleton.tsx
-│       │       ├── slider.tsx
-│       │       ├── sonner.tsx
-│       │       ├── switch.tsx
-│       │       ├── table.tsx
-│       │       ├── tabs.tsx
-│       │       ├── textarea.tsx
-│       │       ├── theme-toggle.tsx
-│       │       ├── toast.tsx
-│       │       ├── toaster.tsx
-│       │       ├── toggle-group.tsx
-│       │       ├── toggle.tsx
-│       │       └── tooltip.tsx
 │       ├── components.json
 │       ├── config
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\config/
 │       │   └── site.ts
 │       ├── features
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features/
+│       │   ├── Web3
+│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\Web3/
+│       │   │   ├── components
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\Web3\components/
+│       │   │   │   ├── FlashLoanArbitrage.tsx
+│       │   │   │   └── MonitorDashboard.tsx
+│       │   │   └── contracts
+│       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\Web3\contracts/
+│       │   │       ├── core
+│       │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\Web3\contracts\core/
+│       │   │       │   └── flash-loan.txt
+│       │   │       └── interfaces
+│       │   │           D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\Web3\contracts\interfaces/
+│       │   │           └── arbitrage-libraries.txt
 │       │   ├── agents
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\agents/
 │       │   │   ├── components
@@ -130,11 +58,14 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   ├── AgentBox.tsx
 │       │   │   │   ├── AgentStatusBoard.js
 │       │   │   │   ├── App.tsx
+│       │   │   │   ├── MultiAgentTrainingArena.tsx
 │       │   │   │   ├── ProcessCanvas.tsx
 │       │   │   │   ├── TaskConnection.tsx
 │       │   │   │   ├── TaskControlPanel.js
 │       │   │   │   ├── TaskNode.tsx
 │       │   │   │   ├── TaskPriorityBoard.js
+│       │   │   │   ├── agent-training-arena.tsx
+│       │   │   │   ├── enhanced-command-center.tsx
 │       │   │   │   └── styles
 │       │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\agents\components\styles/
 │       │   │   │       └── style.css
@@ -144,10 +75,12 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\agents\services/
 │       │   │   └── state
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\agents\state/
+│       │   ├── ai-command-center.tsx
 │       │   ├── analytics
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics/
 │       │   │   ├── components
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\components/
+│       │   │   │   ├── ai-trading-interface.tsx
 │       │   │   │   ├── button-scroll-to-bottom.tsx
 │       │   │   │   ├── chat-list.tsx
 │       │   │   │   ├── chat-panel.tsx
@@ -161,47 +94,32 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   ├── model-selector.tsx
 │       │   │   │   ├── prompt-form.tsx
 │       │   │   │   ├── providers.tsx
+│       │   │   │   ├── risk-radar-3d.tsx
 │       │   │   │   ├── stocks
 │       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\components\stocks/
 │       │   │   │   │   ├── message.tsx
 │       │   │   │   │   └── spinner.tsx
 │       │   │   │   ├── theme-toggle.tsx
-│       │   │   │   ├── tradingview
-│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\components\tradingview/
-│       │   │   │   │   ├── etf-heatmap.tsx
-│       │   │   │   │   ├── market-heatmap.tsx
-│       │   │   │   │   ├── market-overview.tsx
-│       │   │   │   │   ├── market-trending.tsx
-│       │   │   │   │   ├── stock-chart.tsx
-│       │   │   │   │   ├── stock-financials.tsx
-│       │   │   │   │   ├── stock-news.tsx
-│       │   │   │   │   ├── stock-price.tsx
-│       │   │   │   │   ├── stock-screener.tsx
-│       │   │   │   │   └── ticker-tape.tsx
-│       │   │   │   └── ui
-│       │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\components\ui/
-│       │   │   │       ├── alert-dialog.tsx
-│       │   │   │       ├── badge.tsx
-│       │   │   │       ├── button.tsx
-│       │   │   │       ├── codeblock.tsx
-│       │   │   │       ├── dialog.tsx
-│       │   │   │       ├── dropdown-menu.tsx
-│       │   │   │       ├── icons.tsx
-│       │   │   │       ├── input.tsx
-│       │   │   │       ├── label.tsx
-│       │   │   │       ├── select.tsx
-│       │   │   │       ├── separator.tsx
-│       │   │   │       ├── sheet.tsx
-│       │   │   │       ├── sonner.tsx
-│       │   │   │       ├── switch.tsx
-│       │   │   │       ├── textarea.tsx
-│       │   │   │       └── tooltip.tsx
+│       │   │   │   └── tradingview
+│       │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\components\tradingview/
+│       │   │   │       ├── etf-heatmap.tsx
+│       │   │   │       ├── market-heatmap.tsx
+│       │   │   │       ├── market-overview.tsx
+│       │   │   │       ├── market-trending.tsx
+│       │   │   │       ├── stock-chart.tsx
+│       │   │   │       ├── stock-financials.tsx
+│       │   │   │       ├── stock-news.tsx
+│       │   │   │       ├── stock-price.tsx
+│       │   │   │       ├── stock-screener.tsx
+│       │   │   │       └── ticker-tape.tsx
 │       │   │   ├── hooks
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\hooks/
 │       │   │   ├── services
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\services/
 │       │   │   └── state
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\state/
+│       │   ├── cosmic-trading-matrix.tsx
+│       │   ├── cross-chain-arb-hunter.tsx
 │       │   ├── market
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\market/
 │       │   │   ├── components
@@ -227,6 +145,9 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\market\services/
 │       │   │   └── state
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\market\state/
+│       │   ├── mev-liquidity-engine.tsx
+│       │   ├── multiverse-trade-engine.tsx
+│       │   ├── neural-mempool-quantum.tsx
 │       │   ├── portfolio
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio/
 │       │   │   ├── components
@@ -236,8 +157,10 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   ├── PortfolioAggregation.tsx
 │       │   │   │   ├── PortfolioChart.tsx
 │       │   │   │   ├── PortfolioDashboard.tsx
+│       │   │   │   ├── PortfolioLaboratory.tsx
 │       │   │   │   ├── PortfolioRebalancer.tsx
 │       │   │   │   ├── PortfolioStats.tsx
+│       │   │   │   ├── PortfolioStrategyLab.tsx
 │       │   │   │   ├── PositionsSkeleton.tsx
 │       │   │   │   ├── PriceMovementHeatmap.tsx
 │       │   │   │   ├── RiskManagementDashboard.tsx
@@ -257,74 +180,186 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\types/
 │       │   │       ├── portfolio.ts
 │       │   │       └── props.ts
+│       │   ├── quantum-neural-defense.tsx
+│       │   ├── quantum-swarm-intelligence.tsx
 │       │   ├── shared
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared/
+│       │   │   ├── charts
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\charts/
+│       │   │   │   └── tradingview
+│       │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\charts\tradingview/
+│       │   │   │       ├── etf-heatmap.tsx
+│       │   │   │       ├── market-heatmap.tsx
+│       │   │   │       ├── market-overview.tsx
+│       │   │   │       ├── market-trending.tsx
+│       │   │   │       ├── stock-chart.tsx
+│       │   │   │       ├── stock-financials.tsx
+│       │   │   │       ├── stock-news.tsx
+│       │   │   │       ├── stock-price.tsx
+│       │   │   │       ├── stock-screener.tsx
+│       │   │   │       └── ticker-tape.tsx
 │       │   │   ├── components
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\components/
-│       │   │   │   └── ActivePositions.tsx
+│       │   │   │   ├── ActivePositions.tsx
+│       │   │   │   ├── ComboBox
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\components\ComboBox/
+│       │   │   │   │   ├── ComboBoxResponsive.tsx
+│       │   │   │   │   ├── Combobox.tsx
+│       │   │   │   │   ├── ComboboxDropdownMenu.tsx
+│       │   │   │   │   ├── ComboboxForm.tsx
+│       │   │   │   │   └── ComboboxPopover.tsx
+│       │   │   │   ├── DataTable
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\components\DataTable/
+│       │   │   │   │   ├── DataTableColumnHeader.tsx
+│       │   │   │   │   └── data-table.tsx
+│       │   │   │   └── app-sidebar.tsx
+│       │   │   ├── forms
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\forms/
 │       │   │   ├── hooks
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\hooks/
 │       │   │   │   └── useWebSocket.ts
+│       │   │   ├── layout
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\layout/
 │       │   │   ├── types
 │       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\types/
 │       │   │   │   └── common.ts
+│       │   │   ├── ui
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui/
+│       │   │   │   ├── CryptoTable.tsx
+│       │   │   │   ├── Footer.tsx
+│       │   │   │   ├── TopNavbar.tsx
+│       │   │   │   ├── alert-dialog.tsx
+│       │   │   │   ├── alert.tsx
+│       │   │   │   ├── avatar.tsx
+│       │   │   │   ├── badge.tsx
+│       │   │   │   ├── button-scroll-to-bottom.tsx
+│       │   │   │   ├── button.tsx
+│       │   │   │   ├── card.tsx
+│       │   │   │   ├── carousel.tsx
+│       │   │   │   ├── chart.tsx
+│       │   │   │   ├── chat-list.tsx
+│       │   │   │   ├── chat-panel.tsx
+│       │   │   │   ├── chat.tsx
+│       │   │   │   ├── checkbox.tsx
+│       │   │   │   ├── collapsible.tsx
+│       │   │   │   ├── command.tsx
+│       │   │   │   ├── context-menu.tsx
+│       │   │   │   ├── dialog.tsx
+│       │   │   │   ├── drawer.tsx
+│       │   │   │   ├── dropdown-menu.tsx
+│       │   │   │   ├── empty-screen.tsx
+│       │   │   │   ├── external-link.tsx
+│       │   │   │   ├── form.tsx
+│       │   │   │   ├── header.tsx
+│       │   │   │   ├── hover-card.tsx
+│       │   │   │   ├── input-otp.tsx
+│       │   │   │   ├── input.tsx
+│       │   │   │   ├── label.tsx
+│       │   │   │   ├── markdown.tsx
+│       │   │   │   ├── menubar.tsx
+│       │   │   │   ├── missing-api-key-banner.tsx
+│       │   │   │   ├── model-selector.tsx
+│       │   │   │   ├── navigation-menu.tsx
+│       │   │   │   ├── pagination.tsx
+│       │   │   │   ├── popover.tsx
+│       │   │   │   ├── progress.tsx
+│       │   │   │   ├── prompt-form.tsx
+│       │   │   │   ├── providers.tsx
+│       │   │   │   ├── resizable.tsx
+│       │   │   │   ├── scroll-area.tsx
+│       │   │   │   ├── select.tsx
+│       │   │   │   ├── separator.tsx
+│       │   │   │   ├── sheet.tsx
+│       │   │   │   ├── sidebar.tsx
+│       │   │   │   ├── skeleton.tsx
+│       │   │   │   ├── slider.tsx
+│       │   │   │   ├── sonner.tsx
+│       │   │   │   ├── switch.tsx
+│       │   │   │   ├── table.tsx
+│       │   │   │   ├── tabs.tsx
+│       │   │   │   ├── textarea.tsx
+│       │   │   │   ├── theme-toggle.tsx
+│       │   │   │   ├── toast.tsx
+│       │   │   │   ├── toaster.tsx
+│       │   │   │   ├── toggle-group.tsx
+│       │   │   │   ├── toggle.tsx
+│       │   │   │   └── tooltip.tsx
 │       │   │   └── utils
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\utils/
-│       │   └── trading
-│       │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading/
-│       │       ├── components
-│       │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components/
-│       │       │   ├── AIInsights.tsx
-│       │       │   ├── AdvancedOrders.tsx
-│       │       │   ├── DarkPoolVisualizer.tsx
-│       │       │   ├── GreeksSurfaceVisualizer.tsx
-│       │       │   ├── HeatMap.tsx
-│       │       │   ├── MarketDepth.tsx
-│       │       │   ├── OCOOrderForm.tsx
-│       │       │   ├── OptionsVisualizer.tsx
-│       │       │   ├── OrderForm.tsx
-│       │       │   ├── RiskCalculator.tsx
-│       │       │   ├── SignalCard
-│       │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\SignalCard/
-│       │       │   │   ├── Countdown.tsx
-│       │       │   │   ├── PriceDisplay.tsx
-│       │       │   │   ├── SignalCard.tsx
-│       │       │   │   └── Sparkline.tsx
-│       │       │   ├── SignalPanel.tsx
-│       │       │   ├── SmartOptionsFlow
-│       │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\SmartOptionsFlow/
-│       │       │   │   ├── OptionsAnalysis.ts
-│       │       │   │   ├── PatternAnalysis.tsx
-│       │       │   │   ├── SmartAlerts.tsx
-│       │       │   │   ├── SmartOptionsFlow.tsx
-│       │       │   │   └── StrikePriceHeatMap.tsx
-│       │       │   ├── Sparkline.tsx
-│       │       │   ├── TradingInterface.tsx
-│       │       │   ├── TradingTabs.tsx
-│       │       │   └── TrailingStopForm.tsx
-│       │       ├── hooks
-│       │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\hooks/
-│       │       │   └── useSignalStream.ts
-│       │       ├── services
-│       │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\services/
-│       │       ├── state
-│       │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\state/
-│       │       │   └── tradingStore.ts
-│       │       ├── types
-│       │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\types/
-│       │       │   ├── greeks.ts
-│       │       │   ├── hedge.ts
-│       │       │   ├── institutional.ts
-│       │       │   ├── institutionalAnalysis.ts
-│       │       │   ├── options.ts
-│       │       │   ├── optionsFlow.ts
-│       │       │   ├── props.ts
-│       │       │   └── trading.ts
-│       │       └── utils
-│       │           D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\utils/
-│       │           ├── calculations.ts
-│       │           ├── greeksCalculations.ts
-│       │           └── riskManagement.ts
+│       │   ├── trading
+│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading/
+│       │   │   ├── components
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components/
+│       │   │   │   ├── AICommandCenter.tsx
+│       │   │   │   ├── AIInsights.tsx
+│       │   │   │   ├── AI_TradingInterface.tsx
+│       │   │   │   ├── AdvancedOrders.tsx
+│       │   │   │   ├── DarkPoolVisualizer.tsx
+│       │   │   │   ├── GreeksSurfaceVisualizer.tsx
+│       │   │   │   ├── HeatMap.tsx
+│       │   │   │   ├── MarketDepth.tsx
+│       │   │   │   ├── OCOOrderForm.tsx
+│       │   │   │   ├── OptionsVisualizer.tsx
+│       │   │   │   ├── OrderForm.tsx
+│       │   │   │   ├── RiskCalculator.tsx
+│       │   │   │   ├── RiskRadar.tsx
+│       │   │   │   ├── SignalCard
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\SignalCard/
+│       │   │   │   │   ├── Countdown.tsx
+│       │   │   │   │   ├── PriceDisplay.tsx
+│       │   │   │   │   ├── SignalCard.tsx
+│       │   │   │   │   └── Sparkline.tsx
+│       │   │   │   ├── SignalPanel.tsx
+│       │   │   │   ├── SmartExecutionInterface.tsx
+│       │   │   │   ├── SmartOptionsFlow
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\SmartOptionsFlow/
+│       │   │   │   │   ├── OptionsAnalysis.ts
+│       │   │   │   │   ├── PatternAnalysis.tsx
+│       │   │   │   │   ├── SmartAlerts.tsx
+│       │   │   │   │   ├── SmartOptionsFlow.tsx
+│       │   │   │   │   └── StrikePriceHeatMap.tsx
+│       │   │   │   ├── Sparkline.tsx
+│       │   │   │   ├── TradingInterface.tsx
+│       │   │   │   ├── TradingTabs.tsx
+│       │   │   │   ├── TrailingStopForm.tsx
+│       │   │   │   ├── liquidity-analyzer.tsx
+│       │   │   │   └── mev-defense-system.tsx
+│       │   │   ├── contracts
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\contracts/
+│       │   │   │   ├── core
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\contracts\core/
+│       │   │   │   ├── deploy
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\contracts\deploy/
+│       │   │   │   │   └── deploy_arbitrage.ts
+│       │   │   │   ├── interfaces
+│       │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\contracts\interfaces/
+│       │   │   │   └── libraries
+│       │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\contracts\libraries/
+│       │   │   ├── hooks
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\hooks/
+│       │   │   │   └── useSignalStream.ts
+│       │   │   ├── services
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\services/
+│       │   │   ├── state
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\state/
+│       │   │   │   └── tradingStore.ts
+│       │   │   ├── types
+│       │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\types/
+│       │   │   │   ├── greeks.ts
+│       │   │   │   ├── hedge.ts
+│       │   │   │   ├── institutional.ts
+│       │   │   │   ├── institutionalAnalysis.ts
+│       │   │   │   ├── options.ts
+│       │   │   │   ├── optionsFlow.ts
+│       │   │   │   ├── props.ts
+│       │   │   │   └── trading.ts
+│       │   │   └── utils
+│       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\utils/
+│       │   │       ├── calculations.ts
+│       │   │       ├── descriptions.ts
+│       │   │       ├── greeksCalculations.ts
+│       │   │       └── riskManagement.ts
+│       │   └── ultra-instinct-predictor.tsx
 │       ├── hooks
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\hooks/
 │       │   ├── use-crypto-filters.ts
@@ -591,13 +626,32 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── .dockerignore
 │   │   ├── Dockerfile
 │   │   └── app.py
-│   ├── market-analysis-service
-│   │   D:\Repos\CryptIQ-Micro-Frontend\services\market-analysis-service/
+│   ├── flash-loan-arbitrage
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\flash-loan-arbitrage/
+│   │   └── services
+│   │       D:\Repos\CryptIQ-Micro-Frontend\services\flash-loan-arbitrage\services/
+│   │       ├── arbitrage-deploy.ts
+│   │       ├── arbitrage-executor.py
+│   │       ├── flash-loan-service.py
+│   │       └── path-optimizer.py
+│   ├── market
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\market/
 │   │   ├── .dockerignore
 │   │   ├── Dockerfile
 │   │   ├── ai_based_trend_strength_identifier.py
+│   │   ├── analysis
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\analysis/
+│   │   ├── data
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\data/
 │   │   ├── price_anomaly_detection.py
 │   │   ├── price_volatility_spike_detector.py
+│   │   └── sentiment
+│   │       D:\Repos\CryptIQ-Micro-Frontend\services\market\sentiment/
+│   ├── monitoring-service
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\monitoring-service/
+│   │   ├── alert_responder.py
+│   │   ├── monitor_service.py
+│   │   └── neural_alerts.py
 │   ├── portfolio-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service/
 │   │   ├── .dockerignore
@@ -606,6 +660,8 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── ai_portfolio_rebalancer.py
 │   │   ├── ai_powered_cross_asset_liquidity_scoring_engine.py
 │   │   ├── ai_powered_smart_take_profit_strategy_generator.py
+│   │   ├── analytics
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service\analytics/
 │   │   ├── auto_rebalancing_engine.py
 │   │   ├── auto_rebalancing_scheduler.py
 │   │   ├── correlation_matrix_generator.py
@@ -622,7 +678,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── dynamic_risk_adjusted_portfolio_allocator.py
 │   │   ├── dynamic_risk_parity_optimizer.py
 │   │   ├── historical_price_anomaly_detector.py
-│   │   ├── index.ts
 │   │   ├── main.py
 │   │   ├── multi_agent_adaptive_risk_budgeting_engine.py
 │   │   ├── multi_agent_alpha_generation_engine.py
@@ -686,8 +741,12 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── multi_strategy_dynamic_correlation_optimizer.py
 │   │   ├── multi_strategy_dynamic_hedging_engine.py
 │   │   ├── multi_strategy_optimizer.py
+│   │   ├── optimization
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service\optimization/
 │   │   ├── package.json
 │   │   ├── portfolio_optimizer.py
+│   │   ├── rebalancing
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service\rebalancing/
 │   │   ├── rebalancing.py
 │   │   ├── requirements.txt
 │   │   ├── risk_parity_optimizer.py
@@ -862,12 +921,28 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── trend_reversal.py
 │   │   ├── trend_reversal_detector.py
 │   │   └── volume_spike_detector.py
-│   └── wallet-service
-│       D:\Repos\CryptIQ-Micro-Frontend\services\wallet-service/
-│       ├── .dockerignore
-│       ├── Dockerfile
-│       ├── app.py
-│       └── requirements.txt
+│   ├── wallet-service
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\wallet-service/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   └── web3
+│       D:\Repos\CryptIQ-Micro-Frontend\services\web3/
+│       ├── execution
+│       │   D:\Repos\CryptIQ-Micro-Frontend\services\web3\execution/
+│       │   └── execution_engine.py
+│       └── mL
+│           D:\Repos\CryptIQ-Micro-Frontend\services\web3\mL/
+│           └── arbitrage
+│               D:\Repos\CryptIQ-Micro-Frontend\services\web3\mL\arbitrage/
+│               ├── impact_predictor.py
+│               ├── models
+│               │   D:\Repos\CryptIQ-Micro-Frontend\services\web3\mL\arbitrage\models/
+│               │   └── impact_networks.py
+│               └── training
+│                   D:\Repos\CryptIQ-Micro-Frontend\services\web3\mL\arbitrage\training/
+│                   └── impact_trainer.py
 ├── supported_coins.pdf
 ├── the_one.pdf
 ├── turbo.json
