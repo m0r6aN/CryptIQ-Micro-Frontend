@@ -1,0 +1,168 @@
+// contracts/interfaces/IAaveFlashLoan.sol
+pragma solidity ^0.8.19;
+
+interface IAaveFlashLoan {
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external returns (bool);
+}
+
+// contracts/interfaces/IDexRouter.sol
+pragma solidity ^0.8.19;
+
+interface IDexRouter {
+    function swapExactTokensForTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+}
+
+// contracts/libraries/SwapLib.sol
+pragma solidity ^0.8.19;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+library SwapLib {
+    using SafeERC20 for IERC20;
+
+    struct SwapParams {
+        address tokenIn;
+        address tokenOut;
+        uint256 amountIn;
+        uint256 minAmountOut;
+        address[] path;
+        bytes routerData;
+    }
+
+    function executeSwap(
+        SwapParams memory params,
+        address router
+    ) internal returns (uint256) {
+        // Get initial balance
+        uint256 initialBalance = IERC20(params.tokenOut).balanceOf(address(this));
+
+        // Approve router
+        IERC20(params.tokenIn).safeApprove(router, params.amountIn);
+
+        // Execute swap via router
+        (bool success,) = router.call(params.routerData);
+        require(success, "Swap failed");
+
+        // Reset approval
+        IERC20(params.tokenIn).safeApprove(router, 0);
+
+        // Calculate amount received
+        uint256 finalBalance = IERC20(params.tokenOut).balanceOf(address(this));
+        uint256 amountReceived = finalBalance - initialBalance;
+        
+        require(amountReceived >= params.minAmountOut, "Insufficient output");
+        
+        return amountReceived;
+    }
+}
+
+// contracts/libraries/SafetyLib.sol
+pragma solidity ^0.8.19;
+
+library SafetyLib {
+    // Calculate minimum output with slippage protection
+    function calculateMinOutput(
+        uint256 expectedAmount,
+        uint256 slippageTolerance
+    ) internal pure returns (uint256) {
+        return expectedAmount - ((expectedAmount * slippageTolerance) / 10000);
+    }
+
+    // Verify profitability
+    function verifyProfitable(
+        uint256 startAmount,
+        uint256 endAmount,
+        uint256 flashLoanPremium,
+        uint256 minProfit
+    ) internal pure returns (bool, uint256) {
+        uint256 totalCost = startAmount + flashLoanPremium;
+        if (endAmount <= totalCost) {
+            return (false, 0);
+        }
+        uint256 profit = endAmount - totalCost;
+        return (profit >= minProfit, profit);
+    }
+
+    // Emergency stop functionality
+    function isEmergencyStop(
+        uint256 gasPrice,
+        uint256 maxGasPrice,
+        uint256 totalValue,
+        uint256 minValue
+    ) internal pure returns (bool) {
+        if (gasPrice > maxGasPrice) return true;
+        if (totalValue < minValue) return true;
+        return false;
+    }
+}
+
+// contracts/libraries/CallDataLib.sol
+pragma solidity ^0.8.19;
+
+library CallDataLib {
+    function encodeUniswapSwap(
+        address router,
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] memory path,
+        address to,
+        uint256 deadline
+    ) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(
+            IDexRouter.swapExactTokensForTokens.selector,
+            amountIn,
+            amountOutMin,
+            path,
+            to,
+            deadline
+        );
+    }
+
+    function encodeCurveSwap(
+        address pool,
+        int128 i,
+        int128 j,
+        uint256 amountIn,
+        uint256 minAmountOut
+    ) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(
+            bytes4(keccak256("exchange(int128,int128,uint256,uint256)")),
+            i,
+            j,
+            amountIn,
+            minAmountOut
+        );
+    }
+
+    function encodeBalancerSwap(
+        address vault,
+        bytes32 poolId,
+        address tokenIn,
+        address tokenOut,
+        uint256 amountIn,
+        uint256 minAmountOut
+    ) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(
+            bytes4(keccak256("swap((bytes32,uint8,address,address,uint256,bytes))")),
+            poolId,
+            1, // GIVEN_IN
+            tokenIn,
+            tokenOut,
+            amountIn,
+            minAmountOut
+        );
+    }
+}

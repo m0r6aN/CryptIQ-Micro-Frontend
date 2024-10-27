@@ -3,8 +3,8 @@ import { usePortfolioStore } from '../state/portfolioStore'
 import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
 import { PortfolioStats } from './PortfolioStats'
 import { PortfolioChart } from './PortfolioChart'
-import type { WebSocketMessage } from '../types/portfolio'
 import { AssetAllocation } from './AssetAllocation'
+import { WebSocketMessage } from '../types/portfolio'
 
 export function PortfolioDashboard() {
   const { stats, assets, setAssets, setStats } = usePortfolioStore()

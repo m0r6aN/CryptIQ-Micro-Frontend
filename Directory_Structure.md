@@ -255,7 +255,8 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │   │   │   └── portfolioStore.ts
 │       │   │   └── types
 │       │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\types/
-│       │   │       └── portfolio.ts
+│       │   │       ├── portfolio.ts
+│       │   │       └── props.ts
 │       │   ├── shared
 │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared/
 │       │   │   ├── components
@@ -283,9 +284,20 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │       │   ├── OptionsVisualizer.tsx
 │       │       │   ├── OrderForm.tsx
 │       │       │   ├── RiskCalculator.tsx
-│       │       │   ├── SignalCard.tsx
+│       │       │   ├── SignalCard
+│       │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\SignalCard/
+│       │       │   │   ├── Countdown.tsx
+│       │       │   │   ├── PriceDisplay.tsx
+│       │       │   │   ├── SignalCard.tsx
+│       │       │   │   └── Sparkline.tsx
 │       │       │   ├── SignalPanel.tsx
-│       │       │   ├── SmartOptionsFlow.tsx
+│       │       │   ├── SmartOptionsFlow
+│       │       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\SmartOptionsFlow/
+│       │       │   │   ├── OptionsAnalysis.ts
+│       │       │   │   ├── PatternAnalysis.tsx
+│       │       │   │   ├── SmartAlerts.tsx
+│       │       │   │   ├── SmartOptionsFlow.tsx
+│       │       │   │   └── StrikePriceHeatMap.tsx
 │       │       │   ├── Sparkline.tsx
 │       │       │   ├── TradingInterface.tsx
 │       │       │   ├── TradingTabs.tsx
@@ -306,9 +318,11 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       │       │   ├── institutionalAnalysis.ts
 │       │       │   ├── options.ts
 │       │       │   ├── optionsFlow.ts
+│       │       │   ├── props.ts
 │       │       │   └── trading.ts
 │       │       └── utils
 │       │           D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\utils/
+│       │           ├── calculations.ts
 │       │           ├── greeksCalculations.ts
 │       │           └── riskManagement.ts
 │       ├── hooks
@@ -332,6 +346,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       ├── tsconfig.json
 │       ├── types
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\types/
+│       │   ├── heatmap.ts
 │       │   ├── orderFlow.ts
 │       │   ├── react-syntax-highlighter.d.ts
 │       │   └── types.ts

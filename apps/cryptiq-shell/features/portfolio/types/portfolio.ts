@@ -8,15 +8,7 @@ export type PortfolioStats = {
   totalPnl: number
   totalPnlPercentage: number
 }
-
-export type PortfolioStatsProps = {
-  stats: PortfolioStats
-  isLoading?: boolean
-  isError?: boolean
-  errorMessage?: string
-  onRetry?: () => void
-}
-  
+ 
 export type Asset = {
   id: string
   name: string
@@ -33,8 +25,3 @@ export type WebSocketMessage = {
   stats?: PortfolioStats
 }
 
-// Then define the props interface for ActivePositions
-interface ActivePositionsProps {
-  positions: Position[]
-  onPositionClose: (positionId: string) => Promise<void>
-}

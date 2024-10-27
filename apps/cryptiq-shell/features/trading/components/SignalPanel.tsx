@@ -1,29 +1,31 @@
 import { useState } from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
+
 import { 
   TrendingUp, 
   TrendingDown, 
   AlertCircle, 
   Timer, 
-  BarChart2,
-  Target
 } from 'lucide-react'
-import { Signal, SignalPanelProps } from '../types/trading'
+import { SignalPanelProps } from '../types/props'
+import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
+import { Button } from '@/features/shared/ui/button'
+import { Skeleton } from '@/features/shared/ui/skeleton'
+import { Badge } from '@/features/shared/ui/badge'
+import { Signal } from '../types/trading'
+
 
 export function SignalPanel({ signals, onSignalClick, isLoading }: SignalPanelProps) {
   const [expandedSignal, setExpandedSignal] = useState<string | null>(null)
 
   const getStrengthColor = (strength: Signal['strength']) => {
     switch (strength) {
-      case 'low':
+      case 1: // Assuming 1 corresponds to 'low'
         return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-      case 'medium':
+      case 2: // Assuming 2 corresponds to 'medium'
         return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'high':
+      case 3: // Assuming 3 corresponds to 'high'
         return 'bg-green-100 text-green-800 border-green-200'
+      // Add more cases if there are more strength levels
     }
   }
 
@@ -55,7 +57,7 @@ export function SignalPanel({ signals, onSignalClick, isLoading }: SignalPanelPr
                       variant="outline"
                       className={getStrengthColor(signal.strength)}
                     >
-                      {signal.strength.toUpperCase()}
+                      {signal.strength}
                     </Badge>
                   </div>
                   <div className="text-sm text-gray-500 flex items-center gap-2">
@@ -64,16 +66,16 @@ export function SignalPanel({ signals, onSignalClick, isLoading }: SignalPanelPr
                   </div>
                 </div>
                 <Badge 
-                  variant={signal.type === 'entry' ? 'default' : 'secondary'}
-                  className={signal.side === 'long' ? 'bg-green-500' : 'bg-red-500'}
+                  variant={signal.orderDirection === 'buy' ? 'default' : 'secondary'}
+                  className={signal.positionSide === 'long' ? 'bg-green-500' : 'bg-red-500'}
                 >
-                  {signal.type === 'entry' ? (
+                  {signal.orderDirection === 'buy' ? (
                     <div className="flex items-center gap-1">
-                      {signal.side === 'long' ? 
+                      {signal.positionSide === 'long' ? 
                         <TrendingUp className="h-4 w-4" /> : 
                         <TrendingDown className="h-4 w-4" />
                       }
-                      {signal.side.toUpperCase()} Entry
+                      {signal.positionSide.toUpperCase()} Entry
                     </div>
                   ) : 'Exit'}
                 </Badge>

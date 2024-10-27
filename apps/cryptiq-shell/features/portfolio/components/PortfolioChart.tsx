@@ -1,6 +1,7 @@
-import { Asset } from '../types/portfolio'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Area } from 'recharts'
+import { Asset } from '../types/portfolio'
 
 type PortfolioChartProps = {
   assets: Asset[]

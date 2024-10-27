@@ -17,6 +17,11 @@ export interface BaseOrder {
   orderDirection: OrderDirection
   leverage?: number
   reduceOnly?: boolean
+  stopLoss?: number
+  limitPrice?: number
+  stopLimitPrice?: number
+  currentPrice: number
+  takeProfit?: number
 }
 
 export interface MarketOrder extends BaseOrder {
@@ -30,29 +35,36 @@ export interface LimitOrder extends BaseOrder {
 
 export interface OCOOrder extends BaseOrder {
   type: 'oco'
-  stopPrice: number
-  limitPrice: number
-  stopLimitPrice?: number
-  currentPrice: number
-  takeProfit?: number
 }
 
-export interface TrailingStopOrder extends BaseOrder {
-  type: 'trailingStop'
-  callbackRate: number  // Percentage from trigger price
+export interface OptionOrder extends BaseOrder {
+  type: 'option'
+}
+
+export interface TrailingStopOrder {
+  type: string;
+  symbol: string;
+  currentPrice: number;
+  callbackRate: number;
+  activationPrice: number; // Add this line
 }
 
 export type OrderType = MarketOrder | LimitOrder | OCOOrder | TrailingStopOrder
 export type OrderFormData = Partial<OrderType>
 
 export interface Signal {
+  id?: string
+  title?: string
+  message: string
+  type?: 'default' | 'info' | 'warning' | 'error'
+  timestamp: Date
   symbol: string
+  description: string
   price: number
   marketType: MarketType
   positionSide: PositionSide
   orderDirection: OrderDirection
   confidence: number
-  timestamp: Date
   strength: 1 | 2 | 3 | 4 | 5  // 1 = weak, 5 = strong
   expiryTime: Date
   timeframe: '1m' | '5m' | '15m' | '1h' | '4h' | '1d' | '1w'

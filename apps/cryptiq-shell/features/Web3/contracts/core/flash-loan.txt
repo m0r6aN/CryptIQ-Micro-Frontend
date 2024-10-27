@@ -1,0 +1,132 @@
+// contracts/core/FlashLoanArbitrage.sol
+pragma solidity ^0.8.19;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "../interfaces/IAaveFlashLoan.sol";
+import "../libraries/SwapLib.sol";
+import "../libraries/SafetyLib.sol";
+import "../libraries/CallDataLib.sol";
+
+contract FlashLoanArbitrage is ReentrancyGuard, Pausable {
+    using SafeERC20 for IERC20;
+    using SwapLib for SwapLib.SwapParams;
+
+    address public immutable owner;
+    address public immutable lendingPool;
+    
+    uint256 public minProfit = 0.1 ether;
+    uint256 public maxGasPrice = 500 gwei;
+    
+    constructor(address _lendingPool) {
+        owner = msg.sender;
+        lendingPool = _lendingPool;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner");
+        _;
+    }
+
+    function executeArbitrage(
+        SwapLib.SwapParams[] calldata swaps,
+        uint256 flashLoanAmount,
+        address flashLoanToken
+    ) external nonReentrant whenNotPaused onlyOwner {
+        // Emergency stop check
+        require(!SafetyLib.isEmergencyStop(
+            tx.gasprice,
+            maxGasPrice,
+            flashLoanAmount,
+            minProfit
+        ), "Emergency stop");
+
+        // Request flash loan
+        address[] memory assets = new address[](1);
+        assets[0] = flashLoanToken;
+        
+        uint256[] memory amounts = new uint256[](1);
+        amounts[0] = flashLoanAmount;
+
+        bytes memory params = abi.encode(swaps);
+        
+        IAaveFlashLoan(lendingPool).executeOperation(
+            assets,
+            amounts,
+            new uint256[](1),
+            address(this),
+            params
+        );
+    }
+
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address,
+        bytes calldata params
+    ) external returns (bool) {
+        require(msg.sender == lendingPool, "Only lending pool");
+
+        // Decode swap params
+        SwapLib.SwapParams[] memory swaps = abi.decode(params, (SwapLib.SwapParams[]));
+        
+        uint256 startBalance = IERC20(assets[0]).balanceOf(address(this));
+
+        // Execute each swap
+        for (uint i = 0; i < swaps.length; i++) {
+            SwapLib.executeSwap(swaps[i], getRouterForSwap(swaps[i]));
+        }
+
+        uint256 endBalance = IERC20(assets[0]).balanceOf(address(this));
+
+        // Verify profitability
+        (bool isProfitable, uint256 profit) = SafetyLib.verifyProfitable(
+            amounts[0],
+            endBalance,
+            premiums[0],
+            minProfit
+        );
+        require(isProfitable, "Not profitable");
+
+        // Approve repayment
+        uint256 amountOwed = amounts[0] + premiums[0];
+        IERC20(assets[0]).safeApprove(lendingPool, amountOwed);
+
+        emit ArbitrageExecuted(profit, swaps.length);
+        return true;
+    }
+
+    function getRouterForSwap(
+        SwapLib.SwapParams memory swap
+    ) internal pure returns (address) {
+        // Extract router address from first 20 bytes of routerData
+        address router;
+        assembly {
+            router := mload(add(swap, 32))
+        }
+        return router;
+    }
+
+    // Admin functions
+    function setMinProfit(uint256 _minProfit) external onlyOwner {
+        minProfit = _minProfit;
+    }
+
+    function setMaxGasPrice(uint256 _maxGasPrice) external onlyOwner {
+        maxGasPrice = _maxGasPrice;
+    }
+
+    function pause() external onlyOwner {
+        _pause();
+    }
+
+    function unpause() external onlyOwner {
+        _unpause();
+    }
+
+    // Events
+    event ArbitrageExecuted(uint256 profit, uint256 numSwaps);
+}

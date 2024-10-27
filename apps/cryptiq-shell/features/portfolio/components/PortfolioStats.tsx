@@ -2,7 +2,8 @@
 
 import { DollarSign, Activity, TrendingUp, Percent } from 'lucide-react'
 import { StatsCard } from './StatsCard'
-import { PortfolioStatsProps } from '../types/portfolio'
+import { PortfolioStatsProps } from '@/features/trading/types/props'
+
 
 export function PortfolioStats({ stats }: PortfolioStatsProps) {
   return (

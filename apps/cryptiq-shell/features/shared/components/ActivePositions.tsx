@@ -1,17 +1,11 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PositionsSkeleton } from "@/features/portfolio/components/PositionsSkeleton"
-import { BarChart2 } from "lucide-react"
-import { Position } from "../types/common"
-import { useState } from "react"
 
-// ActivePositions Component
-interface ActivePositionsProps {
-  positions: Position[]
-  onPositionClose: (positionId: string) => Promise<void>
-  isLoading?: boolean
-}
+import { PositionsSkeleton } from "@/features/portfolio/components/PositionsSkeleton"
+import { Badge, BarChart2 } from "lucide-react"
+import { useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
+import { Button } from "flowbite-react"
+import { ActivePositionsProps } from "@/features/trading/types/props"
+
 
 export function ActivePositions({ 
   positions, 
@@ -23,7 +17,11 @@ export function ActivePositions({
   const handleClose = async (positionId: string) => {
     setClosingPositions(prev => new Set([...prev, positionId]))
     try {
-      await onPositionClose(positionId)
+      if (onPositionClose) {
+        onPositionClose(positionId)
+      } else {
+        console.error('onPositionClose is undefined')
+      }
     } catch (error) {
       console.error('Failed to close position:', error)
     } finally {
@@ -44,9 +42,9 @@ export function ActivePositions({
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle>Active Positions</CardTitle>
-          <Badge variant="secondary">
+          <div className="badge badge-secondary">
             {positions.length} Position{positions.length !== 1 ? 's' : ''}
-          </Badge>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
@@ -59,12 +57,11 @@ export function ActivePositions({
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="font-medium">{position.symbol}</span>
-                  <Badge 
-                    variant={position.side === 'long' ? 'default' : 'destructive'}
-                    className="text-xs"
+                  <span 
+                    className={`badge ${position.side === 'long' ? 'badge-default' : 'badge-destructive'} text-xs`}
                   >
                     {position.side.toUpperCase()} {position.leverage}x
-                  </Badge>
+                  </span>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Entry: ${position.entryPrice.toLocaleString()}
@@ -82,7 +79,7 @@ export function ActivePositions({
                   ({position.pnlPercent.toFixed(2)}%)
                 </div>
                 <Button
-                  variant="destructive"
+                  color="red"
                   size="sm"
                   disabled={closingPositions.has(position.id)}
                   onClick={() => handleClose(position.id)}

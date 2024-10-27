@@ -2,12 +2,13 @@
 import { useTradingStore } from '../state/tradingStore'
 import { TradingTabs } from './TradingTabs'
 import { SignalPanel } from './SignalPanel'
-import { OrderFormData, Signal } from '../types/trading'
 import { useToast } from '@/hooks/use-toast'
 import AIInsights from './AIInsights'
 import {  PositionId } from '@/features/shared/types/common'
-import { ActivePositions } from '../../shared/components/ActivePositions'
+
 import { OrderType } from './OrderForm'
+import { OrderFormData, Signal } from '../types/trading'
+import { ActivePositions } from '@/features/shared/components/ActivePositions'
 
 export function TradingInterface() {
   const { toast } = useToast()
@@ -23,7 +24,7 @@ export function TradingInterface() {
       await createOrder(data)
       toast({
         title: "Order Submitted",
-        description: `Successfully placed ${data.type} ${data.side} order`, // Changed direction to side
+        description: `Successfully placed ${data.type} ${data.positionSide} order`, // Changed direction to side
         variant: "default"
       })
     } catch (error) {

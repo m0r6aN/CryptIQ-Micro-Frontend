@@ -1,4 +1,4 @@
-import { InsightData, Position } from "@/features/shared/types/common"
+import { Position, InsightData, PortfolioStats } from "@/features/shared/types/common"
 import { OrderType, PriceData, Signal } from "./trading"
 
 // Props Interfaces
@@ -8,6 +8,15 @@ export interface SignalPanelProps {
     isLoading?: boolean
   }
   
+  export type PortfolioStatsProps = {
+    stats: PortfolioStats
+    isLoading?: boolean
+    isError?: boolean
+    errorMessage?: string
+    onRetry?: () => void
+  }
+   
+
   export interface ActivePositionsProps {
     positions: Position[]
     onPositionSelect?: (position: Position) => void

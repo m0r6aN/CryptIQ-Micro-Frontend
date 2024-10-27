@@ -1,5 +1,9 @@
 // features/trading/components/SmartOptionsFlow/OptionsAnalysis.ts
 
+import { OptionsFlowData } from "../../types/options";
+
+
+
 export function analyzeOptionsPatterns(data: OptionsFlowData) {
     return {
       unusualVolume: data.volume > data.averageVolume * 2,

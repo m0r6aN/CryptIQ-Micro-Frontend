@@ -2,42 +2,19 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
-import { Badge } from "@/components/ui/badge"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-import {
-  LineChart,
-  BarChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Tooltip,
-  Legend,
-  Area,
-  ComposedChart,
-} from 'recharts'
-import { Button } from '@/components/ui/button'
 import { PatternAnalysis } from './PatternAnalysis'
 import { SmartAlerts } from './SmartAlerts'
+import { analyzeOptionsPatterns } from './OptionsAnalysis'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/features/shared/ui/card'
+import { Bar, BarChart, ComposedChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/features/shared/ui/tabs'
+import { StrikePriceHeatMap } from './StrikePriceHeatMap'
+import { Badge } from '@/features/shared/ui/badge'
+import { Button } from '@/features/shared/ui/button'
+import { generateDescription } from '../../utils/descriptions'
+import { MarketType, OrderDirection, PositionSide } from '../../types/trading'
+import { calculateStrength } from '../../utils/calculations'
+import cn from 'classNames'
 
 export function SmartOptionsFlow({
   signals,
@@ -380,7 +357,25 @@ export function SmartOptionsFlow({
             </TabsContent>
 
             <TabsContent value="alerts">
-              <SmartAlerts signals={signals} />
+              <SmartAlerts signals={signals.map(signal => ({
+                id: `${signal.strike}-${signal.expiry.getTime()}`,
+                message: `${signal.type.toUpperCase()} Option Alert`,
+                timestamp: new Date(), // Current time for the alert
+                symbol: `Strike: ${signal.strike}`, // Using strike as symbol
+                description: generateDescription(signal), // We'll create this function
+                price: signal.premium,
+                marketType: 'options' as MarketType,
+                positionSide: signal.side === 'buy' ? 'long' : 'short' as PositionSide,
+                orderDirection: signal.side as OrderDirection,
+                confidence: signal.sentiment.confidence,
+                strength: calculateStrength(signal), // We'll create this function
+                expiryTime: signal.expiry,
+                timeframe: '1h', // Default or derive from data
+                stopLoss: signal.strike * 0.95, // Example - adjust as needed
+                takeProfit: [signal.strike * 1.05], // Example - adjust as needed
+                priceHistory: signal.priceAction.volumeProfile,
+                type: signal.sentiment.confidence > 0.7 ? 'info' : 'default'
+              }))} />
             </TabsContent>
           </Tabs>
         </CardContent>

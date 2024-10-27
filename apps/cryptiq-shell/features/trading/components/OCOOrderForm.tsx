@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/features/analytics/components/ui/input"
 import { useState } from "react"
 import { OCOOrder } from "../types/trading"
+import { Label } from "@/features/shared/ui/label"
+import { Button } from "@/features/shared/ui/button"
 
 interface OCOOrderFormProps {
     symbol: string
@@ -28,7 +28,10 @@ export function OCOOrderForm({
           currentPrice,
           takeProfit: Number(takeProfit),
           stopLoss: Number(stopLoss),
-          quantity: Number(quantity)
+          size: Number(quantity),
+          marketType: 'spot', // or another appropriate value
+          positionSide: 'long', // or another appropriate value
+          orderDirection: 'buy' // or another appropriate value
         })
       } catch (error) {
         console.error('Failed to place OCO order:', error)

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Slider } from '@/components/ui/slider'
 import { ArrowUp, ArrowDown } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { Card, CardContent } from '@/features/shared/ui/card'
+import { Button } from '@/features/shared/ui/button'
+import { Label } from '@/features/shared/ui/label'
+import { Slider } from '@/features/shared/ui/slider'
+import { Input } from '@/features/shared/ui/input'
+import { Alert, AlertDescription } from '@/features/shared/ui/alert'
 
 export type OrderType = 'market' | 'limit' | 'conditional'
 export type OrderSide = 'long' | 'short'
@@ -214,12 +214,13 @@ export default function OrderForm({ type, onSubmit, isSubmitting, error }: Order
 
           {/* Error Display */}
           {(error || localError) && (
-            <Alert variant="destructive">
+            <Alert variant="error">
               <AlertDescription>
                 {error || localError}
               </AlertDescription>
             </Alert>
           )}
+          
 
           {/* Submit Button */}
           <Button

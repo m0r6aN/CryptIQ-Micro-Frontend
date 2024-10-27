@@ -1,7 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Asset } from "../types/portfolio"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Skeleton } from "@/components/ui/skeleton"
+
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -10,6 +7,10 @@ import {
   AlertCircle 
 } from 'lucide-react'
 import { AllocationSkeleton } from "./AllocationSkeleton"
+import { Asset } from "../types/portfolio"
+import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/features/analytics/components/ui/tooltip'
+
 
 // AssetAllocation Component
 interface AssetAllocationProps {

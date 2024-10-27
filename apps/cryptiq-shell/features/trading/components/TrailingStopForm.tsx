@@ -1,9 +1,9 @@
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
 import { useState } from "react"
 import { TrailingStopOrder } from "../types/trading"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Label } from "@/features/shared/ui/label"
+import { Slider } from "@/features/shared/ui/slider"
+import { Input } from "@/features/shared/ui/input"
+import { Button } from "@/features/shared/ui/button"
 
 interface TrailingStopFormProps {
     symbol: string
@@ -23,11 +23,11 @@ interface TrailingStopFormProps {
       e.preventDefault()
       try {
         await onSubmit({
-          type: 'trailing_stop',
+          type: 'trailingStop',
           symbol,
           currentPrice,
           callbackRate,
-          activation
+          activationPrice: activation
         })
       } catch (error) {
         console.error('Failed to place trailing stop:', error)
