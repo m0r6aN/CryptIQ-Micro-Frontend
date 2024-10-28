@@ -1,5 +1,7 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+
+
+import { Card, CardContent, CardHeader } from "@/features/shared/ui/card";
+import { Skeleton } from "@/features/shared/ui/skeleton";
 
 // Skeleton Loaders
 export function AllocationSkeleton() {

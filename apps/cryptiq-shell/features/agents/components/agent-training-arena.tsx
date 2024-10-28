@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { Button } from '@/features/shared/ui/button'
-import { Badge } from '@/features/shared/ui/badge'
-import { Progress } from '@/features/shared/ui/progress'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/features/shared/ui/select'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import { Brain, TrendingUp, Activity, GitBranch, Cpu, Power, AlertTriangle } from 'lucide-react'
+import { Brain, TrendingUp, Activity, Cpu } from 'lucide-react'
 import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { AgentStreamMessage } from '../types/agents'
+import { Agent } from 'node:http'
 
 const AGENT_ENDPOINTS = {
   list: '/api/agents/list',
@@ -15,29 +15,25 @@ const AGENT_ENDPOINTS = {
   metrics: '/api/agents/metrics'
 } as const
 
-interface Agent {
-  id: string
-  name: string
-  type: string
-  generation: number
-  fitness: number
-  accuracy: number
-  trainedEpochs: number
-  status: 'training' | 'evolved' | 'deployed' | 'failed'
-  specialization: string[]
-  lastSignal?: string
-  cpuUsage?: number 
-  memoryUsage?: number
-}
-
 export default function AgentTrainingArena() {
   const [agents, setAgents] = useState<Agent[]>([])
   const [selectedModel, setSelectedModel] = useState('deeprl')
   const [trainingProgress, setTrainingProgress] = useState(0)
 
   // Connect to both agent monitor and AI assistant services
-  const { data: agentStream } = useWebSocket('ws://agent-monitor-service:5000/agent-stream')
-  const { data: aiStream } = useWebSocket('ws://ai-assistant:5000/training-stream')
+  const { lastMessage: agentStream } = useWebSocket<AgentStreamMessage>({
+    url: 'ws://agent-monitor-service:5000/agent-stream',
+    onMessage: (data) => {
+      console.log('Agent update received:', data)
+    }
+  })
+  
+  const { lastMessage: aiStream } = useWebSocket<AgentStreamMessage>({
+    url: 'ws://ai-training-service:5000/training-stream',
+    onMessage: (data) => {
+      console.log('Training progress received:', data)
+    }
+  })
 
   // Fetch initial agent state
   useEffect(() => {
@@ -51,14 +47,19 @@ export default function AgentTrainingArena() {
 
   // Handle real-time agent updates
   useEffect(() => {
-    if (agentStream?.type === 'AGENT_UPDATE') {
-      setAgents(prev => 
-        prev.map(agent => 
-          agent.id === agentStream.agentId 
-            ? { ...agent, ...agentStream.data }
-            : agent
+    if (!agentStream) return
+    
+    switch (agentStream.type) {
+      case 'AGENT_UPDATE':
+        setAgents(prev => 
+          prev.map(agent => 
+            agent.id === agentStream.agentId 
+              ? { ...agent, ...agentStream.data }
+              : agent
+          )
         )
-      )
+        break;
+      // We can handle other message types here if needed
     }
   }, [agentStream])
 
@@ -98,68 +99,35 @@ export default function AgentTrainingArena() {
   }
 
   const AgentCard = ({ agent }: { agent: Agent }) => (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Brain className={`h-6 w-6 ${
-              agent.status === 'deployed' ? 'text-green-500' : 
-              agent.status === 'failed' ? 'text-red-500' : 'text-blue-500'
-            }`} />
+    {agents.map(agent => (
+      <Card key={agent.id}>
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Brain className={`h-6 w-6 ${
+                agent.status === 'evolved' ? 'text-green-500' : 
+                agent.status === 'warning' ? 'text-yellow-500' : 'text-blue-500'
+              }`} />
+              <div>
+                <h3 className="font-semibold">{agent.name}</h3>
+                <p className="text-sm text-gray-500">{agent.type} Gen {agent.generation}</p>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
-              <h3 className="font-semibold">{agent.name}</h3>
-              <p className="text-sm text-gray-500">{agent.type} Gen {agent.generation}</p>
+              <p className="text-sm text-gray-500">Accuracy</p>
+              <p className="text-lg font-semibold">{agent.accuracy}%</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">CPU Usage</p>
+              <p className="text-lg font-semibold">{agent.cpuUsage}%</p>
             </div>
           </div>
-          <Badge variant={
-            agent.status === 'deployed' ? 'default' :
-            agent.status === 'failed' ? 'destructive' : 
-            'secondary'
-          }>
-            {agent.status}
-          </Badge>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 mt-4">
-          <div>
-            <p className="text-sm text-gray-500">Fitness</p>
-            <p className="text-lg font-semibold">{agent.fitness}%</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Accuracy</p>
-            <p className="text-lg font-semibold">{agent.accuracy}%</p>
-          </div>
-        </div>
-
-        {agent.status === 'evolved' && (
-          <div className="mt-4">
-            <Button 
-              className="w-full"
-              onClick={() => deployAgent(agent.id)}
-            >
-              <Power className="h-4 w-4 mr-2" />
-              Deploy Agent
-            </Button>
-          </div>
-        )}
-
-        {agent.status === 'deployed' && (
-          <div className="mt-4 space-y-2">
-            <div className="flex justify-between text-sm">
-              <span>CPU Usage</span>
-              <span>{agent.cpuUsage}%</span>
-            </div>
-            <Progress value={agent.cpuUsage} />
-            <div className="flex justify-between text-sm">
-              <span>Memory Usage</span>
-              <span>{agent.memoryUsage}GB</span>
-            </div>
-            <Progress value={agent.memoryUsage! * 10} />
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  )
+        </CardContent>
+      </Card>
+    ))}
+  );
 
   return (
     <div className="space-y-6">

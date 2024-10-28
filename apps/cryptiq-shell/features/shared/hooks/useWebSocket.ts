@@ -1,5 +1,7 @@
 // features/shared/hooks/useWebSocket.ts
-import { useEffect, useRef } from 'react'
+"use client"
+
+import { useEffect, useRef, useState } from 'react'
 
 interface WebSocketHookProps<T> {
   url: string
@@ -10,6 +12,7 @@ interface WebSocketHookProps<T> {
 
 export function useWebSocket<T>({ url, onMessage, onError, onClose }: WebSocketHookProps<T>) {
   const ws = useRef<WebSocket | null>(null)
+  const [lastMessage, setLastMessage] = useState<T | null>(null)
 
   useEffect(() => {
     ws.current = new WebSocket(url)
@@ -17,6 +20,7 @@ export function useWebSocket<T>({ url, onMessage, onError, onClose }: WebSocketH
     ws.current.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data) as T
+        setLastMessage(data)
         onMessage(data)
       } catch (error) {
         console.error('WebSocket message parsing error:', error)
@@ -38,5 +42,5 @@ export function useWebSocket<T>({ url, onMessage, onError, onClose }: WebSocketH
     }
   }, [url, onMessage, onError, onClose])
 
-  return ws.current
+  return { ws: ws.current, lastMessage }
 }

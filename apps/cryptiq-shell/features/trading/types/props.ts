@@ -1,4 +1,4 @@
-import { Position, InsightData, PortfolioStats } from "@/features/shared/types/common"
+import { Position, InsightData, PortfolioStats, PricePoint } from "@/features/shared/types/common"
 import { OrderType, PriceData, Signal } from "./trading"
 
 // Props Interfaces
@@ -61,4 +61,12 @@ export interface SignalPanelProps {
     color: string
     height?: number
     width?: number
+  }
+
+  export interface ArbitrageSparklineProps {
+    data: PricePoint[]
+    width?: number
+    height?: number
+    showVolume?: boolean
+    className?: string
   }

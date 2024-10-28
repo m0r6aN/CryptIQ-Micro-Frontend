@@ -2,9 +2,10 @@
 
 import * as React from 'react'
 
-import { cn } from '@/lib/utils'
-import { Button, type ButtonProps } from '@/components/ui/button'
-import { IconArrowDown } from '@/components/ui/icons'
+import cn from 'classNames'
+import { Button } from '@/features/shared/ui/button'
+import { ButtonProps } from '@/features/shared/ui/button'
+import { FaAngleDown  } from 'react-icons/fa'
 
 interface ButtonScrollToBottomProps extends ButtonProps {
   isAtBottom: boolean
@@ -29,7 +30,7 @@ export function ButtonScrollToBottom({
       onClick={() => scrollToBottom()}
       {...props}
     >
-      <IconArrowDown />
+      <FaAngleDown  />
       <span className="sr-only">Scroll to bottom</span>
     </Button>
   )

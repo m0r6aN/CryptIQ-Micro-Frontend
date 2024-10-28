@@ -1,10 +1,11 @@
+"use client"
 
 import { PositionsSkeleton } from "@/features/portfolio/components/PositionsSkeleton"
 import { Badge, BarChart2 } from "lucide-react"
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import { Button } from "flowbite-react"
 import { ActivePositionsProps } from "@/features/trading/types/props"
+import { Button } from "../ui/button"
 
 
 export function ActivePositions({ 

@@ -1,7 +1,7 @@
 'use client'
 
 import { IconGroq, IconUser } from '@/components/ui/icons'
-import { cn } from '@/lib/utils'
+import cn from 'classNames'
 import { spinner } from './spinner'
 import { CodeBlock } from '../ui/codeblock'
 import { MemoizedReactMarkdown } from '../markdown'

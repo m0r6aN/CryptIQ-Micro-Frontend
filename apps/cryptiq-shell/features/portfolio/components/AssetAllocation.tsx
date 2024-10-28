@@ -9,7 +9,9 @@ import {
 import { AllocationSkeleton } from "./AllocationSkeleton"
 import { Asset } from "../types/portfolio"
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/features/analytics/components/ui/tooltip'
+import { TooltipContent, TooltipProvider, TooltipTrigger } from '@/features/shared/ui/tooltip'
+import { Tooltip } from '@/features/shared/ui/tooltip'
+
 
 
 // AssetAllocation Component

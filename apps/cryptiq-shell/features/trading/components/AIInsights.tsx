@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Alert, AlertTitle, AlertDescription } from '@/features/shared/ui/alert'
+import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { TrendingUp, TrendingDown, AlertCircle, BarChart2 } from 'lucide-react'
 
 type Insight = {

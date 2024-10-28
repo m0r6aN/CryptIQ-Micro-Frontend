@@ -1,129 +1,107 @@
-import { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { format } from 'date-fns'
-import * as d3 from 'd3'
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from '@/components/ui/tooltip'
-import { 
-  Card, 
-  CardContent 
-} from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { scaleLinear } from 'd3-scale'
+import { min, max } from 'd3-array'
+import { Line, line, area, curveMonotoneX } from 'd3-shape'
 
 interface PricePoint {
   timestamp: number
   price: number
   volume?: number
-}
-
-interface SparklineProps {
-  data: PricePoint[]
-  width?: number
-  height?: number
-  type?: 'line' | 'candle' | 'area'
-  showVolume?: boolean
-  showTooltip?: boolean
-  showMinMax?: boolean
-  animate?: boolean
-  className?: string
-  gradientColors?: {
-    from: string
-    to: string
+  dexPrices: {
+    [key: string]: number
+  }
+  opportunity?: {
+    profit: number
+    path: string[]
   }
 }
 
-export function AdvancedSparkline({
+interface ArbitrageSparklineProps {
+  data: PricePoint[]
+  width?: number
+  height?: number
+  showVolume?: boolean
+  className?: string
+}
+
+export default function ArbitrageSparkline({
   data,
-  width = 200,
-  height = 60,
-  type = 'line',
+  width = 400,
+  height = 100,
   showVolume = true,
-  showTooltip = true,
-  showMinMax = true,
-  animate = true,
-  className,
-  gradientColors
-}: SparklineProps) {
+  className
+}: ArbitrageSparklineProps) {
   const { theme } = useTheme()
   const [activePoint, setActivePoint] = useState<PricePoint | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
 
-  // Calculate chart dimensions
-  const margin = { top: 5, right: 5, bottom: showVolume ? 20 : 5, left: 5 }
+  const margin = { top: 10, right: 10, bottom: showVolume ? 20 : 10, left: 10 }
   const chartWidth = width - margin.left - margin.right
   const chartHeight = height - margin.top - margin.bottom
   const volumeHeight = chartHeight * 0.2
 
-  // Memoize scales and line generator
   const {
     xScale,
     yScale,
     volumeScale,
-    line,
-    area,
-    minPrice,
-    maxPrice,
-    priceChange
+    lineGenerators,
+    opportunityPaths,
+    maxProfit
   } = useMemo(() => {
-    const xScale = d3.scaleLinear()
+    const dexes = Object.keys(data[0]?.dexPrices || {})
+    
+    const xScale = scaleLinear()
       .domain([0, data.length - 1])
       .range([0, chartWidth])
 
-    const yScale = d3.scaleLinear()
-      .domain([
-        d3.min(data, d => d.price) * 0.999,
-        d3.max(data, d => d.price) * 1.001
-      ])
+    const allPrices = data.flatMap(d => Object.values(d.dexPrices))
+    const yScale = scaleLinear()
+      .domain([min(allPrices) ?? 0, max(allPrices) ?? 0])
       .range([chartHeight, 0])
 
-    const volumeScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.volume || 0)])
+    const volumeScale = scaleLinear()
+      .domain([0, max(data, d => d.volume ?? 0) ?? 0])
       .range([0, volumeHeight])
 
-    const line = d3.line<PricePoint>()
-      .x((_, i) => xScale(i))
-      .y(d => yScale(d.price))
-      .curve(d3.curveMonotoneX)
+    const lineGenerators: Record<string, Line<PricePoint>> = dexes.reduce((acc, dex) => ({
+      ...acc,
+      [dex]: line<PricePoint>()
+        .x((_, i) => xScale(i))
+        .y(d => yScale(d.dexPrices[dex]))
+        .curve(curveMonotoneX)
+    }), {})
 
-    const area = d3.area<PricePoint>()
-      .x((_, i) => xScale(i))
-      .y0(chartHeight)
-      .y1(d => yScale(d.price))
-      .curve(d3.curveMonotoneX)
+    const opportunityPaths = data.filter(d => d.opportunity).map(d => ({
+      points: d.opportunity!.path.map((dex, i, arr) => {
+        const nextDex = arr[i + 1]
+        if (!nextDex) return null
+        return {
+          x1: xScale(data.indexOf(d)),
+          y1: yScale(d.dexPrices[dex]),
+          x2: xScale(data.indexOf(d)),
+          y2: yScale(d.dexPrices[nextDex])
+        }
+      }).filter(Boolean),
+      profit: d.opportunity!.profit
+    }))
 
-    const minPrice = d3.min(data, d => d.price)
-    const maxPrice = d3.max(data, d => d.price)
-    const priceChange = ((data[data.length - 1]?.price || 0) - 
-                        (data[0]?.price || 0)) / (data[0]?.price || 1) * 100
+    const maxProfit = max(data.map(d => d.opportunity?.profit ?? 0)) ?? 0
 
     return {
       xScale,
       yScale,
       volumeScale,
-      line,
-      area,
-      minPrice,
-      maxPrice,
-      priceChange
+      lineGenerators,
+      opportunityPaths,
+      maxProfit
     }
   }, [data, chartWidth, chartHeight, volumeHeight])
 
-  // Gradient definition
-  const gradientId = `sparkline-gradient-${Math.random()}`
-  const defaultColors = priceChange >= 0 
-    ? { from: '#22c55e', to: '#22c55e33' }
-    : { from: '#ef4444', to: '#ef444433' }
-  const colors = gradientColors || defaultColors
-
-  // Mouse interaction handlers
   const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!svgRef.current || !showTooltip) return
-
+    if (!svgRef.current) return
     const svgRect = svgRef.current.getBoundingClientRect()
     const x = e.clientX - svgRect.left - margin.left
     const index = Math.round(xScale.invert(x))
@@ -133,129 +111,94 @@ export function AdvancedSparkline({
     }
   }
 
-  const handleMouseLeave = () => {
-    setActivePoint(null)
-  }
-
   return (
-    <div className={cn("relative", className)}>
+    <div className={className}>
       <svg
         ref={svgRef}
         width={width}
         height={height}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={() => setActivePoint(null)}
         className="overflow-visible"
       >
-        <defs>
-          <linearGradient
-            id={gradientId}
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
-            <stop offset="0%" stopColor={colors.from} stopOpacity={0.5} />
-            <stop offset="100%" stopColor={colors.to} stopOpacity={0.1} />
-          </linearGradient>
-        </defs>
-
         <g transform={`translate(${margin.left},${margin.top})`}>
-          {/* Area or line path */}
-          {type === 'area' ? (
+          {/* Price lines for each DEX */}
+          {Object.entries(lineGenerators).map(([dex, generator]: [string, Line<PricePoint>], i) => (
             <motion.path
-              initial={animate ? { pathLength: 0 } : undefined}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1 }}
-              d={area(data) || ''}
-              fill={`url(#${gradientId})`}
-            />
-          ) : (
-            <motion.path
-              initial={animate ? { pathLength: 0 } : undefined}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1 }}
-              d={line(data) || ''}
+              key={dex}
+              d={generator(data) || ''}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.6 }}
+              transition={{ duration: 1, delay: i * 0.2 }}
               fill="none"
-              stroke={colors.from}
+              stroke={`hsl(${i * 40}, 70%, 50%)`}
               strokeWidth={1.5}
+              className="hover:opacity-100 transition-opacity"
             />
-          )}
+          ))}
+
+          {/* Arbitrage opportunity paths */}
+          <AnimatePresence>
+            {opportunityPaths.map((opportunity, i) => (
+              <g key={i}>
+                {opportunity.points.map((point, j) => point && (
+                  <motion.line
+                    key={j}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.8 }}
+                    exit={{ opacity: 0 }}
+                    x1={point.x1}
+                    y1={point.y1}
+                    x2={point.x2}
+                    y2={point.y2}
+                    stroke={`hsl(${(opportunity.profit / maxProfit) * 120}, 100%, 50%)`}
+                    strokeWidth={2}
+                    strokeDasharray="4,4"
+                    className="animate-pulse"
+                  />
+                ))}
+              </g>
+            ))}
+          </AnimatePresence>
 
           {/* Volume bars */}
           {showVolume && data.map((d, i) => (
             <motion.rect
               key={i}
               initial={{ height: 0 }}
-              animate={{ height: volumeScale(d.volume || 0) }}
+              animate={{ height: volumeScale(d.volume ?? 0) }}
               transition={{ duration: 0.5, delay: i * 0.01 }}
               x={xScale(i) - 1}
               y={chartHeight}
               width={2}
-              fill={colors.from}
-              opacity={0.3}
+              fill={theme === 'dark' ? 'white' : 'black'}
+              opacity={0.2}
             />
           ))}
 
-          {/* Min/Max indicators */}
-          {showMinMax && (
-            <>
-              <g transform={`translate(0,${yScale(maxPrice)})`}>
-                <line
-                  x1={-3}
-                  x2={3}
-                  stroke={theme === 'dark' ? 'white' : 'black'}
-                  strokeWidth={1}
-                />
-                <text
-                  x={-5}
-                  y={-2}
-                  textAnchor="end"
-                  fontSize={10}
-                  fill={theme === 'dark' ? 'white' : 'black'}
-                >
-                  {maxPrice.toFixed(2)}
-                </text>
-              </g>
-              <g transform={`translate(0,${yScale(minPrice)})`}>
-                <line
-                  x1={-3}
-                  x2={3}
-                  stroke={theme === 'dark' ? 'white' : 'black'}
-                  strokeWidth={1}
-                />
-                <text
-                  x={-5}
-                  y={10}
-                  textAnchor="end"
-                  fontSize={10}
-                  fill={theme === 'dark' ? 'white' : 'black'}
-                >
-                  {minPrice.toFixed(2)}
-                </text>
-              </g>
-            </>
-          )}
-
-          {/* Active point indicator */}
+          {/* Active point indicators */}
           {activePoint && (
             <g>
-              <circle
-                cx={xScale(data.findIndex(d => d === activePoint))}
-                cy={yScale(activePoint.price)}
-                r={4}
-                fill={colors.from}
-              />
-              <line
-                x1={xScale(data.findIndex(d => d === activePoint))}
-                y1={0}
-                x2={xScale(data.findIndex(d => d === activePoint))}
-                y2={chartHeight}
-                stroke={colors.from}
-                strokeWidth={1}
-                strokeDasharray="2,2"
-                opacity={0.5}
-              />
+              {Object.entries(activePoint.dexPrices).map(([dex, price], i) => (
+                <circle
+                  key={dex}
+                  cx={xScale(data.indexOf(activePoint))}
+                  cy={yScale(price)}
+                  r={4}
+                  fill={`hsl(${i * 40}, 70%, 50%)`}
+                />
+              ))}
+              {activePoint.opportunity && (
+                <circle
+                  cx={xScale(data.indexOf(activePoint))}
+                  cy={yScale(Object.values(activePoint.dexPrices)[0])}
+                  r={8}
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth={2}
+                  className="animate-ping"
+                />
+              )}
             </g>
           )}
         </g>
@@ -263,41 +206,39 @@ export function AdvancedSparkline({
 
       {/* Tooltip */}
       <AnimatePresence>
-        {activePoint && showTooltip && (
+        {activePoint && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             className="absolute bg-background border rounded-lg shadow-lg p-2 text-sm"
             style={{
-              left: xScale(data.findIndex(d => d === activePoint)) + margin.left,
-              top: yScale(activePoint.price) + margin.top - 40
+              left: xScale(data.indexOf(activePoint)) + margin.left,
+              top: margin.top - 40
             }}
           >
-            <div className="font-medium">
-              ${activePoint.price.toFixed(2)}
-            </div>
-            <div className="text-muted-foreground text-xs">
-              {format(activePoint.timestamp, 'HH:mm:ss')}
-            </div>
-            {activePoint.volume && (
-              <div className="text-xs text-muted-foreground">
-                Vol: {activePoint.volume.toLocaleString()}
+            <div className="space-y-1">
+              {Object.entries(activePoint.dexPrices).map(([dex, price], i) => (
+                <div key={dex} className="flex items-center gap-2">
+                  <div
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: `hsl(${i * 40}, 70%, 50%)` }}
+                  />
+                  <span>{dex}: ${price.toFixed(2)}</span>
+                </div>
+              ))}
+              {activePoint.opportunity && (
+                <div className="text-green-500 font-medium mt-1">
+                  Opportunity: ${activePoint.opportunity.profit.toFixed(2)}
+                </div>
+              )}
+              <div className="text-muted-foreground text-xs">
+                {format(activePoint.timestamp, 'HH:mm:ss')}
               </div>
-            )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   )
-}
-
-// Candle chart variation
-export function CandleSparkline({
-  data,
-  ...props
-}: Omit<SparklineProps, 'type'>) {
-  // Implementation of candlestick chart
-  // I can show this if you're interested
-  return null
 }

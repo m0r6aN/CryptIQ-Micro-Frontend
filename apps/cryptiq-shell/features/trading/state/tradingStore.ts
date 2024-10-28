@@ -2,6 +2,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { Position } from '../../shared/types/common'
+import { OrderFormData, Signal } from '../types/trading'
 
 // Consider adding these types to your tradingStore.ts
 export interface TradingStore {
@@ -13,84 +14,6 @@ export interface TradingStore {
     closePosition: (positionId: string) => Promise<void>
 }
 
-// Update your tradingStore.ts
-export const useTradingStore = create<TradingStore>()((set) => ({
-    positions: [],
-    activeSignals: [],
-    setPositions: (positions) => set({ positions }),
-    addSignal: (signal) => set((state) => ({
-        activeSignals: [...state.activeSignals, signal]
-    })),
-    createOrder: async (data) => {
-        // Implement order creation logic
-        try {
-            const response = await fetch('/api/trading/order', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            
-            if (!response.ok) {
-                throw new Error('Failed to create order')
-            }
-            
-            // Handle successful order creation
-            const result = await response.json()
-            // Update positions or other state as needed
-        } catch (error) {
-            throw new Error(error instanceof Error ? error.message : 'Failed to create order')
-        }
-    },
-    closePosition: async (positionId) => {
-        // Implement position closing logic
-        try {
-            const response = await fetch(`/api/trading/position/${positionId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'close' })
-            })
-            
-            if (!response.ok) {
-                throw new Error('Failed to close position')
-            }
-            
-            // Handle successful position closure
-            set((state) => ({
-                positions: state.positions.filter(p => p.id !== positionId)
-            }))
-        } catch (error) {
-            throw new Error(error instanceof Error ? error.message : 'Failed to close position')
-        }
-    }
-}))
-
-interface TradeSignal {
-    id: string
-    assetId: string
-    type: 'entry' | 'exit'
-    direction: 'long' | 'short'
-    price: number
-    confidence: number
-    timestamp: number
-    source: 'ai' | 'technical' | 'sentiment'
-    metadata: Record<string, any>
-}
-
-interface TradingState {
-    positions: Position[]
-    activeSignals: TradeSignal[]
-    selectedPositionId: string | null
-    isLoading: boolean
-    error: string | null
-    // Actions
-    setPositions: (positions: Position[]) => void
-    updatePosition: (positionId: string, updates: Partial<Position>) => void
-    addSignal: (signal: TradeSignal) => void
-    removeSignal: (signalId: string) => void
-    setSelectedPosition: (positionId: string | null) => void
-    setLoading: (loading: boolean) => void
-    setError: (error: string | null) => void
-}
 
 export const useTradingStore = create<TradingState>()(
     devtools(
@@ -119,4 +42,32 @@ export const useTradingStore = create<TradingState>()(
         })
     )
 )
+
+interface TradeSignal {
+    id: string
+    assetId: string
+    type: 'entry' | 'exit'
+    direction: 'long' | 'short'
+    price: number
+    confidence: number
+    timestamp: number
+    source: 'ai' | 'technical' | 'sentiment'
+    metadata: Record<string, any>
+}
+
+interface TradingState {
+    positions: Position[]
+    activeSignals: TradeSignal[]
+    selectedPositionId: string | null
+    isLoading: boolean
+    error: string | null
+    // Actions
+    setPositions: (positions: Position[]) => void
+    updatePosition: (positionId: string, updates: Partial<Position>) => void
+    addSignal: (signal: TradeSignal) => void
+    removeSignal: (signalId: string) => void
+    setSelectedPosition: (positionId: string | null) => void
+    setLoading: (loading: boolean) => void
+    setError: (error: string | null) => void
+}
 

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { Button } from '@/features/shared/ui/button'
 import { Badge } from '@/features/shared/ui/badge'
-import { Slider } from '@/features/shared/ui/slider'
 import { Progress } from '@/features/shared/ui/progress'
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import { Zap, Activity, AlertTriangle, Wallet, Lock, Timer } from 'lucide-react'
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import { Zap, Activity, Timer } from 'lucide-react'
 import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
 
 const ENDPOINTS = {

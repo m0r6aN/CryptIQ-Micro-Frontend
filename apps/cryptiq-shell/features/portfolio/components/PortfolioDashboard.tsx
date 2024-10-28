@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+// app/features/portfolio/components/PortfolioDashboard.tsx
+
 import { usePortfolioStore } from '../state/portfolioStore'
 import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
 import { PortfolioStats } from './PortfolioStats'

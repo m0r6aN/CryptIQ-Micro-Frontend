@@ -1,18 +1,19 @@
 // hooks/useSignalStream.ts
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { atom, useAtom } from 'jotai'
-import { Signal, PriceUpdate } from '../types/trading'
-import { useToast } from '@/components/ui/use-toast'
+import { Signal, PriceData } from '../types/trading'
+import { useToast } from '@/hooks/use-toast'
+
 
 interface SignalUpdate {
   type: 'new' | 'update' | 'expire'
   signal: Signal
-  priceData?: PriceUpdate[]
+  priceData?: PriceData[]
 }
 
 // Atoms for global state
 const activeSignalsAtom = atom<Signal[]>([])
-const priceDataAtom = atom<Record<string, PriceUpdate[]>>({})
+const priceDataAtom = atom<Record<string, PriceData[]>>({})
 
 export function useSignalStream(symbols: string[]) {
   const [signals, setSignals] = useAtom(activeSignalsAtom)
@@ -23,7 +24,7 @@ export function useSignalStream(symbols: string[]) {
   const reconnectTimeout = useRef<NodeJS.Timeout>()
 
   // Price update handler
-  const handlePriceUpdate = useCallback((update: PriceUpdate) => {
+  const handlePriceUpdate = useCallback((update: PriceData) => {
     setPriceData(prev => ({
       ...prev,
       [update.symbol]: [

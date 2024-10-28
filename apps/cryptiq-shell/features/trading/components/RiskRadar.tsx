@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
-import { Button } from '@/features/shared/ui/button'
-import { Badge } from '@/features/shared/ui/badge'
-import { Progress } from '@/features/shared/ui/progress'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/features/shared/ui/tabs'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import { AlertTriangle, TrendingUp, Activity } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { RiskAlert, RiskWebSocketMessage, SentimentWebSocketMessage } from '@/features/shared/types/websockets'
 
 const RISK_SERVICE_ENDPOINTS = {
   metrics: '/api/risk/metrics',
@@ -23,11 +20,22 @@ export default function RiskRadar() {
     systemicRisk: 0
   })
 
-  const [alerts, setAlerts] = useState([])
+  const [alerts, setAlerts] = useState<RiskAlert[]>([])
 
-  // Connect to risk service websocket
-  const { data: riskStream } = useWebSocket('ws://risk-management-service:5000/risk-stream')
-  const { data: sentimentStream } = useWebSocket('ws://sentiment-analysis-service:5000/sentiment-stream')
+  // Then update your WebSocket hooks
+  const { lastMessage: riskLastMessage } = useWebSocket<RiskWebSocketMessage>({
+    url: 'ws://risk-management-service:5000/risk-stream',
+    onMessage: (data) => {
+      console.log('Risk message received:', data)
+    }
+  })
+
+  const { lastMessage: sentimentLastMessage } = useWebSocket<SentimentWebSocketMessage>({
+    url: 'ws://sentiment-analysis-service:5000/sentiment-stream',
+    onMessage: (data) => {
+      console.log('Sentiment message received:', data)
+    }
+  })
 
   // Fetch initial risk state
   useEffect(() => {
@@ -46,30 +54,45 @@ export default function RiskRadar() {
     fetchRiskState()
   }, [])
 
-  // Update from websocket streams
-  useEffect(() => {
-    if (riskStream?.type === 'RISK_UPDATE') {
-      setRiskMetrics(prev => ({
-        ...prev,
-        ...riskStream.metrics
-      }))
-    }
-    if (riskStream?.type === 'ALERT') {
-      setAlerts(prev => [...prev, riskStream.alert])
-    }
-  }, [riskStream])
+  // Add this new state and useEffect to transform the data
+  const [correlationData, setCorrelationData] = useState<any[]>([]);
 
   useEffect(() => {
-    if (sentimentStream) {
-      // Update sentiment-based risk metrics
+    // Assuming you have a function to transform riskMetrics into the required format
+    const transformedData = transformRiskMetricsToChartData(riskMetrics);
+    setCorrelationData(transformedData);
+  }, [riskMetrics]);
+
+  function transformRiskMetricsToChartData(metrics: { correlationRisk: any; volatilityRisk?: number; liquidityRisk?: number; marketRisk?: number; systemicRisk?: number }) 
+  {
+    // Example transformation logic
+    return [
+      { timestamp: '2023-01-01', btc: metrics.correlationRisk, eth: 0, sol: 0 },
+      // Add more data points as needed
+    ];
+  }
+
+  useEffect(() => {
+    if (riskLastMessage) {
+      if (riskLastMessage.type === 'RISK_UPDATE') {
+        setRiskMetrics(prev => ({
+          ...prev,
+          ...riskLastMessage.metrics
+        }))
+      }
+    }
+  }, [riskLastMessage])
+
+  useEffect(() => {
+    if (sentimentLastMessage) {
       setRiskMetrics(prev => ({
         ...prev,
-        marketRisk: calculateMarketRisk(prev.marketRisk, sentimentStream.sentiment)
+        marketRisk: calculateMarketRisk(prev.marketRisk, sentimentLastMessage.sentiment)
       }))
     }
-  }, [sentimentStream])
+  }, [sentimentLastMessage])
 
-  const RiskGauge = ({ value, label, color = 'blue' }) => (
+  const RiskGauge = ({ value, label, color = 'blue' }: { value: number; label: string; color?: string }) => (
     <div className="relative h-32 w-32">
       <svg className="w-full h-full" viewBox="0 0 100 100">
         <circle
@@ -148,7 +171,7 @@ export default function RiskRadar() {
         </CardHeader>
         <CardContent className="pt-6">
           <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={riskMetrics.correlationHistory}>
+            <LineChart data={correlationData}>
               <XAxis dataKey="timestamp" />
               <YAxis />
               <Tooltip />

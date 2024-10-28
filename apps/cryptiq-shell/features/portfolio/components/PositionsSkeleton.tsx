@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@/features/shared/ui/card";
+import { Skeleton } from "@/features/shared/ui/skeleton";
 
 export function PositionsSkeleton() {
     return (

@@ -53,6 +53,7 @@ export type OrderType = MarketOrder | LimitOrder | OCOOrder | TrailingStopOrder
 export type OrderFormData = Partial<OrderType>
 
 export interface Signal {
+  side: any
   id?: string
   title?: string
   message: string
@@ -73,7 +74,8 @@ export interface Signal {
   priceHistory?: number[]  // For sparkline
 }
 
-export interface PriceData {  // Renamed from PriceUpdate interface
+export interface PriceData {
+  symbol: any  // Renamed from PriceUpdate interface
   timestamp: Date
   price: number
   volume?: number

@@ -1,36 +1,18 @@
 import React from 'react'
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import { Brain, TrendingUp, Activity, AlertTriangle, Power, Zap, Cpu } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { Brain, TrendingUp, Activity, Power, Cpu } from 'lucide-react'
+import { useState } from 'react'
+import { Badge } from '@/features/shared/ui/badge'
+import { useTradeStream } from '../hooks/useTradeStream'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/features/shared/ui/tabs'
+import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
+import { Button } from '@/features/shared/ui/button'
 
-// Custom hook for WebSocket
-const useTradeStream = () => {
-  const [data, setData] = useState([])
-  const [signals, setSignals] = useState([])
-  const [performance, setPerformance] = useState([])
-
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:5000/trade-stream')
-    
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data)
-      switch(message.type) {
-        case 'TRADE_UPDATE':
-          setData(prev => [...prev, message.data].slice(-100))
-          break
-        case 'SIGNAL':
-          setSignals(prev => [...prev, message.data].slice(-20))
-          break
-        case 'PERFORMANCE':
-          setPerformance(prev => [...prev, message.data].slice(-50))
-          break
-      }
-    }
-
-    return () => ws.close()
-  }, [])
-
-  return { data, signals, performance }
+const MATRIX_AGENT_SCALE = {
+  MATRIX_1: 1,      // Standard Agent
+  MATRIX_2: 100,    // Reloaded level threat
+  MATRIX_3: 1000,   // Revolution-level chaos
+  QUANTUM: 9001     // It's over 9000!
 }
 
 const AICommandCenter = () => {
@@ -68,7 +50,22 @@ const AICommandCenter = () => {
     }
   ])
 
-  const toggleAgent = (agentId) => {
+    // In our AI Command Center...
+  const getAgentThreatLevel = (activeAgents: number) => {
+    if (activeAgents > MATRIX_AGENT_SCALE.QUANTUM) return 'QUANTUM THREAT: Neo would just quit'
+    if (activeAgents > MATRIX_AGENT_SCALE.MATRIX_3) return 'REVOLUTION: Smith is taking notes'
+    if (activeAgents > MATRIX_AGENT_SCALE.MATRIX_2) return 'RELOADED: Architect getting nervous'
+    return 'ROOKIE: One Agent Smith'
+  }
+
+  <Badge 
+    variant="outline" 
+    className="animate-pulse bg-gradient-to-r from-purple-500 to-pink-500"
+  >
+    Matrix Threat Level: {getAgentThreatLevel(activeAgents.length)}
+  </Badge>
+
+  const toggleAgent = (agentId: number) => {
     setActiveAgents(agents => 
       agents.map(agent => 
         agent.id === agentId 
@@ -263,7 +260,14 @@ const AICommandCenter = () => {
   )
 }
 
-const MetricCard = ({ title, value, icon: Icon, variant = 'default' }) => {
+interface MetricCardProps {
+  title: string;
+  value: string | number;
+  icon: React.ComponentType<{ className?: string }>;
+  variant?: 'default' | 'warning' | 'danger';
+}
+
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, variant = 'default' }) => {
   const variants = {
     default: 'text-blue-500',
     warning: 'text-yellow-500',

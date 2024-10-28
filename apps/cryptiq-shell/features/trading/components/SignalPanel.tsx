@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react'
 
 import { 
@@ -120,7 +122,7 @@ export function SignalPanel({ signals, onSignalClick, isLoading }: SignalPanelPr
                   variant="outline"
                   size="sm"
                   onClick={() => setExpandedSignal(
-                    expandedSignal === signal.id ? null : signal.id
+                    expandedSignal === signal.id ? null : signal.id ?? null
                   )}
                   className="flex-1"
                 >

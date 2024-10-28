@@ -1,5 +1,7 @@
 # CryptIQ Micro-Frontend
 
+Repository public URL: https://github.com/m0r6aN/CryptIQ-Micro-Frontend
+
 ## Overview
 
 CryptIQ is a crypto portfolio management tool and automated trading bot implemented with a micro-frontend architecture. The system includes an extensive collection of Python-based microservices running in Docker containers, including advanced AI trading agents, market analysis engines, and data processing services. Each part of the application is modularized for scalability and maintainability.

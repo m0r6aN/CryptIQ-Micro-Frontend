@@ -1,10 +1,8 @@
 import "./globals.css"
 import { Metadata, Viewport } from "next"
-import { SidebarTrigger, SidebarProvider } from "@/components/ui/sidebar";
-
-import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
+import cn from 'classNames'
+import { SidebarProvider, SidebarTrigger } from "@/features/shared/ui/sidebar"
 
 export const viewport: Viewport = {
   themeColor: [
@@ -13,7 +11,7 @@ export const viewport: Viewport = {
   ],
 }
 
-interface RootLayoutProps {
+export interface RootLayoutProps {
   children: React.ReactNode
 }
 

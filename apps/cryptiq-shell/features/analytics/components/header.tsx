@@ -2,7 +2,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { cn } from '@/lib/utils'
+import cn from 'classNames'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   IconGitHub,

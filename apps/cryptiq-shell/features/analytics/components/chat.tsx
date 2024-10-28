@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import cn from 'classNames'
 import { ChatList } from '@/components/chat-list'
 import { ChatPanel } from '@/components/chat-panel'
 import { EmptyScreen } from '@/components/empty-screen'

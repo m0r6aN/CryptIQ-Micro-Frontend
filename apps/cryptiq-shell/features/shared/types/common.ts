@@ -47,3 +47,17 @@ export interface InsightData {
     priority: number
     metadata?: Record<string, any>
 }
+
+export interface PricePoint {
+    timestamp: number
+    price: number
+    volume?: number
+    dexPrices: {
+      [key: string]: number
+    }
+    opportunity?: {
+      profit: number
+      path: string[]
+    }
+  }
+  
