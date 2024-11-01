@@ -5,8 +5,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Brain, TrendingUp, Activity, Cpu } from 'lucide-react'
 import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
-import { AgentStreamMessage } from '../types/agents'
-import { Agent } from 'node:http'
+import { Agent, AgentStreamMessage } from '../types/agents'
+
 
 const AGENT_ENDPOINTS = {
   list: '/api/agents/list',
@@ -99,48 +99,45 @@ export default function AgentTrainingArena() {
   }
 
   const AgentCard = ({ agent }: { agent: Agent }) => (
-    {agents.map(agent => (
-      <Card key={agent.id}>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Brain className={`h-6 w-6 ${
-                agent.status === 'evolved' ? 'text-green-500' : 
-                agent.status === 'warning' ? 'text-yellow-500' : 'text-blue-500'
-              }`} />
-              <div>
-                <h3 className="font-semibold">{agent.name}</h3>
-                <p className="text-sm text-gray-500">{agent.type} Gen {agent.generation}</p>
-              </div>
+    <Card>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Brain className={`h-6 w-6 ${
+              agent.status === 'evolved' ? 'text-green-500' : 
+              agent.status === 'warning' ? 'text-yellow-500' : 'text-blue-500'
+            }`} />
+            <div>
+              <h3 className="font-semibold">{agent.name}</h3>
+              <p className="text-sm text-gray-500">{agent.type} Gen {agent.generation}</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div>
-              <p className="text-sm text-gray-500">Accuracy</p>
-              <p className="text-lg font-semibold">{agent.accuracy}%</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">CPU Usage</p>
-              <p className="text-lg font-semibold">{agent.cpuUsage}%</p>
-            </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <p className="text-sm text-gray-500">Accuracy</p>
+            <p className="text-lg font-semibold">{agent.accuracy}%</p>
           </div>
-        </CardContent>
-      </Card>
-    ))}
-  );
-
+          <div>
+            <p className="text-sm text-gray-500">CPU Usage</p>
+            <p className="text-lg font-semibold">{agent.cpuUsage}%</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+  
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardContent className="pt-6">
             <div className="flex justify-between items-center">
-              <div>
-                <p className="text-sm text-gray-500">Active Agents</p>
-                <p className="text-2xl font-bold">
-                  {agents.filter(a => a.status === 'deployed').length}
-                </p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {agents.map(agent => (
+                <AgentCard key={agent.id} agent={agent} />
+              ))}
+            </div>
               <Brain className="h-8 w-8 text-blue-500" />
             </div>
           </CardContent>

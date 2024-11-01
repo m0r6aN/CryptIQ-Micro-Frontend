@@ -47,7 +47,7 @@ export function SmartOptionsFlow({
 
   // Analyze options flow patterns
   const patterns = useMemo(() => {
-    return analyzeOptionsPatterns(signals, spotPrice)
+    return analyzeOptionsPatterns(signals, spotPrice, data)
   }, [signals, spotPrice])
 
   return (

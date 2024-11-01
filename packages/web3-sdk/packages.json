@@ -1,0 +1,24 @@
+{
+    "name": "web3-sdk",
+    "version": "0.1.0",
+    "private": true,
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "tsup",
+      "dev": "tsup --watch",
+      "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+      "ethers": "^6.8.0",
+      "viem": "^1.18.0",
+      "wagmi": "^1.4.5"
+    },
+    "peerDependencies": {
+      "react": "^18.2.0"
+    },
+    "devDependencies": {
+      "tsup": "^7.2.0",
+      "typescript": "^5.2.2"
+    }
+  }

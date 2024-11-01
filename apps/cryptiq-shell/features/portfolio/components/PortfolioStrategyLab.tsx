@@ -76,6 +76,7 @@ const marketStream = useWebSocket<WebSocketHookProps<unknown>>({
     // Handle the data
   }
 })
+
 // Ensure you handle the WebSocket object directly
 portfolioStream?.addEventListener('message', (event) => {
   const data = JSON.parse(event.data)

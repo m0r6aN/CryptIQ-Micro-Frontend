@@ -1,46 +1,86 @@
-// features/shared/hooks/useWebSocket.ts
-"use client"
+// File: features/shared/hooks/useWebSocket.ts
 
-import { useEffect, useRef, useState } from 'react'
+import { useState, useCallback, useEffect } from "react"
 
-interface WebSocketHookProps<T> {
+export interface WebSocketConfig<T> {
   url: string
-  onMessage: (data: T) => void
+  onMessage?: (message: T) => void
   onError?: (error: Event) => void
   onClose?: (event: CloseEvent) => void
+  onOpen?: (event: Event) => void
+  reconnectAttempts?: number
+  reconnectInterval?: number
 }
 
-export function useWebSocket<T>({ url, onMessage, onError, onClose }: WebSocketHookProps<T>) {
-  const ws = useRef<WebSocket | null>(null)
-  const [lastMessage, setLastMessage] = useState<T | null>(null)
+export interface WebSocketHookReturn {
+  sendMessage: (message: any) => void
+  readyState: number
+  connecting: boolean
+  connected: boolean
+  lastMessage: any
+}
+
+export function useWebSocket<T = any>(config: WebSocketConfig<T>): WebSocketHookReturn {
+  const [socket, setSocket] = useState<WebSocket | null>(null)
+  const [lastMessage, setLastMessage] = useState<any>(null)
+  const [connecting, setConnecting] = useState(false)
+  const [readyState, setReadyState] = useState<number>(WebSocket.CLOSED)
+
+  const connect = useCallback(() => {
+    try {
+      setConnecting(true)
+      const ws = new WebSocket(config.url)
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data)
+        setLastMessage(data)
+        config.onMessage?.(data)
+      }
+
+      ws.onopen = (event) => {
+        setConnecting(false)
+        setReadyState(ws.readyState)
+        config.onOpen?.(event)
+      }
+
+      ws.onclose = (event) => {
+        setConnecting(false)
+        setReadyState(ws.readyState)
+        config.onClose?.(event)
+      }
+
+      ws.onerror = (event) => {
+        setConnecting(false)
+        config.onError?.(event)
+      }
+
+      setSocket(ws)
+    } catch (error) {
+      setConnecting(false)
+      console.error('WebSocket connection error:', error)
+    }
+  }, [config])
+
+  const sendMessage = useCallback((message: any) => {
+    if (socket?.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify(message))
+    }
+  }, [socket])
 
   useEffect(() => {
-    ws.current = new WebSocket(url)
-
-    ws.current.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data) as T
-        setLastMessage(data)
-        onMessage(data)
-      } catch (error) {
-        console.error('WebSocket message parsing error:', error)
+    connect()
+    return () => {
+      if (socket) {
+        socket.close()
       }
     }
+  }, [connect])
 
-    ws.current.onerror = (error) => {
-      console.error('WebSocket error:', error)
-      onError?.(error)
-    }
-
-    ws.current.onclose = (event) => {
-      console.log('WebSocket closed:', event)
-      onClose?.(event)
-    }
-
-    return () => {
-      ws.current?.close()
-    }
-  }, [url, onMessage, onError, onClose])
-
-  return { ws: ws.current, lastMessage }
+  return {
+    sendMessage,
+    readyState,
+    connecting,
+    connected: readyState === WebSocket.OPEN,
+    lastMessage
+  }
 }

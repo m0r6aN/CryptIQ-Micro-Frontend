@@ -23,10 +23,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["cryptiq-shell/*"]
     },
     "target": "ES2017"
   },

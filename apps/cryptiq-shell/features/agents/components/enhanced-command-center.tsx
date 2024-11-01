@@ -1,17 +1,18 @@
 import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Brain, TrendingUp, Activity, AlertTriangle, Power, Zap, Cpu } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/features/shared/ui/tabs'
+import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
+import { Badge } from '@/features/shared/ui/badge'
+import { Button } from '@/features/shared/ui/button'
 
 // Custom hook for WebSocket
 const useTradeStream = () => {
-  const [data, setData] = useState([])
-  const [signals, setSignals] = useState([])
-  const [performance, setPerformance] = useState([])
+  const [data, setData] = useState<any[]>([])
+  const [signals, setSignals] = useState<any[]>([])
+  const [performance, setPerformance] = useState<any[]>([])
 
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:5000/trade-stream')
@@ -20,11 +21,11 @@ const useTradeStream = () => {
       const message = JSON.parse(event.data)
       switch(message.type) {
         case 'TRADE_UPDATE':
-          setData(prev => [...prev, message.data].slice(-100))
+          setData((prev: any[]) => [...prev, message.data].slice(-100))
           break
         case 'SIGNAL':
-          setSignals(prev => [...prev, message.data].slice(-20))
-          break
+          setSignals((prev: any[]) => [...prev, message.data].slice(-20))
+          break      
         case 'PERFORMANCE':
           setPerformance(prev => [...prev, message.data].slice(-50))
           break
@@ -72,7 +73,7 @@ const AICommandCenter = () => {
     }
   ])
 
-  const toggleAgent = (agentId) => {
+  const toggleAgent = (agentId: number) => {
     setActiveAgents(agents => 
       agents.map(agent => 
         agent.id === agentId 
@@ -267,7 +268,14 @@ const AICommandCenter = () => {
   )
 }
 
-const MetricCard = ({ title, value, icon: Icon, variant = 'default' }) => {
+interface MetricCardProps {
+  title: string;
+  value: string | number;
+  icon: React.ComponentType<{ className?: string }>;
+  variant?: 'default' | 'warning' | 'danger';
+}
+
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, variant = 'default' }) => {
   const variants = {
     default: 'text-blue-500',
     warning: 'text-yellow-500',

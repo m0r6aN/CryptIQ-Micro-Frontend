@@ -1,4 +1,6 @@
 
+import { BigNumber } from 'ethers'
+
 // Enums/Literal Types
 export type MarketType = 'spot' | 'futures' | 'options'
 export type PositionSide = 'long' | 'short'
@@ -83,5 +85,44 @@ export interface PriceData {
   changePercent?: number
 }
 
+export interface Trade {
+  poolAddress: string
+  tokenIn: string
+  tokenOut: string
+  amount: BigNumber
+  minReturn: BigNumber
+  sender: string
+  recipient: string
+  deadline?: number
+  maxSlippage?: number
+}
 
+export interface TradeResult {
 
+}
+
+export interface GasOptimizer {
+  getOptimalGasPrice(): Promise<BigNumber>
+  calculateOptimalGas(): Promise<{
+    gasPrice: BigNumber
+    gasLimit: BigNumber
+    maxFeePerGas?: BigNumber
+    maxPriorityFeePerGas?: BigNumber
+  }>
+}
+
+export interface PriceAnomaly {
+  symbol: string
+  price: number
+  timestamp: number
+  direction: 'up' | 'down'  // Added direction property
+  magnitude: number
+  deviation: number
+}
+
+// Event emitter type
+export interface EventEmitter {
+  emit(event: string, data: any): void
+  on(event: string, handler: (data: any) => void): void
+  off(event: string, handler: (data: any) => void): void
+}

@@ -23,7 +23,16 @@ export default function SmartTradingInterface() {
   })
 
   // Connect to our Python trading service websocket
-  const { data: marketData, isConnected } = useWebSocket('ws://trading-service:5000/market-stream')
+  const { lastMessage, ws } = useWebSocket({ 
+    url: 'ws://trading-service:5000/market-stream',
+    onMessage: (message) => {
+      // Handle incoming message
+      console.log('Received message:', message);
+    }
+  })
+
+  const marketData = lastMessage ? JSON.parse(lastMessage) : null
+  const isConnected = ws !== null
 
   const [marketState, setMarketState] = useState({
     bestRoute: {

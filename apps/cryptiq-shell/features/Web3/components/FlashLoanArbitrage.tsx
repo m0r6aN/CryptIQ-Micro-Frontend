@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
-import { Button } from '@/features/shared/ui/button'
-import { Badge } from '@/features/shared/ui/badge'
-import { Progress } from '@/features/shared/ui/progress'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Zap, Activity, Timer } from 'lucide-react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '../../../../web3/hooks/useWebSocket'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { Badge } from './ui/badge'
+import { Progress } from './ui/progress'
+import { Button } from './ui/button'
 
-const ENDPOINTS = {
-  opportunities: '/api/flash-loan/opportunities',
-  simulate: '/api/flash-loan/simulate',
-  execute: '/api/flash-loan/execute',
-  pools: '/api/liquidity/pools',
-} as const
+// Add missing interfaces
+interface SimulationState {
+  isSimulating: boolean
+  progress: number
+  expectedProfit: number
+  risk: number
+}
 
 interface ArbitrageOpportunity {
   id: string
@@ -22,56 +23,81 @@ interface ArbitrageOpportunity {
   expectedSlippage: number
   confidence: number
   estimatedGas: number
-  pools: {
+  pools: Array<{
     name: string
     liquidity: number
     utilization: number
-  }[]
+  }>
   expiresAt: number
 }
+
+interface LiquidityUpdate {
+  poolLiquidity: {
+    [poolName: string]: number
+  }
+  timestamp: number
+}
+
+const ENDPOINTS = {
+  opportunities: '/api/flash-loan/opportunities',
+  simulate: '/api/flash-loan/simulate',
+  execute: '/api/flash-loan/execute',
+  pools: '/api/liquidity/pools',
+} as const
 
 export default function FlashLoanArbitrage() {
   const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[]>([])
   const [selectedOpp, setSelectedOpp] = useState<ArbitrageOpportunity | null>(null)
-  const [simulation, setSimulation] = useState({
+  const [simulation, setSimulation] = useState<SimulationState>({
     isSimulating: false,
     progress: 0,
     expectedProfit: 0,
     risk: 0
   })
 
-  // Connect to real-time data streams
-  const { data: liquidityStream } = useWebSocket('ws://crypto-data-service:5000/liquidity-stream')
-  const { data: arbitrageStream } = useWebSocket('ws://trading-service:5000/arbitrage-stream')
+  // Combine WebSocket handlers - remove duplicate effects
+  const { lastMessage: liquidityStream } = useWebSocket({ 
+    url: 'ws://crypto-data-service:5000/liquidity-stream',
+    onMessage: (message: LiquidityUpdate) => {
+      if (selectedOpp && message.poolLiquidity) {
+        const updatedPools = selectedOpp.pools.map(pool => ({
+          ...pool,
+          liquidity: message.poolLiquidity[pool.name] || pool.liquidity
+        }))
+        setSelectedOpp(prev => prev ? { ...prev, pools: updatedPools } : null)
+      }
+    },
+    onError: (error) => {
+      console.error('Liquidity stream error:', error)
+    }
+  })
 
-  // Update opportunities from websocket
-  useEffect(() => {
-    if (arbitrageStream?.type === 'NEW_OPPORTUNITY') {
-      setOpportunities(prev => [...prev, arbitrageStream.opportunity]
-        .sort((a, b) => b.profitUSD - a.profitUSD)
-        .slice(0, 10))
+  const { lastMessage: arbitrageStream } = useWebSocket({ 
+    url: 'ws://trading-service:5000/arbitrage-stream',
+    onMessage: (message: any) => {
+      if (message.type === 'NEW_OPPORTUNITY') {
+        setOpportunities(prev => [...prev, message.opportunity]
+          .sort((a, b) => b.profitUSD - a.profitUSD)
+          .slice(0, 10))
+      } else if (message.type === 'EXPIRED_OPPORTUNITY') {
+        setOpportunities(prev => 
+          prev.filter(o => o.id !== message.opportunityId)
+        )
+      }
+    },
+    onError: (error) => {
+      console.error('Arbitrage stream error:', error)
     }
-    if (arbitrageStream?.type === 'EXPIRED_OPPORTUNITY') {
-      setOpportunities(prev => prev.filter(o => o.id !== arbitrageStream.opportunityId))
-    }
-  }, [arbitrageStream])
-
-  // Update liquidity data
-  useEffect(() => {
-    if (liquidityStream && selectedOpp) {
-      const updatedPools = selectedOpp.pools.map(pool => ({
-        ...pool,
-        liquidity: liquidityStream.poolLiquidity[pool.name] || pool.liquidity
-      }))
-      setSelectedOpp(prev => prev ? { ...prev, pools: updatedPools } : null)
-    }
-  }, [liquidityStream])
+  })
 
   const simulateArbitrage = async (opp: ArbitrageOpportunity) => {
     setSimulation({ ...simulation, isSimulating: true })
     try {
       const res = await fetch(ENDPOINTS.simulate, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ 
           route: opp.route,
           amount: opp.requiredAmount
@@ -94,6 +120,9 @@ export default function FlashLoanArbitrage() {
     try {
       const res = await fetch(ENDPOINTS.execute, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           route: opp.route,
           amount: opp.requiredAmount,
@@ -101,6 +130,9 @@ export default function FlashLoanArbitrage() {
         })
       })
       const result = await res.json()
+      if (!result.success) {
+        throw new Error(result.error)
+      }
       // Trade execution status will come through websocket
     } catch (error) {
       console.error('Execution failed:', error)

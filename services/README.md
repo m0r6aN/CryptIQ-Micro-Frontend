@@ -1,2 +1,0 @@
-These are core business logic modules. They perform operations like connecting to wallets, fetching exchange data, etc.
-They're essentially standalone and are reusable logic pieces without any HTTP logic.

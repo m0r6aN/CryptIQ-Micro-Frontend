@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
-import { Button } from '@/features/shared/ui/button'
-import { Badge } from '@/features/shared/ui/badge'
-import { Progress } from '@/features/shared/ui/progress'
-import { Alert, AlertTitle } from '@/features/shared/ui/alert'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/features/shared/ui/tabs'
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ScatterChart, Scatter } from 'recharts'
 import { Activity, Brain, Zap, AlertTriangle, TrendingUp, Timer, Wallet, Network } from 'lucide-react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '../hooks/useWebSocket'
+import { Card, CardContent } from './ui/card'
+import { Badge } from './ui/badge'
+import { AlertType } from '../types/alert'
+
 
 const ENDPOINTS = {
   stats: '/api/monitor/stats',
@@ -38,7 +36,7 @@ export default function TradingMonitor() {
     learningProgress: 0
   })
 
-  const [alerts, setAlerts] = useState([])
+  const [alerts, setAlerts] = useState<AlertType[]>([]);
 
   // Handle real-time updates
   useEffect(() => {
@@ -49,7 +47,7 @@ export default function TradingMonitor() {
       }))
     }
     else if (executionStream?.type === 'ALERT') {
-      setAlerts(prev => [...prev, executionStream.alert])
+      setAlerts(prev => [...prev, executionStream.alert as AlertType])
     }
   }, [executionStream])
 
@@ -62,7 +60,7 @@ export default function TradingMonitor() {
     }
   }, [modelStream])
 
-  const MetricCard = ({ title, value, icon: Icon, trend = null }) => (
+  const MetricCard = ({ title, value, icon: Icon, trend = null }: { title: string, value: string | number, icon: React.ElementType, trend?: number | null }) => (
     <Card>
       <CardContent className="pt-6">
         <div className="flex justify-between items-center">
