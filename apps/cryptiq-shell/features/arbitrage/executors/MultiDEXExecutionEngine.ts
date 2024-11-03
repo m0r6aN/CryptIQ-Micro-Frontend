@@ -2,8 +2,9 @@
 
 import { ethers } from 'ethers'
 import { ProfitHarvester } from './ProfitHarvester'
-import { PathFinder } from '../routing/PathFinder'
-import { LiquidityAggregator } from '../aggregators/LiquidityAggregator'
+import { LiquidityAggregator } from 'features/trading/aggregators/LiquidityAggregator'
+import { PathFinder } from 'features/trading/routing/PathFinder'
+
 
 interface ExecutionConfig {
   maxSlippage: number
