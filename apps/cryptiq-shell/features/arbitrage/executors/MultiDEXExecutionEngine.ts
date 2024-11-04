@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 import { ProfitHarvester } from './ProfitHarvester'
 import { LiquidityAggregator } from 'features/trading/aggregators/LiquidityAggregator'
 import { PathFinder } from 'features/trading/routing/PathFinder'
+import { PoolFetcher } from '../utils/dex-data-pool-fetchers'
 
 
 interface ExecutionConfig {
@@ -20,10 +21,12 @@ export class MultiDEXExecutionEngine {
   private readonly liquidityAggregator: LiquidityAggregator
   private readonly config: ExecutionConfig
   private isRunning: boolean
+  private fetcher: PoolFetcher
 
   constructor(
     provider: ethers.providers.Provider,
-    config: ExecutionConfig
+    config: ExecutionConfig,
+    fetcher: PoolFetcher
   ) {
     this.harvester = new ProfitHarvester(provider, {
       profitVault: process.env.PROFIT_VAULT_ADDRESS!,
@@ -32,8 +35,9 @@ export class MultiDEXExecutionEngine {
       gasMultiplier: 1.1
     })
     this.pathFinder = new PathFinder()
-    this.liquidityAggregator = new LiquidityAggregator()
+    this.liquidityAggregator = new LiquidityAggregator(fetcher)
     this.config = config
+    this.fetcher = fetcher
     this.isRunning = false
   }
 

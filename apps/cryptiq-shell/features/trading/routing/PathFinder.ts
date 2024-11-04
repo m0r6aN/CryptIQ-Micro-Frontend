@@ -1,6 +1,6 @@
-import { Pool } from "../types/routing"
+import { Pool } from "../../web3/types/routing"
 
-import { Route } from "../types/routing"
+import { Route } from "../../web3/types/routing"
 
 export class PathFinder {
     private pools: Map<string, Pool[]> = new Map()

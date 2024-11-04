@@ -1,13 +1,13 @@
 // features/trading/components/TradingInterface.tsx
-import { useTradingStore } from '../state/tradingStore'
-import { TradingTabs } from './TradingTabs'
-import { SignalPanel } from './SignalPanel'
+import { useTradingStore } from '../../state/tradingStore'
+import { TradingTabs } from '../TradingTabs'
+import { SignalPanel } from '../SignalPanel'
 import { useToast } from '@/hooks/use-toast'
-import AIInsights from './AIInsights'
+import AIInsights from '../AIInsights'
 import {  PositionId } from '@/features/shared/types/common'
 
-import { OrderType } from './OrderForm'
-import { OrderFormData, Signal } from '../types/trading'
+import { OrderType } from '../OrderForm'
+import { OrderFormData, Signal } from '../../types/trading'
 import { ActivePositions } from '@/features/shared/components/ActivePositions'
 
 export function TradingInterface() {

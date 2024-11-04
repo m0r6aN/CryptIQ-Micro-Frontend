@@ -1,8 +1,9 @@
+import { ExecutionStats } from "../types/executionTypes"
 import { HeatmapDataPoint } from "../types/heatmapTypes"
 import { OrderFlowLevel, SentimentLevel, WhaleActivity } from "../types/heatmapTypes"
 import { SignalComponents } from "../types/signalComponents"
 import { AnalysisData } from "./signalProcessing"
-import { BigNumber, ethers } from 'ethers'
+import { ethers } from 'ethers'
 
 // features/trading/utils/calculations.ts
 export function calculateRiskReward(
@@ -182,13 +183,13 @@ export function calculateRiskReward(
     whaleVolume,
     sentiment
   }: {
-    orderVolume: BigNumber
-    whaleVolume: BigNumber
+    orderVolume: bigint
+    whaleVolume: bigint
     sentiment: number
   }): number {
     // Convert BigNumber volumes to numbers for calculation
-    const normalizedOrderVolume = Number(ethers.utils.formatUnits(orderVolume, 6))
-    const normalizedWhaleVolume = Number(ethers.utils.formatUnits(whaleVolume, 6))
+    const normalizedOrderVolume = Number(ethers.formatUnits(orderVolume, 6))
+    const normalizedWhaleVolume = Number(ethers.formatUnits(whaleVolume, 6))
   
     // Weight the components
     const orderWeight = 0.4
@@ -202,3 +203,18 @@ export function calculateRiskReward(
       (sentiment * sentimentWeight)
     )
   }
+
+  // Helper functions for stats calculations
+export function calculateRollingAverage(previousAvg: number | undefined, newValue: number): number {
+  if (previousAvg === undefined) return newValue
+  return previousAvg * 0.9 + newValue * 0.1 // 90/10 weighted average
+}
+
+export function calculateSuccessRate(
+  previousExecutions: ExecutionStats[],
+  newExecution: ExecutionStats
+): number {
+  const executions = [newExecution, ...previousExecutions]
+  const successful = executions.filter(e => e.status === 'success').length
+  return (successful / executions.length) * 100
+}

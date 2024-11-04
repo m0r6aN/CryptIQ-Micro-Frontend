@@ -57,17 +57,21 @@ export class NeuralSafetyMonitor {
     })
   }
 
-  async analyzeMempoolActivity(data: any) {
-    // Detect potential sandwich attacks or front-running
-    const competingArbs = this.detectCompetingArbitrages(data)
+  private async analyzeMempoolActivity(data: any) {
+    const competingArbs = this.detectCompetingArbitrages(data);
     if (competingArbs.length > 0) {
-      await this.handleCompetitionAlert(competingArbs)
+      await this.handleCompetitionAlert(competingArbs);
+  
+      // Trigger circuit breaker in SafetyManager
+      safetyManager.triggerCircuitBreaker('Competing arbitrages detected in mempool');
     }
-
-    // Check for MEV bot activity
-    const mevActivity = this.detectMEVActivity(data)
+  
+    const mevActivity = this.detectMEVActivity(data);
     if (mevActivity.risk > 0.7) {
-      await this.handleMEVAlert(mevActivity)
+      await this.handleMEVAlert(mevActivity);
+  
+      // Trigger circuit breaker in SafetyManager
+      safetyManager.triggerCircuitBreaker('MEV risk detected');
     }
   }
 

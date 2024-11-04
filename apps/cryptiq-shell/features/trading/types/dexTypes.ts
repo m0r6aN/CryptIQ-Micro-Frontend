@@ -1,6 +1,6 @@
 // File: features/trading/types/dexTypes.ts
 
-import { BigNumber } from 'ethers'
+import { ethers } from 'ethers'
 import { Trade, TradeResult } from './trading'
 
 export interface DexHandler {
@@ -13,35 +13,21 @@ export interface DexHandler {
 }
 
 export interface PairLiquidity {
-  tokenIn: string
-  tokenOut: string
-  liquidity: BigNumber
-  price: number
-  lastUpdate: number
-  reserves?: [BigNumber, BigNumber]
-  fee?: number
+  token0: string
+  token1: string
+  reserve0: bigint
+  reserve1: bigint
+  fee: number
 }
+
 
 export interface ExecutionStats {
-  success: boolean
-  gasUsed: BigNumber
-  executionTime: number
-  profit: BigNumber
-}
-
-export interface BalancerPath {
-  poolId: string
-  tokens: string[]
-  swaps: Array<{
-    poolId: string
-    tokenInIndex: number
-    tokenOutIndex: number
-    amount: BigNumber
-    userData: string
-  }>
-  limits: BigNumber[]
-  expectedReturn: BigNumber
-  minimumReturn: BigNumber
+  successCount: number
+  failureCount: number
+  cumulativeGasUsed: bigint
+  averageSlippage: number
+  totalProfitLoss: bigint
+  lastExecutionTime: number
 }
 
 export interface BatchSwapParams {
@@ -50,7 +36,7 @@ export interface BatchSwapParams {
     poolId: string
     assetInIndex: number
     assetOutIndex: number
-    amount: BigNumber
+    amount: bigint
     userData: string
   }>
   assets: string[]
@@ -60,6 +46,32 @@ export interface BatchSwapParams {
     fromInternalBalance: boolean
     toInternalBalance: boolean
   }
-  limits: BigNumber[]
+  limits: bigint[]
   deadline: number
+}
+
+export enum SwapKind {
+  GIVEN_IN = 0,
+  GIVEN_OUT = 1
+}
+
+export interface Flashloan {
+  address: string
+  amount: bigint
+  fee: bigint
+}
+
+export class FlashLoanProvider {
+  constructor(provider: ethers.Provider) {
+    // Implementation
+  }
+
+  async getFlashloan(token: string, amount: bigint): Promise<Flashloan> {
+    // Implementation
+    return {
+      address: '',
+      amount: 0n,
+      fee: 0n
+    }
+  }
 }

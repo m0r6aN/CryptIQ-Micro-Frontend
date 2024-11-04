@@ -1,13 +1,20 @@
-import { Pool } from '../types/routing'
-import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/providers'
-import { gql } from 'graphql-request'
+import { Pool } from '../../web3/types/routing'
+import { PoolFetcher } from '../../../features/web3/utils/dex-data-pool-fetchers'
 
 
 export class LiquidityAggregator {
   private pools: Pool[] = []
   private updateInterval: number = 10000 // 10 seconds
   private lastUpdate: number = 0
+  private fetcher: PoolFetcher
+
+  constructor(fetcher: PoolFetcher) {
+    this.fetcher = fetcher;
+  }
+
+  async getSnapshots(){
+    return
+  }
 
   async updatePools(): Promise<void> {
     if (Date.now() - this.lastUpdate < this.updateInterval) {
@@ -21,9 +28,9 @@ export class LiquidityAggregator {
         sushiPools,
         curvePools
       ] = await Promise.all([
-        this.fetchUniswapPools(),
-        this.fetchSushiPools(),
-        this.fetchCurvePools()
+        this.fetcher.fetchUniswapPools(),
+        this.fetcher.fetchSushiPools(),
+        this.fetcher.fetchCurvePools()
       ])
 
       this.pools = [
@@ -45,21 +52,6 @@ export class LiquidityAggregator {
 
   getPoolsByExchange(exchange: string): Pool[] {
     return this.pools.filter(pool => pool.exchange === exchange)
-  }
-
-  private async fetchUniswapPools(): Promise<Pool[]> {
-    // Implementation for fetching Uniswap pools
-    return []
-  }
-
-  private async fetchSushiPools(): Promise<Pool[]> {
-    // Implementation for fetching Sushi pools
-    return []
-  }
-
-  private async fetchCurvePools(): Promise<Pool[]> {
-    // Implementation for fetching Curve pools
-    return []
   }
 
   calculatePoolHealth(pool: Pool): number {

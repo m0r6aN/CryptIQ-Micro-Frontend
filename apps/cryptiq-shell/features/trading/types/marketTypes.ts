@@ -1,5 +1,8 @@
 // File: features/trading/types/marketTypes.ts
 
+import { ExecutionStats } from "./executionTypes"
+import { Pool, Route } from "./trading"
+
 export interface PriceAnomaly {
     symbol: string
     price: number
@@ -16,6 +19,31 @@ export interface PriceAnomaly {
     price: number
     volume: number
   }
+
+  export interface ModelData {
+    type: 'MODEL_METRICS'
+    metrics: {
+      impactAccuracy: number
+      reversalAccuracy: number
+      predictionConfidence: number
+      learningProgress: number
+    }
+  }
+
+  export interface MarketState {
+    bestRoute: Route
+    pools: Pool[]
+    currentPrices: Record<string, number>
+    executionStats?: {
+      profitLoss: number
+      priceDeviation: number
+      recentExecutions: ExecutionStats[]
+      avgExecutionTime: number
+      avgSlippage: number
+      successRate: number
+    }
+  }
+  
   
   export interface MarketDepth {
     bids: Array<{ price: number; volume: number }>

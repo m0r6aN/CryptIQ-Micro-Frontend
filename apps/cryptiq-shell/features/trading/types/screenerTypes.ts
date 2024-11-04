@@ -1,6 +1,6 @@
 // File: features/trading/types/screenerTypes.ts
 
-import { BigNumber } from 'ethers'
+import { TradeStep } from "features/arbitrage/types/arbitrage-system-types"
 
 export interface ScalpingOpportunity {
     symbol: string
@@ -8,6 +8,7 @@ export interface ScalpingOpportunity {
     change24h: number
     volume: string
     volatility: number
+    executionSteps: TradeStep[]
     orderBookLevels: {
       bids: number
       asks: number
@@ -50,18 +51,18 @@ export interface ScalpingOpportunity {
   export interface FlashLoanProvider {
     getFlashloan: (
       tokenAddress: string,
-      amount: BigNumber,
+      amount: bigint,
       options?: FlashLoanOptions
     ) => Promise<FlashLoan>
     repayFlashloan: (loan: FlashLoan) => Promise<boolean>
-    getMaxLoanAmount: (tokenAddress: string) => Promise<BigNumber>
+    getMaxLoanAmount: (tokenAddress: string) => Promise<bigint>
   }
   
   export interface FlashLoan {
     id: string
     tokenAddress: string
-    amount: BigNumber
-    fee: BigNumber
+    amount: bigint
+    fee: bigint
     provider: string
     deadline: number
   }

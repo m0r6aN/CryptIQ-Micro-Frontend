@@ -1,9 +1,9 @@
 // File: features/arbitrage/executors/ProfitHarvester.ts
 
-import { FlashLoanProvider } from '@/features/trading/types/screenerTypes'
-import { GasOptimizer, TradeResult } from '@/features/trading/types/trading'
 import { ethers } from 'ethers'
 import { TradeStep } from '../scanners/FlashArbScanner'
+import { GasOptimizer } from 'features/trading/types/trading'
+import { FlashLoanProvider } from 'features/trading/types/screenerTypes'
 
 
 interface ExecutionRoute {
@@ -15,7 +15,7 @@ interface ExecutionRoute {
 }
 
 export class ProfitHarvester {
-  private readonly provider: ethers.providers.Provider
+  private readonly provider: ethers.Provider
   private readonly flashLoaner: FlashLoanProvider
   private readonly gasOptimizer: GasOptimizer
   private readonly mevBuncher: MEVBuncher

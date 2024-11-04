@@ -1,6 +1,6 @@
 // File: services/portfolioService.ts
 
-import { supabase } from "../../../lib/supabaseClient";
+import { supabase } from "utils/supabase-client";
 
 
 export const fetchPortfolios = async (userId: string) => {

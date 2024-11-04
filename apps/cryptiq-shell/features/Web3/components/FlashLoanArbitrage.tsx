@@ -1,21 +1,22 @@
+import { useWebSocket } from 'features/shared/hooks/useWebSocket'
+import { Badge } from 'features/shared/ui/badge'
+import { Button } from 'features/shared/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from 'features/shared/ui/card'
+import { Progress } from 'features/shared/ui/progress'
+import { Activity, Timer, Zap } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import { Zap, Activity, Timer } from 'lucide-react'
-import { useWebSocket } from '../../../../web3/hooks/useWebSocket'
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { Badge } from './ui/badge'
-import { Progress } from './ui/progress'
-import { Button } from './ui/button'
 
-// Add missing interfaces
-interface SimulationState {
+
+// Add any missing interfaces
+export interface SimulationState {
   isSimulating: boolean
   progress: number
   expectedProfit: number
   risk: number
 }
 
-interface ArbitrageOpportunity {
+export interface ArbitrageOpportunity {
   id: string
   route: string[]
   profitUSD: number
@@ -31,7 +32,7 @@ interface ArbitrageOpportunity {
   expiresAt: number
 }
 
-interface LiquidityUpdate {
+export interface LiquidityUpdate {
   poolLiquidity: {
     [poolName: string]: number
   }

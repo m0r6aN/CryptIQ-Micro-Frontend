@@ -1,5 +1,6 @@
 
-import { BigNumber } from 'ethers'
+import { ethers } from 'ethers'
+import { AlertType } from '../../../../../packages/web3-sdk/src/types/alert'
 
 // Enums/Literal Types
 export type MarketType = 'spot' | 'futures' | 'options'
@@ -89,8 +90,8 @@ export interface Trade {
   poolAddress: string
   tokenIn: string
   tokenOut: string
-  amount: BigNumber
-  minReturn: BigNumber
+  amount: bigint
+  minReturn: bigint
   sender: string
   recipient: string
   deadline?: number
@@ -102,12 +103,12 @@ export interface TradeResult {
 }
 
 export interface GasOptimizer {
-  getOptimalGasPrice(): Promise<BigNumber>
+  getOptimalGasPrice(): Promise<bigint>
   calculateOptimalGas(): Promise<{
-    gasPrice: BigNumber
-    gasLimit: BigNumber
-    maxFeePerGas?: BigNumber
-    maxPriorityFeePerGas?: BigNumber
+    gasPrice: bigint
+    gasLimit: bigint
+    maxFeePerGas?: bigint
+    maxPriorityFeePerGas?: bigint
   }>
 }
 
@@ -125,4 +126,69 @@ export interface EventEmitter {
   emit(event: string, data: any): void
   on(event: string, handler: (data: any) => void): void
   off(event: string, handler: (data: any) => void): void
+}
+
+export interface StreamData {
+  data: Array<{
+    timestamp: string
+    profit: number
+  }>
+  avgExecutionTime: number
+  timingAccuracy: number
+  timingData: Array<{
+    timestamp: string
+    optimality: number
+  }>
+  tradeData: Array<{
+    profit: number
+    impact: number
+  }>
+  impactData: Array<{
+    timestamp: string
+    predicted: number
+    actual: number
+  }>
+}
+
+export interface ExecutionMessage {
+  type: 'EXECUTION_UPDATE' | 'ALERT'
+  stats?: {
+    activeAgents: number
+    successfulTrades: number
+    failedTrades: number
+    totalProfit: number
+    averageSlippage: number
+    gasSpent: number
+  }
+  alert?: AlertType
+}
+
+// Types
+export interface Pool {
+  exchange: string
+  pair: string
+  liquidity: number
+  volume24h: number
+}
+
+export interface Route {
+  path: string[]
+  expectedSlippage: number
+  gasEstimate: number
+  confidence: number
+  estimatedProfit: number
+}
+
+export interface OrderState {
+  symbol: string
+  size: string
+  maxSlippage: number
+  routingOptimization: boolean
+  executionSpeed: 'fastest' | 'balanced' | 'cheapest'
+}
+
+export interface ExchangePrice {
+  bid: number
+  ask: number
+  timestamp: number
 }

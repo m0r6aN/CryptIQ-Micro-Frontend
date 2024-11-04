@@ -1,6 +1,6 @@
 // File: features/shared/hooks/useWebSocket.ts
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 
 export interface WebSocketConfig<T> {
   url: string
@@ -20,67 +20,126 @@ export interface WebSocketHookReturn {
   lastMessage: any
 }
 
-export function useWebSocket<T = any>(config: WebSocketConfig<T>): WebSocketHookReturn {
-  const [socket, setSocket] = useState<WebSocket | null>(null)
-  const [lastMessage, setLastMessage] = useState<any>(null)
-  const [connecting, setConnecting] = useState(false)
-  const [readyState, setReadyState] = useState<number>(WebSocket.CLOSED)
+export interface WebSocketMessage<T = any> {
+  type: string
+  data: T
+}
 
-  const connect = useCallback(() => {
-    try {
-      setConnecting(true)
-      const ws = new WebSocket(config.url)
+export interface WebSocketOptions<T> {
+  url: string
+  onMessage?: (data: T) => void
+  onError?: (error: Error) => void
+  onClose?: () => void
+  reconnectAttempts?: number
+  reconnectInterval?: number
+}
 
-      ws.onmessage = (event) => {
-        const data = JSON.parse(event.data)
-        setLastMessage(data)
-        config.onMessage?.(data)
-      }
+export interface WebSocketState<T> {
+  isConnected: boolean
+  error: Error | null
+  streamData: T[]
+  lastMessage: T | null
+}
 
-      ws.onopen = (event) => {
-        setConnecting(false)
-        setReadyState(ws.readyState)
-        config.onOpen?.(event)
-      }
 
-      ws.onclose = (event) => {
-        setConnecting(false)
-        setReadyState(ws.readyState)
-        config.onClose?.(event)
-      }
+export function useWebSocket<T>({ 
+  url, 
+  onMessage, 
+  onError, 
+  onClose,
+  reconnectAttempts = 3,
+  reconnectInterval = 5000
+}: WebSocketOptions<T>) {
+  const [state, setState] = useState<WebSocketState<T>>({
+    isConnected: false,
+    error: null,
+    streamData: [],
+    lastMessage: null
+  })
 
-      ws.onerror = (event) => {
-        setConnecting(false)
-        config.onError?.(event)
-      }
-
-      setSocket(ws)
-    } catch (error) {
-      setConnecting(false)
-      console.error('WebSocket connection error:', error)
-    }
-  }, [config])
-
-  const sendMessage = useCallback((message: any) => {
-    if (socket?.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify(message))
-    }
-  }, [socket])
+  const ws = useRef<WebSocket | null>(null)
+  const reconnectCount = useRef(0)
 
   useEffect(() => {
-    connect()
-    return () => {
-      if (socket) {
-        socket.close()
+    const connect = () => {
+      try {
+        ws.current = new WebSocket(url)
+
+        ws.current.onopen = () => {
+          setState(prev => ({ ...prev, isConnected: true, error: null }))
+          reconnectCount.current = 0 // Reset count on successful connection
+        }
+
+        ws.current.onmessage = (event: { data: string }) => {
+          try {
+            const message: WebSocketMessage<T> = JSON.parse(event.data)
+            
+            setState(prev => ({
+              ...prev,
+              streamData: [...prev.streamData, message.data],
+              lastMessage: message.data
+            }))
+
+            // Call custom message handler if provided
+            onMessage?.(message.data)
+          } catch (error) {
+            console.error('Failed to parse WebSocket message:', error)
+          }
+        }
+
+        ws.current.onerror = (error: any) => {
+          const wsError = new Error(`WebSocket error: ${error}`)
+          setState(prev => ({ ...prev, error: wsError }))
+          onError?.(wsError)
+        }
+
+        ws.current.onclose = () => {
+          setState(prev => ({ ...prev, isConnected: false }))
+          onClose?.()
+
+          // Attempt reconnection if within limits
+          if (reconnectCount.current < reconnectAttempts) {
+            reconnectCount.current++
+            setTimeout(connect, reconnectInterval)
+          }
+        }
+      } catch (error) {
+        console.error('WebSocket connection failed:', error)
       }
     }
-  }, [connect])
+
+    connect()
+
+    // Cleanup on unmount
+    return () => {
+      if (ws.current) {
+        ws.current.close()
+      }
+    }
+  }, [url, onMessage, onError, onClose, reconnectAttempts, reconnectInterval])
+
+  // Method to manually reconnect
+  const reconnect = () => {
+    if (ws.current) {
+      ws.current.close()
+      reconnectCount.current = 0 // Reset count for manual reconnection
+      setState(prev => ({ 
+        ...prev, 
+        isConnected: false, 
+        error: null,
+        streamData: [] // Clear stream data on manual reconnect
+      }))
+    }
+  }
+
+  // Method to clear stream data
+  const clearStream = () => {
+    setState(prev => ({ ...prev, streamData: [] }))
+  }
 
   return {
-    sendMessage,
-    readyState,
-    connecting,
-    connected: readyState === WebSocket.OPEN,
-    lastMessage
+    ...state,
+    reconnect,
+    clearStream
   }
 }

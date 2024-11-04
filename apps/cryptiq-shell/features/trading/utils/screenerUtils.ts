@@ -2,37 +2,36 @@
 
 import { ethers } from 'ethers'
 import { ScalpingOpportunity } from '../types/screenerTypes'
-import { DEXIntegrator, LiquiditySnapshot } from '@/features/arbitrage/integrations/DEXIntegrator'
 import { Route } from 'next/dist/build/swc/types'
-import { BigNumber } from 'ethers'
+import { DEXIntegrator } from 'features/arbitrage/integrations/DEXIntegrator'
+import { calculateExpectedProfit } from 'features/arbitrage/scanners/utils/arbitrageUtils'
 
-export function calculateExpectedProfit(
-  opportunity: ScalpingOpportunity
-): string {
-  if (!opportunity.dexLiquidity?.routes) {
-    return '0.00'
+
+export function calculateNetProfit(opportunity: ScalpingOpportunity): string {
+  try {
+    // First, calculate the expected profit
+    const expectedProfit = parseFloat(calculateExpectedProfit({
+      steps: opportunity.executionSteps || [],  // Make sure steps are passed in
+      estimatedGas: estimateGasCost(opportunity.dexLiquidity?.routes || 1), // Pass in estimated gas cost
+      opportunity,
+      initialAmount: opportunity.executionSteps ? opportunity.executionSteps[0].amount : '0' // Ensure initial amount is provided
+    }));
+
+    // Then, calculate the gas cost using the number of routes in dexLiquidity
+    const gasCost = estimateGasCost(opportunity.dexLiquidity?.routes || 1);
+    
+    // Calculate net profit by subtracting the gas cost from expected profit
+    const netProfit = expectedProfit - gasCost;
+    
+    // Return net profit as a string formatted to 2 decimal places or '0.00' if negative
+    return netProfit > 0 ? netProfit.toFixed(2) : '0.00';
+    
+  } catch (error) {
+    console.error('Error calculating net profit:', error);
+    return '0.00';  // Fail-safe return
   }
-
-  // Calculate based on:
-  // 1. Available liquidity
-  // 2. Current spread
-  // 3. Number of viable routes
-  const baseProfit = opportunity.dexLiquidity.available * 0.001 // 0.1% base assumption
-  const routeMultiplier = Math.log(opportunity.dexLiquidity.routes + 1) * 1.2
-
-  const expectedProfit = baseProfit * routeMultiplier
-  return expectedProfit.toFixed(2)
 }
 
-export function calculateNetProfit(
-  opportunity: ScalpingOpportunity
-): string {
-  const expectedProfit = parseFloat(calculateExpectedProfit(opportunity))
-  const gasCost = estimateGasCost(opportunity.dexLiquidity?.routes || 1)
-  
-  const netProfit = expectedProfit - gasCost
-  return netProfit > 0 ? netProfit.toFixed(2) : '0.00'
-}
 
 export function estimateGasCost(
   numberOfRoutes: number,
@@ -58,7 +57,7 @@ export async function getViableRoutes(
   params: {
     tokenIn: string
     tokenOut: string
-    amount: BigNumber
+    amount: bigint
     minProfit?: number
   }
 ): Promise<Route[]> {
@@ -82,7 +81,7 @@ export async function getViableRoutes(
   // Filter by minimum profit if specified
   if (params.minProfit) {
     return routes.filter(route => 
-      route.expectedProfit.gte(
+      route.gte(
         ethers.utils.parseUnits(params.minProfit.toString(), 6)
       )
     )

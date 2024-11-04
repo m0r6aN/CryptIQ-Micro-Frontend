@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
-import { Position } from "@/features/shared/types/common"
+import { Position } from "features/shared/types/common"
+import { Button } from "features/shared/ui/button"
+import { Dialog, DialogHeader, DialogContent, DialogTrigger, DialogTitle } from "features/shared/ui/dialog"
+import { Input } from "features/shared/ui/input"
+import { Label } from "features/shared/ui/label"
+import { Select, SelectValue, SelectTrigger, SelectContent, SelectItem } from "features/shared/ui/select"
+import { Slider } from "features/shared/ui/slider"
 import { useState } from "react"
 
 // Risk Calculator Modal
