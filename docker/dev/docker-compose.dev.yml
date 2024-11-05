@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  arbitrage:
+    build:
+      context: ../..
+      dockerfile: docker/base/Dockerfile.base
+    environment:
+      - ENV=development
+    volumes:
+      - ../../services/arbitrage:/app/services/arbitrage
+
+  market:
+    build:
+      context: ../..
+      dockerfile: docker/base/Dockerfile.base
+    environment:
+      - ENV=development
+    volumes:
+      - ../../services/market:/app/services/market

@@ -1,4 +1,0 @@
-uvicorn
-python-dotenv
-ccxt
-pandas
