@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '@/hooks/use-web-socket'
 
 interface ScalpingOpportunity {
   symbol: string

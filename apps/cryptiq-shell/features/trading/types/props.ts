@@ -16,7 +16,6 @@ export interface SignalPanelProps {
     onRetry?: () => void
   }
    
-
   export interface ActivePositionsProps {
     positions: Position[]
     onPositionSelect?: (position: Position) => void
@@ -25,7 +24,7 @@ export interface SignalPanelProps {
   }
   
   export interface OrderFormProps {
-    type: OrderType['type']  // Use the discriminated union type
+    type: OrderType
     onSubmit: (order: OrderType) => Promise<void>
     isSubmitting: boolean
     error: string | null

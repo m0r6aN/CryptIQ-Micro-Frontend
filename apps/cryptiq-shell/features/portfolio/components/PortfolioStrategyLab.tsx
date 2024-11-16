@@ -1,12 +1,15 @@
+// /app/features/portfolio/components/PortfolioStrategyLab.tsx
+//  this is a pretty sweet Portfolio Strategy Lab component with optimization controls, backtesting, and metrics visualization. 
+
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { Button } from '@/features/shared/ui/button'
 import { Slider } from '@/features/shared/ui/slider'
 import { Badge } from '@/features/shared/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/features/shared/ui/tabs'
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ScatterChart, Scatter } from 'recharts'
-import { Play, Pause, RotateCcw, Save, Zap, Brain, TrendingUp, DollarSign } from 'lucide-react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, ScatterChart, Scatter } from 'recharts'
+import { Play, Pause, Save, Zap, Brain, TrendingUp, DollarSign } from 'lucide-react'
+import { useWebSocket } from '@/hooks/use-web-socket'
 import { PerformanceMetricProps, WebSocketHookProps } from '../types/props'
 
 const PORTFOLIO_ENDPOINTS = {
@@ -58,8 +61,6 @@ export default function PortfolioStrategyLab() {
     correlations: {}
   })
 
-// ... existing code ...
-
 // Connect to portfolio service websocket
 const portfolioStream = useWebSocket<WebSocketHookProps<unknown>>({
   url: 'ws://portfolio-service:5000/portfolio-stream',
@@ -77,14 +78,6 @@ const marketStream = useWebSocket<WebSocketHookProps<unknown>>({
   }
 })
 
-// Ensure you handle the WebSocket object directly
-portfolioStream?.addEventListener('message', (event) => {
-  const data = JSON.parse(event.data)
-  // Handle the data
-})
-
-// ... existing code ...
-
   // Fetch initial metrics
   useEffect(() => {
     async function fetchMetrics() {
@@ -94,16 +87,6 @@ portfolioStream?.addEventListener('message', (event) => {
     }
     fetchMetrics()
   }, [])
-
-  // Handle real-time portfolio updates
-  useEffect(() => {
-    if (portfolioStream?.type === 'METRICS_UPDATE') {
-      setMetrics(prev => ({
-        ...prev,
-        ...portfolioStream.metrics
-      }))
-    }
-  }, [portfolioStream])
 
   // Optimize portfolio
   const optimizePortfolio = async () => {
@@ -121,6 +104,35 @@ portfolioStream?.addEventListener('message', (event) => {
       console.error('Optimization failed:', error)
     }
   }
+
+  const { lastMessage: portfolioMessage } = useWebSocket({
+    url: 'ws://portfolio-service:5000/portfolio-stream',
+    onMessage: (event) => {
+      try {
+        const data = JSON.parse(event.data)
+        if (data.type === 'METRICS_UPDATE') {
+          setMetrics(prev => ({
+            ...prev,
+            ...data.metrics
+          }))
+        }
+      } catch (error) {
+        console.error('Failed to parse portfolio message:', error)
+      }
+    }
+  })
+  
+  const { lastMessage: marketMessage } = useWebSocket({
+    url: 'ws://market-analysis-service:5000/market-stream',
+    onMessage: (event) => {
+      try {
+        const data = JSON.parse(event.data)
+        // Handle market data updates
+      } catch (error) {
+        console.error('Failed to parse market message:', error)
+      }
+    }
+  })
 
   // Start/Stop backtest
   const toggleBacktest = async () => {

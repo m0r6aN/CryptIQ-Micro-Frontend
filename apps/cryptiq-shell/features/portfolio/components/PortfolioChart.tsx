@@ -1,3 +1,4 @@
+'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Area } from 'recharts'

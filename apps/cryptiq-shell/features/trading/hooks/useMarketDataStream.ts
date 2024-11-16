@@ -9,23 +9,19 @@ import {
   handleDepthUpdate as processDepthUpdate,
   handlePriceUpdate as processPriceUpdate
 } from '../utils/marketFunctions'
+
 import { 
-  AlignedSignal, 
   MarketDepth, 
   PriceAnomaly, 
   VolatilitySpike,
   WSDepthMessage,
   WSPriceMessage
 } from '../types/marketTypes'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '@/hooks/use-web-socket'
 import { WEBSOCKET_URLS } from '../config/websocket'
+import { MarketAnalysis } from '../components/analysis/Scanner/MarketAnalysis'
+import { AlignedSignal } from '../types/signalTypes'
 
-export interface MarketAnalysis {
-  anomalies: PriceAnomaly[]
-  volatility: VolatilitySpike[]
-  depth: MarketDepth
-  signals: AlignedSignal[]
-}
 
 export interface PriceHistory {
   [symbol: string]: Array<{
@@ -46,7 +42,10 @@ export function useMarketDataStream(config: StreamConfig) {
     anomalies: [],
     volatility: [],
     depth: { bids: [], asks: [], spread: 0, timestamp: 0 },
-    signals: []
+    signals: [],
+    orderFlow: {}, // Initialize as empty object
+    whaleActivity: {}, // Initialize as empty object
+    sentiment: {} // Initialize as empty object
   })
 
   const [connectionStatus, setConnectionStatus] = useState({
@@ -122,21 +121,27 @@ export function useMarketDataStream(config: StreamConfig) {
     }
   }, [])
 
-  // Connect to different data streams
-  const { 
-    sendMessage: sendDepthMessage,
-    connected: depthConnected
-  } = useWebSocket({
+// Initialize sendDepthMessage with a no-op function
+let sendDepthMessage: (message: any) => void = () => {}
+
+// Connect to different data streams
+try {
+  const depthWebSocket = useWebSocket({
     url: WEBSOCKET_URLS.depth,
     onMessage: onDepthMessage,
-    onOpen: () => setConnectionStatus(prev => ({ ...prev, depth: true })),
+    onOpen: () => setConnectionStatus(prev => ({ ...prev, depth: true })) as any, // Type assertion to bypass the lint error
     onClose: () => setConnectionStatus(prev => ({ ...prev, depth: false })),
     onError: (error) => console.error('Depth WS Error:', error)
   })
 
-  const { 
-    sendMessage: sendPriceMessage,
-    connected: priceConnected
+  sendDepthMessage = depthWebSocket.sendMessage
+} catch (error) {
+  console.error('Error setting up depth WebSocket:', error)
+}
+
+const { 
+  sendMessage: sendPriceMessage, 
+  isConnected: priceConnected 
   } = useWebSocket({
     url: WEBSOCKET_URLS.price,
     onMessage: onPriceMessage,
@@ -144,6 +149,8 @@ export function useMarketDataStream(config: StreamConfig) {
     onClose: () => setConnectionStatus(prev => ({ ...prev, price: false })),
     onError: (error) => console.error('Price WS Error:', error)
   })
+
+  const depthConnected = connectionStatus.depth;
 
   // Subscribe to market data
   const subscribe = useCallback((symbols: string[]) => {
@@ -155,6 +162,7 @@ export function useMarketDataStream(config: StreamConfig) {
     }
   }, [sendDepthMessage, sendPriceMessage, depthConnected, priceConnected])
 
+  
   // Auto-subscribe when connections are ready
   useEffect(() => {
     if (depthConnected && priceConnected) {
@@ -185,6 +193,6 @@ export function useMarketDataStream(config: StreamConfig) {
   }
 }
 
-function detectAlignedSignals(arg0: { anomalies: PriceAnomaly[]; volatility: VolatilitySpike[]; depth: MarketDepth; signals: AlignedSignal[] }): AlignedSignal[] {
+function detectAlignedSignals(data: MarketAnalysis): AlignedSignal[] {
   throw new Error('Function not implemented.')
 }

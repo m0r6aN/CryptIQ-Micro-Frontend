@@ -1,27 +1,34 @@
-import { Position } from "@/features/shared/types/common"
-
-// types/portfolio.ts
-export type PortfolioStats = {
-  totalValue: number
-  dailyPnl: number
-  dailyPnlPercentage: number
-  totalPnl: number
-  totalPnlPercentage: number
-}
- 
-export type Asset = {
+// features/portfolio/types/portfolio.ts
+export interface Asset {
   id: string
+  symbol: string
   name: string
-  symbol: string      // Useful for API calls and display
-  price: number       // Current price
-  quantity: number    // Number of units owned
-  value: number       // Total value (price * quantity)
-  change24h: number   // 24-hour price change percentage
-}
-  
-export type WebSocketMessage = {
-  type: 'ASSETS_UPDATE' | 'STATS_UPDATE'
-  assets?: Asset[]
-  stats?: PortfolioStats
+  amount: number
+  value: number
+  price: number
+  change24h: number 
 }
 
+export interface PortfolioStats {
+  totalValue: number;
+  totalPnl: number;
+  totalPnlPercentage: number;
+  dailyPnl: number;
+  dailyPnlPercentage: number;
+  totalAssets: number;
+  highestValue: number;
+  lowestValue: number;
+  currency: string; // Add this line
+}
+
+
+export interface PortfolioState {
+  assets: Asset[];
+  stats: PortfolioStats;
+  isLoading: boolean;
+  error: string | null;
+  setAssets: (assets: Asset[]) => void;
+  setStats: (stats: PortfolioStats) => void;
+  setLoading: (isLoading: boolean) => void; // Add this
+  setError: (error: string | null) => void; // Add this
+}

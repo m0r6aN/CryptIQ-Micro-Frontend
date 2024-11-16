@@ -4,7 +4,7 @@ import { Button } from '@/features/shared/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/features/shared/ui/select'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Brain, TrendingUp, Activity, Cpu } from 'lucide-react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '@/hooks/use-web-socket'
 import { Agent, AgentStreamMessage } from '../types/agents'
 
 

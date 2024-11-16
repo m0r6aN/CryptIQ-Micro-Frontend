@@ -23,20 +23,7 @@ export interface PriceAnomaly {
     spread: number
     timestamp: number
   }
-  
-  export interface AlignedSignal {
-    symbol: string
-    price: number    // Added this required field
-    strength: number
-    type: 'long' | 'short'
-    timestamp: number
-    sources?: {      // Optional metadata about signal sources
-      anomaly?: PriceAnomaly
-      spike?: VolatilitySpike
-      support?: { price: number; volume: number }
-    }
-  }
- 
+   
   export interface WSPriceMessage {
     symbol: string
     price: number
@@ -46,8 +33,10 @@ export interface PriceAnomaly {
   
   export interface WSDepthMessage {
     message: string
+    sendMessage: string
     symbol: string
     bids: Array<[number, number]> // price, volume pairs
     asks: Array<[number, number]> // price, volume pairs
     timestamp: number
   }
+  

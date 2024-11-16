@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -37,11 +37,43 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Trading specific variables */
+    --profit: 142 76% 36%;
+    --loss: 0 84% 60%;
+    --warning: 38 92% 50%;
+
+    --bid: 142 72% 29%;
+    --ask: 0 72% 51%;
+    --spread: 271 91% 65%;
+    --volume: 199 89% 48%;
+    --depth: 217 91% 60%;
+
+    /* Chart specific variables */
+    --chart-grid: 220 13% 91%;
+    --chart-crosshair: 220 14% 71%;
+    --chart-bg: 0 0% 100%;
+    --chart-primary: 217 91% 60%;
+    --chart-secondary: 215 91% 65%;
+    
+    /* Candle specific colors */
+    --candle-up: 142 76% 36%;
+    --candle-down: 0 84% 60%;
+    --candle-wick: 220 14% 71%;
+    
+    /* Volume colors */
+    --volume-up: 142 76% 36%;
+    --volume-down: 0 84% 60%;
+    
+    /* Indicator colors */
+    --indicator-primary: 217 91% 60%;
+    --indicator-secondary: 271 91% 65%;
+    --indicator-tertiary: 199 89% 48%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
@@ -72,14 +104,59 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dark mode trading variables */
+    --profit: 142 70% 45%;
+    --loss: 0 72% 51%;
+    --warning: 38 92% 50%;
+
+    --bid: 142 70% 45%;
+    --ask: 0 72% 51%;
+    --spread: 271 91% 65%;
+    --volume: 199 89% 48%;
+    --depth: 217 91% 60%;
+
+    /* Dark mode chart variables */
+    --chart-grid: 220 13% 9%;
+    --chart-crosshair: 220 14% 29%;
+    --chart-bg: 222.2 84% 4.9%;
+    --chart-primary: 217 91% 60%;
+    --chart-secondary: 215 91% 65%;
+    
+    /* Dark mode candle colors */
+    --candle-up: 142 70% 45%;
+    --candle-down: 0 72% 51%;
+    --candle-wick: 220 14% 29%;
+    
+    /* Dark mode volume colors */
+    --volume-up: 142 70% 45%;
+    --volume-down: 0 72% 51%;
+    
+    /* Dark mode indicator colors */
+    --indicator-primary: 217 91% 60%;
+    --indicator-secondary: 271 91% 65%;
+    --indicator-tertiary: 199 89% 48%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-[hsl(var(--border))]; 
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Price movement animations */
+@layer utilities {
+  .animate-price-up {
+    animation: price-up 0.5s ease-in-out;
+  }
+  .animate-price-down {
+    animation: price-down 0.5s ease-in-out;
+  }
+  .animate-volume-pulse {
+    animation: volume-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }

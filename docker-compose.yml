@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   cryptiq-shell:
     build:
@@ -25,26 +23,56 @@ services:
       - ./services/wallet-service/.env
     volumes:
       - ./services/wallet-service:/app
-      - /app/venv
 
-  exchange-service:
+  portfolio-service:
     build:
-      context: ./services/exchange-service
+      context: ./services/portfolio
       dockerfile: Dockerfile
     ports:
-      - '5001:5001'
+      - '5003:5003'
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     env_file:
-      - ./services/exchange-service/.env
+      - ./services/portfolio/.env
     volumes:
-      - ./services/exchange-service:/app
-      - /app/venv
+      - ./services/portfolio:/app
 
-networks:
-  default:
-    name: cryptiq-network
+  agent-monitor-service:
+    build:
+      context: ./services/agent-monitor-service
+      dockerfile: Dockerfile
+    ports:
+      - '5004:5004'
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./services/agent-monitor-service/.env
+    volumes:
+      - ./services/agent-monitor-service:/app
 
-volumes:
-  node_modules:
-  venv:
+  ai-assistant:
+    build:
+      context: ./services/ai_assistant
+      dockerfile: Dockerfile
+    ports:
+      - '5005:5005'
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./services/ai_assistant/.env
+    volumes:
+      - ./services/ai_assistant:/app
+
+  # Example for AI Market Analysis Service
+  market-analysis-service:
+    build:
+      context: ./services/market/analysis
+      dockerfile: Dockerfile
+    ports:
+      - '5006:5006'
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./services/market/analysis/.env
+    volumes:
+      - ./services/market/analysis:/app

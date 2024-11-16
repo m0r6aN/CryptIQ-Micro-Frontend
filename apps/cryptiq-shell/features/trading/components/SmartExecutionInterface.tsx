@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Activity, Zap, ArrowRight, Badge } from 'lucide-react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '@/hooks/use-web-socket'
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/features/shared/ui/select'
 import { Input } from '@/features/shared/ui/input'

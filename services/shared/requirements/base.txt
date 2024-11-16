@@ -1,6 +1,0 @@
-aiohttp
-ccxtccxt
-fastapi
-pandaspydantic
-python-dotenv
-requestsuvicorn

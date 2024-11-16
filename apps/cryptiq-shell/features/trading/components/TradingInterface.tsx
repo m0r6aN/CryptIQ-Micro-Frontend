@@ -1,14 +1,16 @@
 // features/trading/components/TradingInterface.tsx
+"use client"
+
 import { useTradingStore } from '../state/tradingStore'
 import { TradingTabs } from './TradingTabs'
 import { SignalPanel } from './SignalPanel'
 import { useToast } from '@/hooks/use-toast'
 import AIInsights from './AIInsights'
 import {  PositionId } from '@/features/shared/types/common'
-
-import { OrderType } from './OrderForm'
 import { OrderFormData, Signal } from '../types/trading'
-import { ActivePositions } from '@/features/shared/components/ActivePositions'
+import ActivePositions from '@/features/shared/ui/ActivePositions'
+import { TradingSignals } from './TradingSignals'
+
 
 export function TradingInterface() {
   const { toast } = useToast()
@@ -40,6 +42,7 @@ export function TradingInterface() {
   const handleSignalClick = async (signal: Signal): Promise<void> => {
     try {
       const orderData: OrderFormData = {
+        id: '',
         type: 'market',
         symbol: signal.symbol,
         marketType: signal.marketType,
@@ -47,7 +50,7 @@ export function TradingInterface() {
         orderDirection: signal.orderDirection,
         price: signal.price,
         size: 0,
-        leverage: signal.marketType === 'futures' ? 1 : undefined
+        leverage: signal.marketType === 'futures' ? 1 : undefined,
       }
       
       await handleOrderSubmit(orderData)
@@ -84,6 +87,7 @@ export function TradingInterface() {
           positions={positions}
           onPositionClose={handlePositionClose}
         />
+        <TradingSignals />
       </div>
       <div className="col-span-12 lg:col-span-4 space-y-6">
         <SignalPanel 

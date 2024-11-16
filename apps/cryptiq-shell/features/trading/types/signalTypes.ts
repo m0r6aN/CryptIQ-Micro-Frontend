@@ -1,22 +1,22 @@
 // File: features/trading/types/signalTypes.ts
 
+import { MarketAnalysis } from "../components/analysis/Scanner/MarketAnalysis"
 import { calculateSignalStrength } from "../utils/calculations"
 import { findNearestSupport } from "../utils/marketFunctions"
-import { MarketAnalysis } from "../utils/signalProcessing"
 import { PriceAnomaly, VolatilitySpike } from "./marketTypes"
 
 export interface AlignedSignal {
-    symbol: string
-    price: number    // Added this required field
-    strength: number
-    type: 'long' | 'short'
-    timestamp: number
-    sources?: {      // Optional metadata about signal sources
-      anomaly?: PriceAnomaly
-      spike?: VolatilitySpike
-      support?: { price: number; volume: number }
-    }
+  symbol: string
+  price: number
+  strength: number
+  type: 'long' | 'short'
+  timestamp: number
+  sources?: {
+    anomaly?: PriceAnomaly
+    spike?: VolatilitySpike
+    support?: { price: number; volume: number }
   }
+}
   
 function detectAlignedSignals(analysis: MarketAnalysis): AlignedSignal[] {
     const signals: AlignedSignal[] = []

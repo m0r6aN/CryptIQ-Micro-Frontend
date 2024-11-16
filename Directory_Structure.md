@@ -1,23 +1,5 @@
 D:\Repos\CryptIQ-Micro-Frontend/
 ├── .npmrc
-├── CryptIQ-Micro-Frontend
-│   D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend/
-│   └── apps
-│       D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps/
-│       └── cryptiq-shell
-│           D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell/
-│           └── features
-│               D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features/
-│               └── trading
-│                   D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading/
-│                   └── components
-│                       D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components/
-│                       ├── analysis
-│                       │   D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\analysis/
-│                       ├── execution
-│                       │   D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\execution/
-│                       └── visualization
-│                           D:\Repos\CryptIQ-Micro-Frontend\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading\components\visualization/
 ├── CryptIQ_Batch_Tracker.json
 ├── CryptIQ_Task_Tracker.csv
 ├── CryptIQ_Task_Tracker.xlsx
@@ -34,6 +16,11 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   ├── [[...route]]
 │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\api\[[...route]]/
 │   │   │   ├── chains.ts
+│   │   │   ├── docker-services.ts
+│   │   │   ├── endpoints
+│   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\api\endpoints/
+│   │   │   │   ├── backend.ts
+│   │   │   │   └── frontend.ts
 │   │   │   ├── exchange.ts
 │   │   │   ├── server.ts
 │   │   │   └── wallets.ts
@@ -52,6 +39,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── components.json
 │   │   ├── config
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\config/
+│   │   │   ├── backend.specifications.openapi
 │   │   │   └── site.ts
 │   │   ├── features
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features/
@@ -113,6 +101,23 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\services/
 │   │   │   │   └── state
 │   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\analytics\state/
+│   │   │   ├── api
+│   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\api/
+│   │   │   │   ├── docker
+│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\api\docker/
+│   │   │   │   ├── services
+│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\api\services/
+│   │   │   │   │   ├── [id]
+│   │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\api\services\[id]/
+│   │   │   │   │   │   ├── [action].ts
+│   │   │   │   │   │   ├── index.ts
+│   │   │   │   │   └── index.ts
+│   │   │   │   └── workflows
+│   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\api\workflows/
+│   │   │   │       └── [id]
+│   │   │   │           D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\api\workflows\[id]/
+│   │   │   │           ├── [action].ts
+│   │   │   │           ├── index.ts
 │   │   │   ├── arbitrage
 │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\arbitrage/
 │   │   │   │   ├── components
@@ -146,6 +151,36 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │       └── ProfitTracker.ts
 │   │   │   ├── cosmic-trading-matrix.tsx
 │   │   │   ├── cross-chain-arb-hunter.tsx
+│   │   │   ├── docker
+│   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\docker/
+│   │   │   │   └── components
+│   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\docker\components/
+│   │   │   │       └── DockerServiceManagement.tsx
+│   │   │   ├── exchanges
+│   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges/
+│   │   │   │   └── Blofin
+│   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin/
+│   │   │   │       ├── api
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin\api/
+│   │   │   │       │   ├── trading.ts
+│   │   │   │       │   └── tradingWebSocket.ts
+│   │   │   │       ├── clients
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin\clients/
+│   │   │   │       │   ├── blofinRestClient.ts
+│   │   │   │       │   └── blofinWsClient.ts
+│   │   │   │       ├── config
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin\config/
+│   │   │   │       │   ├── api-paths.ts
+│   │   │   │       │   └── blofin_config.ts
+│   │   │   │       ├── docs
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin\docs/
+│   │   │   │       │   └── error-codes.md
+│   │   │   │       ├── errors
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin\errors/
+│   │   │   │       │   └── trading-errors.ts
+│   │   │   │       └── types
+│   │   │   │           D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\exchanges\Blofin\types/
+│   │   │   │           └── trading.ts
 │   │   │   ├── market
 │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\market/
 │   │   │   │   ├── components
@@ -180,7 +215,9 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\components/
 │   │   │   │   │   ├── AllocationSkeleton.tsx
 │   │   │   │   │   ├── AssetAllocation.tsx
-│   │   │   │   │   ├── PortfolioAggregation.tsx
+│   │   │   │   │   ├── BacktestChart.tsx
+│   │   │   │   │   ├── OptimizationMatrix.tsx
+│   │   │   │   │   ├── PerformanceMetric.tsx
 │   │   │   │   │   ├── PortfolioChart.tsx
 │   │   │   │   │   ├── PortfolioDashboard.tsx
 │   │   │   │   │   ├── PortfolioLaboratory.tsx
@@ -190,11 +227,21 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │   ├── PositionsSkeleton.tsx
 │   │   │   │   │   ├── PriceMovementHeatmap.tsx
 │   │   │   │   │   ├── RiskManagementDashboard.tsx
+│   │   │   │   │   ├── SliderControl.tsx
 │   │   │   │   │   ├── SmartPortfolioTracker.tsx
 │   │   │   │   │   ├── StatsCard.tsx
 │   │   │   │   │   └── StrategyBacktesting.tsx
+│   │   │   │   ├── config
+│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\config/
+│   │   │   │   │   └── endpoints.ts
+│   │   │   │   ├── helpers
+│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\helpers/
+│   │   │   │   │   ├── generateHmac.ts
+│   │   │   │   │   ├── generateNonce.ts
+│   │   │   │   │   └── generateSignature.ts
 │   │   │   │   ├── hooks
 │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\hooks/
+│   │   │   │   │   └── usePortfolioStream.ts
 │   │   │   │   ├── services
 │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\services/
 │   │   │   │   │   ├── portfolioService.ts
@@ -204,8 +251,11 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │   └── portfolioStore.ts
 │   │   │   │   └── types
 │   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\portfolio\types/
+│   │   │   │       ├── balanceResponse.ts
 │   │   │   │       ├── portfolio.ts
-│   │   │   │       └── props.ts
+│   │   │   │       ├── props.ts
+│   │   │   │       ├── strategy.ts
+│   │   │   │       └── x.json
 │   │   │   ├── quantum-neural-defense.tsx
 │   │   │   ├── quantum-swarm-intelligence.tsx
 │   │   │   ├── scalping
@@ -230,99 +280,84 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │       ├── stock-price.tsx
 │   │   │   │   │       ├── stock-screener.tsx
 │   │   │   │   │       └── ticker-tape.tsx
-│   │   │   │   ├── components
-│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\components/
-│   │   │   │   │   ├── ComboBox
-│   │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\components\ComboBox/
-│   │   │   │   │   └── DataTable
-│   │   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\components\DataTable/
-│   │   │   │   ├── forms
-│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\forms/
-│   │   │   │   ├── hooks
-│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\hooks/
-│   │   │   │   │   └── useWebSocket.ts
-│   │   │   │   ├── layout
-│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\layout/
 │   │   │   │   ├── types
 │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\types/
 │   │   │   │   │   ├── common.ts
 │   │   │   │   │   └── websockets.ts
-│   │   │   │   ├── ui
-│   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui/
-│   │   │   │   │   ├── ActivePositions.tsx
-│   │   │   │   │   ├── ComboBox
-│   │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui\ComboBox/
-│   │   │   │   │   │   ├── ComboBoxResponsive.tsx
-│   │   │   │   │   │   ├── Combobox.tsx
-│   │   │   │   │   │   ├── ComboboxDropdownMenu.tsx
-│   │   │   │   │   │   ├── ComboboxForm.tsx
-│   │   │   │   │   │   └── ComboboxPopover.tsx
-│   │   │   │   │   ├── CryptoTable.tsx
-│   │   │   │   │   ├── DataTable
-│   │   │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui\DataTable/
-│   │   │   │   │   │   ├── DataTableColumnHeader.tsx
-│   │   │   │   │   │   └── data-table.tsx
-│   │   │   │   │   ├── Footer.tsx
-│   │   │   │   │   ├── TopNavbar.tsx
-│   │   │   │   │   ├── alert-dialog.tsx
-│   │   │   │   │   ├── alert.tsx
-│   │   │   │   │   ├── app-sidebar.tsx
-│   │   │   │   │   ├── avatar.tsx
-│   │   │   │   │   ├── badge.tsx
-│   │   │   │   │   ├── button-scroll-to-bottom.tsx
-│   │   │   │   │   ├── button.tsx
-│   │   │   │   │   ├── card.tsx
-│   │   │   │   │   ├── carousel.tsx
-│   │   │   │   │   ├── chart.tsx
-│   │   │   │   │   ├── chat-list.tsx
-│   │   │   │   │   ├── chat-panel.tsx
-│   │   │   │   │   ├── chat.tsx
-│   │   │   │   │   ├── checkbox.tsx
-│   │   │   │   │   ├── collapsible.tsx
-│   │   │   │   │   ├── command.tsx
-│   │   │   │   │   ├── context-menu.tsx
-│   │   │   │   │   ├── dialog.tsx
-│   │   │   │   │   ├── drawer.tsx
-│   │   │   │   │   ├── dropdown-menu.tsx
-│   │   │   │   │   ├── empty-screen.tsx
-│   │   │   │   │   ├── external-link.tsx
-│   │   │   │   │   ├── form.tsx
-│   │   │   │   │   ├── header.tsx
-│   │   │   │   │   ├── hover-card.tsx
-│   │   │   │   │   ├── input-otp.tsx
-│   │   │   │   │   ├── input.tsx
-│   │   │   │   │   ├── label.tsx
-│   │   │   │   │   ├── markdown.tsx
-│   │   │   │   │   ├── menubar.tsx
-│   │   │   │   │   ├── missing-api-key-banner.tsx
-│   │   │   │   │   ├── model-selector.tsx
-│   │   │   │   │   ├── navigation-menu.tsx
-│   │   │   │   │   ├── pagination.tsx
-│   │   │   │   │   ├── popover.tsx
-│   │   │   │   │   ├── progress.tsx
-│   │   │   │   │   ├── prompt-form.tsx
-│   │   │   │   │   ├── providers.tsx
-│   │   │   │   │   ├── resizable.tsx
-│   │   │   │   │   ├── scroll-area.tsx
-│   │   │   │   │   ├── select.tsx
-│   │   │   │   │   ├── separator.tsx
-│   │   │   │   │   ├── sheet.tsx
-│   │   │   │   │   ├── sidebar.tsx
-│   │   │   │   │   ├── skeleton.tsx
-│   │   │   │   │   ├── slider.tsx
-│   │   │   │   │   ├── sonner.tsx
-│   │   │   │   │   ├── switch.tsx
-│   │   │   │   │   ├── table.tsx
-│   │   │   │   │   ├── tabs.tsx
-│   │   │   │   │   ├── textarea.tsx
-│   │   │   │   │   ├── theme-toggle.tsx
-│   │   │   │   │   ├── toast.tsx
-│   │   │   │   │   ├── toaster.tsx
-│   │   │   │   │   ├── toggle-group.tsx
-│   │   │   │   │   ├── toggle.tsx
-│   │   │   │   │   └── tooltip.tsx
-│   │   │   │   └── utils
-│   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\utils/
+│   │   │   │   └── ui
+│   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui/
+│   │   │   │       ├── ActivePositions.tsx
+│   │   │   │       ├── ComboBox
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui\ComboBox/
+│   │   │   │       │   ├── ComboBoxResponsive.tsx
+│   │   │   │       │   ├── Combobox.tsx
+│   │   │   │       │   ├── ComboboxDropdownMenu.tsx
+│   │   │   │       │   ├── ComboboxForm.tsx
+│   │   │   │       │   └── ComboboxPopover.tsx
+│   │   │   │       ├── CryptoTable.tsx
+│   │   │   │       ├── DataTable
+│   │   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\shared\ui\DataTable/
+│   │   │   │       │   ├── DataTableColumnHeader.tsx
+│   │   │   │       │   └── data-table.tsx
+│   │   │   │       ├── Footer.tsx
+│   │   │   │       ├── TopNavbar.tsx
+│   │   │   │       ├── alert-dialog.tsx
+│   │   │   │       ├── alert.tsx
+│   │   │   │       ├── app-sidebar.tsx
+│   │   │   │       ├── avatar.tsx
+│   │   │   │       ├── badge.tsx
+│   │   │   │       ├── button-scroll-to-bottom.tsx
+│   │   │   │       ├── button.tsx
+│   │   │   │       ├── card.tsx
+│   │   │   │       ├── carousel.tsx
+│   │   │   │       ├── chart.tsx
+│   │   │   │       ├── chat-list.tsx
+│   │   │   │       ├── chat-panel.tsx
+│   │   │   │       ├── chat.tsx
+│   │   │   │       ├── checkbox.tsx
+│   │   │   │       ├── collapsible.tsx
+│   │   │   │       ├── command.tsx
+│   │   │   │       ├── context-menu.tsx
+│   │   │   │       ├── dialog.tsx
+│   │   │   │       ├── drawer.tsx
+│   │   │   │       ├── dropdown-menu.tsx
+│   │   │   │       ├── empty-screen.tsx
+│   │   │   │       ├── external-link.tsx
+│   │   │   │       ├── form.tsx
+│   │   │   │       ├── header.tsx
+│   │   │   │       ├── hover-card.tsx
+│   │   │   │       ├── input-otp.tsx
+│   │   │   │       ├── input.tsx
+│   │   │   │       ├── label.tsx
+│   │   │   │       ├── markdown.tsx
+│   │   │   │       ├── menubar.tsx
+│   │   │   │       ├── missing-api-key-banner.tsx
+│   │   │   │       ├── model-selector.tsx
+│   │   │   │       ├── navigation-menu.tsx
+│   │   │   │       ├── pagination.tsx
+│   │   │   │       ├── popover.tsx
+│   │   │   │       ├── progress.tsx
+│   │   │   │       ├── prompt-form.tsx
+│   │   │   │       ├── providers.tsx
+│   │   │   │       ├── resizable.tsx
+│   │   │   │       ├── scroll-area.tsx
+│   │   │   │       ├── select.tsx
+│   │   │   │       ├── separator.tsx
+│   │   │   │       ├── sheet.tsx
+│   │   │   │       ├── sidebar.tsx
+│   │   │   │       ├── skeleton.tsx
+│   │   │   │       ├── slider.tsx
+│   │   │   │       ├── sonner.tsx
+│   │   │   │       ├── switch.tsx
+│   │   │   │       ├── table.tsx
+│   │   │   │       ├── tabs.tsx
+│   │   │   │       ├── textarea.tsx
+│   │   │   │       ├── theme-toggle.tsx
+│   │   │   │       ├── toast.tsx
+│   │   │   │       ├── toaster.tsx
+│   │   │   │       ├── toggle-group.tsx
+│   │   │   │       ├── toggle.tsx
+│   │   │   │       └── tooltip.tsx
 │   │   │   ├── trading
 │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\trading/
 │   │   │   │   ├── abis
@@ -358,6 +393,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │   │   └── StrikePriceHeatMap.tsx
 │   │   │   │   │   ├── Sparkline.tsx
 │   │   │   │   │   ├── TradingInterface.tsx
+│   │   │   │   │   ├── TradingSignals.tsx
 │   │   │   │   │   ├── TradingTabs.tsx
 │   │   │   │   │   ├── TrailingStopForm.tsx
 │   │   │   │   │   ├── analysis
@@ -426,7 +462,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │   │   ├── optionsFlow.ts
 │   │   │   │   │   ├── props.ts
 │   │   │   │   │   ├── screenerTypes.ts
-│   │   │   │   │   ├── signalComponents.ts
 │   │   │   │   │   ├── signalTypes.ts
 │   │   │   │   │   └── trading.ts
 │   │   │   │   └── utils
@@ -442,6 +477,12 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   │       ├── screenerUtils.ts
 │   │   │   │       └── signalProcessing.ts
 │   │   │   ├── ultra-instinct-predictor.tsx
+│   │   │   ├── user
+│   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\user/
+│   │   │   │   └── components
+│   │   │   │       D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\user\components/
+│   │   │   │       ├── UV_Login.tsx
+│   │   │   │       └── UV_Registration.tsx
 │   │   │   ├── web3
 │   │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\features\web3/
 │   │   │   │   └── components
@@ -459,7 +500,8 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   ├── use-crypto-filters.ts
 │   │   │   ├── use-media-query.tsx
 │   │   │   ├── use-mobile.tsx
-│   │   │   └── use-toast.ts
+│   │   │   ├── use-toast.ts
+│   │   │   └── use-web-socket.ts
 │   │   ├── lib
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\lib/
 │   │   │   └── fonts.ts
@@ -469,8 +511,9 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── postcss.config.mjs
 │   │   ├── public
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\public/
-│   │   ├── state
-│   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\state/
+│   │   ├── store
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\cryptiq-shell\store/
+│   │   │   └── main.tsx
 │   │   ├── tailwind.config.ts
 │   │   ├── tsconfig.json
 │   │   ├── types
@@ -486,17 +529,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │       └── technicalAnalysis.ts
 │   └── web3-core
 │       D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core/
-│       ├── contracts
-│       │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\contracts/
-│       │   ├── core
-│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\contracts\core/
-│       │   │   ├── FlashLoanArbitrage.sol
-│       │   │   ├── FlashLoanArbitrageV2.sol
-│       │   │   └── flash-loan.txt
-│       │   └── interfaces
-│       │       D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\contracts\interfaces/
-│       │       ├── IAaveFlashLoan.sol
-│       │       └── arbitrage-libraries.txt
 │       ├── deploy
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\deploy/
 │       │   └── 001_deploy_arbitrage.ts
@@ -504,31 +536,9 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │       ├── package.json
 │       ├── services
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services/
-│       │   ├── blockchain-service
-│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\blockchain-service/
-│       │   │   └── index.ts
-│       │   ├── flash-loan-arbitrage
-│       │   │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\flash-loan-arbitrage/
-│       │   │   ├── ai-arbitrage-detector.py
-│       │   │   ├── arbitrage-executor.py
-│       │   │   ├── flash-loan-service.py
-│       │   │   ├── market-impack-predictor.py
-│       │   │   └── path-optimizer.py
-│       │   └── trading-service
-│       │       D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\trading-service/
-│       │       ├── execution
-│       │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\trading-service\execution/
-│       │       │   └── smart_executor.py
-│       │       └── ml
-│       │           D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\trading-service\ml/
-│       │           └── arbitrage
-│       │               D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\trading-service\ml\arbitrage/
-│       │               ├── models
-│       │               │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\trading-service\ml\arbitrage\models/
-│       │               │   └── impact_networks.py
-│       │               └── training
-│       │                   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\trading-service\ml\arbitrage\training/
-│       │                   └── impact_trainer.py
+│       │   └── blockchain-service
+│       │       D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\services\blockchain-service/
+│       │       └── index.ts
 │       ├── tasks
 │       │   D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\tasks/
 │       │   └── deploy.ts
@@ -536,8 +546,19 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │           D:\Repos\CryptIQ-Micro-Frontend\apps\web3-core\test/
 │           ├── FlashLoanArbitrage.test.ts
 │           └── SwapLib.sol
+├── blofin_api_doc.md
 ├── cleanup.ps1
 ├── create_structure.bat
+├── docker
+│   D:\Repos\CryptIQ-Micro-Frontend\docker/
+│   ├── base
+│   │   D:\Repos\CryptIQ-Micro-Frontend\docker\base/
+│   │   └── Dockerfile.base
+│   ├── dev
+│   │   D:\Repos\CryptIQ-Micro-Frontend\docker\dev/
+│   │   └── docker-compose.dev.yml
+│   └── prod
+│       D:\Repos\CryptIQ-Micro-Frontend\docker\prod/
 ├── docker-compose.yml
 ├── get-top-coins-response.json
 ├── module_federation.pdf
@@ -575,6 +596,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 ├── pnpm-workspace.yaml
 ├── print_dir_structure.py
 ├── rearrange-features.py
+├── rename_services.py
 ├── restructure.js
 ├── scripts
 │   D:\Repos\CryptIQ-Micro-Frontend\scripts/
@@ -586,8 +608,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   D:\Repos\CryptIQ-Micro-Frontend\services/
 │   ├── agent-monitor-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   ├── agents
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service\agents/
 │   │   │   ├── agent_base.py
@@ -598,7 +618,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── orchestrator_service
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service\orchestrator_service/
 │   │   │   └── intelligent_orchestrator.py
-│   │   ├── requirements.txt
 │   │   └── services
 │   │       D:\Repos\CryptIQ-Micro-Frontend\services\agent-monitor-service\services/
 │   │       └── task_reassignment.py
@@ -606,8 +625,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agents/
 │   │   ├── darkPool_agent
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agents\darkPool_agent/
-│   │   │   ├── .dockerignore
-│   │   │   ├── Dockerfile
 │   │   │   ├── app.py
 │   │   │   └── dark_pool_volume_agent .py
 │   │   ├── regime_agent
@@ -618,22 +635,41 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agents\sentiment_agent/
 │   │   ├── signal_synthesis_agent
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\agents\signal_synthesis_agent/
-│   │   │   ├── .dockerignore
-│   │   │   ├── Dockerfile
 │   │   │   ├── app.py
 │   │   │   └── signal_synthesis_agent.py
 │   │   └── technical_pattern_agent
 │   │       D:\Repos\CryptIQ-Micro-Frontend\services\agents\technical_pattern_agent/
-│   │       ├── .dockerignore
-│   │       ├── Dockerfile
 │   │       ├── app.py
 │   │       └── technical_pattern_agent.py
 │   ├── ai_assistant
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\ai_assistant/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
-│   │   ├── app.py
-│   │   └── requirements.txt
+│   │   └── app.py
+│   ├── arbitrage
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage/
+│   │   ├── cross-chain
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\cross-chain/
+│   │   │   └── flash-loan-arbitrage
+│   │   │       D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\cross-chain\flash-loan-arbitrage/
+│   │   │       ├── ai-arbitrage-detector.py
+│   │   │       ├── arbitrage-executor.py
+│   │   │       ├── flash-loan-service.py
+│   │   │       ├── market-impack-predictor.py
+│   │   │       └── path-optimizer.py
+│   │   ├── dex-integration
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\dex-integration/
+│   │   └── flash-loan
+│   │       D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\flash-loan/
+│   │       └── contracts
+│   │           D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\flash-loan\contracts/
+│   │           ├── core
+│   │           │   D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\flash-loan\contracts\core/
+│   │           │   ├── FlashLoanArbitrage.sol
+│   │           │   ├── FlashLoanArbitrageV2.sol
+│   │           │   └── flash-loan.txt
+│   │           └── interfaces
+│   │               D:\Repos\CryptIQ-Micro-Frontend\services\arbitrage\flash-loan\contracts\interfaces/
+│   │               ├── IAaveFlashLoan.sol
+│   │               └── arbitrage-libraries.txt
 │   ├── blockchain-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\blockchain-service/
 │   │   ├── dex
@@ -673,59 +709,24 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │       └── whale_transaction_impact_estimator.py
 │   ├── common-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\common-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   ├── agent_client.py
 │   │   ├── db.py
-│   │   ├── direct_communicator.py
-│   │   └── requirements.txt
+│   │   └── direct_communicator.py
 │   ├── config-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\config-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   ├── app.py
-│   │   ├── config_manager.py
-│   │   └── requirements.txt
+│   │   └── config_manager.py
 │   ├── crypto-data-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\crypto-data-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   ├── index.ts
-│   │   ├── requirements.txt
 │   │   └── webpack.config copy.ts
 │   ├── exchange-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\exchange-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   └── app.py
 │   ├── market
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
-│   │   ├── ai_based_trend_strength_identifier.py
 │   │   ├── analysis
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\analysis/
-│   │   │   ├── ai_based_cross_market_convergence_divergence_analyzer.py
-│   │   │   ├── ai_based_cross_market_dynamic_leverage_optimizer.py
-│   │   │   ├── ai_based_cross_market_trade_signal_generator.py
-│   │   │   ├── ai_based_cross_market_volatility_spillover_analyzer.py
-│   │   │   ├── ai_based_event_driven_market_analysis_engine.py
-│   │   │   ├── ai_based_macro_economic_factor_analysis_engine.py
-│   │   │   ├── ai_based_market_anomaly_detector.py
-│   │   │   ├── ai_based_market_correlation_matrix_generator.py
-│   │   │   ├── ai_based_market_liquidity_analyzer.py
-│   │   │   ├── ai_based_market_regime_advisor.py
-│   │   │   ├── ai_based_market_regime_shifter.py
-│   │   │   ├── ai_based_multi_asset_correlation_monitor.py
-│   │   │   ├── ai_based_multi_market_regime_detection_engine.py
-│   │   │   ├── ai_based_multi_market_regression_analysis_engine.py
-│   │   │   ├── ai_based_regime_shift_analyzer.py
-│   │   │   ├── ai_based_smart_market_cycle_analyzer.py
-│   │   │   ├── ai_based_smart_market_position_adjuster.py
-│   │   │   ├── ai_based_token_unlocks_and_schedules_analysis.py
-│   │   │   ├── ai_based_volatility_clustering_analyzer.py
-│   │   │   ├── ai_based_whale_activity_analyzer.py
-│   │   │   ├── ai_based_whale_market_impact_analyzer.py
 │   │   │   ├── ai_driven_cross_chain_arbitrage_opportunity_detector.py
 │   │   │   ├── ai_driven_cross_market_impact_tracker.py
 │   │   │   ├── ai_driven_cross_market_position_allocator.py
@@ -745,19 +746,40 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   ├── ai_powered_market_regime_mapping_engine.py
 │   │   │   ├── ai_powered_smart_entry_point_generator.py
 │   │   │   ├── ai_trading_journal.py
+│   │   │   ├── cross_market_convergence_divergence_analyzer.py
+│   │   │   ├── cross_market_dynamic_leverage_optimizer.py
+│   │   │   ├── cross_market_trade_signal_generator.py
+│   │   │   ├── cross_market_volatility_spillover_analyzer.py
 │   │   │   ├── defi_metrics_monitor.py
 │   │   │   ├── defi_protocol_risk_analysis.py
+│   │   │   ├── event_driven_market_analysis_engine.py
 │   │   │   ├── liquidity_correlation_matrix.py
 │   │   │   ├── liquidity_pool_analyzer.py
+│   │   │   ├── macro_economic_factor_analysis_engine.py
+│   │   │   ├── market_anomaly_detector.py
+│   │   │   ├── market_correlation_matrix_generator.py
 │   │   │   ├── market_data_streamer.py
+│   │   │   ├── market_liquidity_analyzer.py
+│   │   │   ├── market_regime_advisor.py
+│   │   │   ├── market_regime_shifter.py
 │   │   │   ├── multi_agent_orchestrator.py
 │   │   │   ├── multi_agent_smart_exit_point_generator.py
+│   │   │   ├── multi_asset_correlation_monitor.py
 │   │   │   ├── multi_exchange_order_book_consolidator.py
 │   │   │   ├── multi_exchange_price_tracker.py
+│   │   │   ├── multi_market_regime_detection_engine.py
+│   │   │   ├── multi_market_regression_analysis_engine.py
 │   │   │   ├── real_time_onchain_data_fetcher.py
+│   │   │   ├── regime_shift_analyzer.py
 │   │   │   ├── smart_alpha_generator.py
+│   │   │   ├── smart_market_cycle_analyzer.py
+│   │   │   ├── smart_market_position_adjuster.py
+│   │   │   ├── token_unlocks_and_schedules_analysis.py
 │   │   │   ├── trading_pattern_classifier.py
 │   │   │   ├── volatility_analysis.py
+│   │   │   ├── volatility_clustering_analyzer.py
+│   │   │   ├── whale_activity_analyzer.py
+│   │   │   ├── whale_market_impact_analyzer.py
 │   │   │   └── whale_transaction_heatmap_generator.py
 │   │   ├── data
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\data/
@@ -765,41 +787,51 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   └── real_time_aggregator.py
 │   │   ├── market_forecasting
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\market_forecasting/
-│   │   │   ├── ai_based_macro_environment_impact_predictor.py
-│   │   │   ├── ai_based_macro_trend_predictor.py
-│   │   │   ├── ai_based_market_crash_predictor.py
-│   │   │   ├── ai_based_market_impact_forecasting_engine.py
-│   │   │   ├── ai_based_whale_wallet_movement_predictor.py
 │   │   │   ├── ai_driven_volatility_prediction.py
 │   │   │   ├── ai_powered_market_liquidity_forecaster.py
+│   │   │   ├── macro_environment_impact_predictor.py
+│   │   │   ├── macro_trend_predictor.py
 │   │   │   ├── market_condition_predictor.py
+│   │   │   ├── market_crash_predictor.py
 │   │   │   ├── market_forecasting_agent.py
+│   │   │   ├── market_impact_forecasting_engine.py
 │   │   │   ├── multi_agent_macro_event_forecasting_engine.py
 │   │   │   ├── multi_agent_market_trend_prediction_engine.py
-│   │   │   └── pattern_based_market_predictor.py
+│   │   │   ├── pattern_based_market_predictor.py
+│   │   │   └── whale_wallet_movement_predictor.py
+│   │   ├── order-book
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book/
+│   │   │   └── trading-service
+│   │   │       D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book\trading-service/
+│   │   │       ├── execution
+│   │   │       │   D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book\trading-service\execution/
+│   │   │       │   └── smart_executor.py
+│   │   │       └── ml
+│   │   │           D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book\trading-service\ml/
+│   │   │           └── arbitrage
+│   │   │               D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book\trading-service\ml\arbitrage/
+│   │   │               ├── models
+│   │   │               │   D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book\trading-service\ml\arbitrage\models/
+│   │   │               │   └── impact_networks.py
+│   │   │               └── training
+│   │   │                   D:\Repos\CryptIQ-Micro-Frontend\services\market\order-book\trading-service\ml\arbitrage\training/
+│   │   │                   └── impact_trainer.py
+│   │   ├── price-feed
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\price-feed/
 │   │   ├── price_anomaly_detection.py
 │   │   ├── price_prediction
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\price_prediction/
 │   │   ├── price_volatility_spike_detector.py
 │   │   ├── risk_management
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\risk_management/
-│   │   │   ├── ai_based_cross_market_liquidity_risk_monitor.py
-│   │   │   ├── ai_based_market_risk_indicator_engine.py
-│   │   │   └── dynamic_market_risk_regime_classifier.py
+│   │   │   ├── cross_market_liquidity_risk_monitor.py
+│   │   │   ├── dynamic_market_risk_regime_classifier.py
+│   │   │   └── market_risk_indicator_engine.py
 │   │   ├── sentiment
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\sentiment/
 │   │   ├── sentiment_analysis
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\sentiment_analysis/
 │   │   │   ├── advanced_sentiment_divergence_detector.py
-│   │   │   ├── ai_based_cross_market_sentiment_trend_analyzer.py
-│   │   │   ├── ai_based_institutional_investor_sentiment_analyzer.py
-│   │   │   ├── ai_based_market_sentiment_heatmap_generator.py
-│   │   │   ├── ai_based_news_and_events_sentiment_analyzer.py
-│   │   │   ├── ai_based_risk_sentiment_correlation_analyzer.py
-│   │   │   ├── ai_based_sentiment_analysis_engine.py
-│   │   │   ├── ai_based_sentiment_regime_shifter.py
-│   │   │   ├── ai_based_sentiment_trend_reversal_detector.py
-│   │   │   ├── ai_based_whale_sentiment_divergence_tracker.py
 │   │   │   ├── ai_driven_market_sentiment_anomaly_detector.py
 │   │   │   ├── ai_driven_market_sentiment_divergence_analyzer.py
 │   │   │   ├── ai_driven_market_sentiment_shift_detection_engine.py
@@ -809,9 +841,12 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   ├── ai_powered_multi_asset_sentiment_correlation_engine.py
 │   │   │   ├── ai_powered_sentiment_flow_mapper.py
 │   │   │   ├── cross_market_sentiment_spread_analyzer.py
+│   │   │   ├── cross_market_sentiment_trend_analyzer.py
 │   │   │   ├── dynamic_social_media_sentiment_aggregator.py
+│   │   │   ├── institutional_investor_sentiment_analyzer.py
 │   │   │   ├── market_sentiment_divergence_tracker.py
 │   │   │   ├── market_sentiment_forecaster.py
+│   │   │   ├── market_sentiment_heatmap_generator.py
 │   │   │   ├── market_sentiment_scoring_engine.py
 │   │   │   ├── ml_sentiment_analyzer.py
 │   │   │   ├── multi_agent_dynamic_market_sentiment_heatmap_generator.py
@@ -822,17 +857,24 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   ├── multi_agent_sentiment_trend_forecasting_engine.py
 │   │   │   ├── multi_layer_market_sentiment_network_analysis.py
 │   │   │   ├── multi_layer_social_sentiment_network_visualizer.py
+│   │   │   ├── news_and_events_sentiment_analyzer.py
 │   │   │   ├── news_sentiment.py
+│   │   │   ├── risk_sentiment_correlation_analyzer.py
 │   │   │   ├── sentiment_alert.py
 │   │   │   ├── sentiment_analysis.py
+│   │   │   ├── sentiment_analysis_engine.py
+│   │   │   ├── sentiment_regime_shifter.py
+│   │   │   ├── sentiment_trend_reversal_detector.py
 │   │   │   ├── smart_sentiment_change_alert_system.py
-│   │   │   └── social_sentiment_aggregator.py
+│   │   │   ├── social_sentiment_aggregator.py
+│   │   │   └── whale_sentiment_divergence_tracker.py
 │   │   ├── strategy
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\strategy/
-│   │   │   ├── ai_based_smart_stop_loss_strategy_generator.py
-│   │   │   └── ai_driven_smart_strategy_selector.py
-│   │   └── trend_analysis
-│   │       D:\Repos\CryptIQ-Micro-Frontend\services\market\trend_analysis/
+│   │   │   ├── ai_driven_smart_strategy_selector.py
+│   │   │   └── smart_stop_loss_strategy_generator.py
+│   │   ├── trend_analysis
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\market\trend_analysis/
+│   │   └── trend_strength_identifier.py
 │   ├── monitoring-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\monitoring-service/
 │   │   ├── alert_responder.py
@@ -842,15 +884,15 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio/
 │   │   ├── analysis
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio\analysis/
-│   │   │   ├── ai_based_dynamic_portfolio_optimization_engine.py
-│   │   │   ├── ai_based_multi_asset_portfolio_health_monitor.py
-│   │   │   ├── ai_based_smart_leverage_allocation_engine.py
-│   │   │   ├── ai_based_smart_portfolio_allocator.py
 │   │   │   ├── ai_driven_dynamic_asset_allocation_optimizer.py
 │   │   │   ├── ai_driven_dynamic_portfolio_optimization_engine.py
 │   │   │   ├── cross_asset_liquidity_impact_model.py
 │   │   │   ├── cross_chain_asset_flow_tracker.py
-│   │   │   └── cross_exchange_liquidity_monitor.py
+│   │   │   ├── cross_exchange_liquidity_monitor.py
+│   │   │   ├── dynamic_portfolio_optimization_engine.py
+│   │   │   ├── multi_asset_portfolio_health_monitor.py
+│   │   │   ├── smart_leverage_allocation_engine.py
+│   │   │   └── smart_portfolio_allocator.py
 │   │   ├── monitoring
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio\monitoring/
 │   │   │   ├── smart_contract_event_monitor.py
@@ -867,18 +909,16 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio\risk_analysis/
 │   │   └── risk_management
 │   │       D:\Repos\CryptIQ-Micro-Frontend\services\portfolio\risk_management/
-│   │       ├── ai_based_dynamic_correlation_risk_monitor.py
-│   │       ├── ai_based_dynamic_risk_exposure_calculator.py
-│   │       ├── ai_based_multi_asset_risk_allocation_optimizer.py
-│   │       ├── ai_based_multi_asset_smart_portfolio_risk_monitor.py
-│   │       ├── ai_based_smart_portfolio_risk_scoring_engine.py
 │   │       ├── ai_driven_cross_asset_risk_monitoring_system.py
 │   │       ├── ai_driven_systemic_risk_evaluation_engine.py
-│   │       └── ai_trading_pattern_risk_analyzer.py
+│   │       ├── ai_trading_pattern_risk_analyzer.py
+│   │       ├── dynamic_correlation_risk_monitor.py
+│   │       ├── dynamic_risk_exposure_calculator.py
+│   │       ├── multi_asset_risk_allocation_optimizer.py
+│   │       ├── multi_asset_smart_portfolio_risk_monitor.py
+│   │       └── smart_portfolio_risk_scoring_engine.py
 │   ├── portfolio-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   ├── advanced_portfolio_risk_analytics.py
 │   │   ├── ai_portfolio_rebalancer.py
 │   │   ├── ai_powered_cross_asset_liquidity_scoring_engine.py
@@ -971,7 +1011,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   ├── rebalancing
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\portfolio-service\rebalancing/
 │   │   ├── rebalancing.py
-│   │   ├── requirements.txt
 │   │   ├── risk_parity_optimizer.py
 │   │   ├── risk_weighted_optimizer.py
 │   │   ├── risk_weighted_portfolio_rebalancer.py
@@ -979,21 +1018,20 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   └── webpack.config copy.ts
 │   ├── priority_scheduler-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\priority_scheduler-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   └── priority_scheduler.py
 │   ├── risk-management-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\risk-management-service/
-│   │   ├── .dockerignore
-│   │   └── Dockerfile
 │   ├── sentiment-analysis-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\sentiment-analysis-service/
-│   │   ├── .dockerignore
-│   │   └── Dockerfile
+│   ├── shared
+│   │   D:\Repos\CryptIQ-Micro-Frontend\services\shared/
+│   │   ├── docker
+│   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\shared\docker/
+│   │   └── requirements
+│   │       D:\Repos\CryptIQ-Micro-Frontend\services\shared\requirements/
+│   │       └── base.txt
 │   ├── task-service
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\task-service/
-│   │   ├── .dockerignore
-│   │   ├── Dockerfile
 │   │   ├── task-reassignment-service.py
 │   │   ├── task_dependency_manager.py
 │   │   └── task_graph.py
@@ -1001,15 +1039,15 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading/
 │   │   ├── analysis
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading\analysis/
-│   │   │   ├── ai_based_cross_exchange_order_flow_analyzer.py
-│   │   │   ├── ai_based_dynamic_position_scaling_engine.py
-│   │   │   ├── ai_based_order_book_depth_analyzer.py
-│   │   │   ├── ai_based_smart_order_flow_tracker.py
-│   │   │   ├── ai_based_smart_position_scaling_engine.py
-│   │   │   ├── ai_based_smart_trade_signal_generator.py
-│   │   │   ├── ai_based_smart_trade_size_adjuster.py
-│   │   │   ├── ai_based_trade_flow_impact_estimator.py
 │   │   │   ├── ai_driven_smart_position_allocation_engine.py
+│   │   │   ├── cross_exchange_order_flow_analyzer.py
+│   │   │   ├── dynamic_position_scaling_engine.py
+│   │   │   ├── order_book_depth_analyzer.py
+│   │   │   ├── smart_order_flow_tracker.py
+│   │   │   ├── smart_position_scaling_engine.py
+│   │   │   ├── smart_trade_signal_generator.py
+│   │   │   ├── smart_trade_size_adjuster.py
+│   │   │   └── trade_flow_impact_estimator.py
 │   │   ├── execution
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading\execution/
 │   │   │   ├── ai_driven_trade_execution_impact_analysis_engine.py
@@ -1028,15 +1066,15 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   └── trade_execution_monitor.py
 │   │   ├── market_forecasting
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading\market_forecasting/
-│   │   │   └── ai_based_smart_order_placement_predictor.py
+│   │   │   └── smart_order_placement_predictor.py
 │   │   ├── order_management
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading\order_management/
 │   │   │   ├── advanced_position_sizing_calculator.py
-│   │   │   ├── ai_based_hedge_position_adjustment_optimizer.py
 │   │   │   ├── ai_powered_market_reaction_to_large_orders_analyzer.py
 │   │   │   ├── ai_powered_position_size_optimizer.py
 │   │   │   ├── ai_powered_trade_position_management_engine.py
 │   │   │   ├── dynamic_order_book_imbalance_detector.py
+│   │   │   ├── hedge_position_adjustment_optimizer.py
 │   │   │   ├── market_impact_position_sizing_calculator.py
 │   │   │   ├── multi_agent_dynamic_position_sizing_engine.py
 │   │   │   ├── multi_agent_smart_position_adjuster.py
@@ -1048,10 +1086,6 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   └── smart_position_manager.py
 │   │   ├── risk_management
 │   │   │   D:\Repos\CryptIQ-Micro-Frontend\services\trading\risk_management/
-│   │   │   ├── ai_based_risk_management_policy_engine.py
-│   │   │   ├── ai_based_smart_position_risk_manager.py
-│   │   │   ├── ai_based_tail_risk_management_engine.py
-│   │   │   ├── ai_based_trade_risk_adjustment_advisor.py
 │   │   │   ├── ai_driven_risk_adjusted_trade_sizing_engine.py
 │   │   │   ├── ai_driven_trade_risk_evaluation_engine.py
 │   │   │   ├── ai_powered_multi_asset_risk_management_engine.py
@@ -1066,7 +1100,11 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │   │   ├── risk_adjusted_trade_sizing.py
 │   │   │   ├── risk_management.py
 │   │   │   ├── risk_management_advisor.py
-│   │   │   └── smart_risk_weighted_trade_allocator.py
+│   │   │   ├── risk_management_policy_engine.py
+│   │   │   ├── smart_position_risk_manager.py
+│   │   │   ├── smart_risk_weighted_trade_allocator.py
+│   │   │   ├── tail_risk_management_engine.py
+│   │   │   └── trade_risk_adjustment_advisor.py
 │   │   └── strategy
 │   │       D:\Repos\CryptIQ-Micro-Frontend\services\trading\strategy/
 │   │       ├── advanced_backtesting.py
@@ -1097,10 +1135,7 @@ D:\Repos\CryptIQ-Micro-Frontend/
 │   │       └── yield_farming_analyzer.py
 │   └── wallet-service
 │       D:\Repos\CryptIQ-Micro-Frontend\services\wallet-service/
-│       ├── .dockerignore
-│       ├── Dockerfile
-│       ├── app.py
-│       └── requirements.txt
+│       └── app.py
 ├── supported_coins.pdf
 ├── the_one.pdf
 ├── turbo.json

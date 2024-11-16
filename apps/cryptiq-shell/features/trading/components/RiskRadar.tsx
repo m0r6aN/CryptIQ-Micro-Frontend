@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/features/shared/ui/card'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { AlertTriangle } from 'lucide-react'
-import { useWebSocket } from '@/features/shared/hooks/useWebSocket'
+import { useWebSocket } from '@/hooks/use-web-socket'
 import { RiskAlert, RiskWebSocketMessage, SentimentWebSocketMessage } from '@/features/shared/types/websockets'
 
 const RISK_SERVICE_ENDPOINTS = {
